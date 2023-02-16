@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Factories;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ExceptionalPeriod;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Hours;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\RegularHours;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Weekday;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ExceptionalPeriod;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Hours;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\RegularHours;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Weekday;
 use DateTime;
 use stdClass;
 

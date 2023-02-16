@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Versions\GetDetails;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Versions\GetDetails;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractResponse;
 use Chargemap\OCPI\Common\Client\OcpiVersion;
 use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidTokenClientError;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Factories\EndpointFactory;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Endpoint;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\EndpointFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Endpoint;
 use Psr\Http\Message\ResponseInterface;
 
 class GetVersionDetailResponse extends AbstractResponse
@@ -46,7 +46,7 @@ class GetVersionDetailResponse extends AbstractResponse
             throw new OcpiInvalidTokenClientError();
         }
 
-        $responseAsJson = self::toJson($response, 'V2_1_1/eMSP/Client/Versions/versionGetDetailResponse.schema.json');
+        $responseAsJson = self::toJson($response, 'V2_2_1/eMSP/Client/Versions/versionGetDetailResponse.schema.json');
 
         if($responseAsJson->status_code === 2002) {
             throw new OcpiInvalidTokenClientError();

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\Evses\Connectors\Get;
+namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\Connectors\Get;
 
-use Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\Evses\Get\OcpiEmspEvseGetRequest;
-use Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\LocationRequestParams;
+use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\Get\OcpiEmspEvseGetRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\LocationRequestParams;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface;
 

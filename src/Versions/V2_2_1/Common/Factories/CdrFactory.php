@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Factories;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\AuthenticationMethod;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Cdr;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthenticationMethod;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Cdr;
 use DateTime;
 use stdClass;
 

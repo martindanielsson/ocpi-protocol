@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Factories;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\BusinessDetails;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\BusinessDetails;
 use stdClass;
 
 class BusinessDetailsFactory

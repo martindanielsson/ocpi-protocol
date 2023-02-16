@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 
-class V2_1_1 extends AbstractFeatures
+class V2_2_1 extends AbstractFeatures
 {
     private Credentials $credentials;
 

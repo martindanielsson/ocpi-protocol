@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Tokens\Post;
+namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Tokens\Post;
 
 use Chargemap\OCPI\Common\Server\OcpiBaseRequest;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Factories\LocationReferencesFactory;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\LocationReferences;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\TokenType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\LocationReferencesFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\LocationReferences;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\TokenType;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;
 
@@ -37,7 +37,7 @@ class OcpiEmspTokenPostRequest extends OcpiBaseRequest
 
         if (!empty($request->getBody()->__toString())) {
             $this->jsonBody = json_decode($request->getBody()->__toString());
-            PayloadValidation::coerce('V2_1_1/eMSP/Server/Tokens/tokenPostRequest.schema.json', $this->jsonBody);
+            PayloadValidation::coerce('V2_2_1/eMSP/Server/Tokens/tokenPostRequest.schema.json', $this->jsonBody);
 
             $this->locationReferences = LocationReferencesFactory::fromJson($this->jsonBody);
         }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Credentials\Register;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Credentials\Register;
 
 use Chargemap\OCPI\Common\Client\Modules\Credentials\CredentialsRequest as BaseRequest;
 use Chargemap\OCPI\Common\Client\OcpiVersion;
 use Chargemap\OCPI\Common\Models\BaseModuleId;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Credentials;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ModuleId;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Credentials;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ModuleId;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -30,7 +30,7 @@ class RegisterCredentialsRequest extends BaseRequest
 
     public function getVersion(): OcpiVersion
     {
-        return OcpiVersion::V2_1_1();
+        return OcpiVersion::V2_2_1();
     }
 
     public function getServerRequestInterface(ServerRequestFactoryInterface $serverRequestFactory, ?StreamFactoryInterface $streamFactory): ServerRequestInterface

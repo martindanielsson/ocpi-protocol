@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Locations\Get\GetLocationRequest;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Locations\Get\GetLocationResponse;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Locations\Get\GetLocationService;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Locations\GetListing\GetLocationsListingRequest;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Locations\GetListing\GetLocationsListingResponse;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Locations\GetListing\GetLocationsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\Get\GetLocationRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\Get\GetLocationResponse;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\Get\GetLocationService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing\GetLocationsListingRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing\GetLocationsListingResponse;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing\GetLocationsListingService;
 
 class Locations extends AbstractFeatures
 {

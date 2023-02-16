@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Locations\GetListing;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing;
 
 use Chargemap\OCPI\Common\Client\Modules\Locations\GetListing\GetLocationsListingResponse as BaseResponse;
 use Chargemap\OCPI\Common\Client\OcpiUnauthorizedException;
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Factories\LocationFactory;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Location;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\LocationFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
 use Psr\Http\Message\ResponseInterface;
 
 class GetLocationsListingResponse extends BaseResponse
@@ -32,11 +32,11 @@ class GetLocationsListingResponse extends BaseResponse
             throw new OcpiUnauthorizedException();
         }
 
-        $json = self::toJson($response, 'V2_1_1/eMSP/Client/Locations/locationGetListingResponse.schema.json');
+        $json = self::toJson($response, 'V2_2_1/eMSP/Client/Locations/locationGetListingResponse.schema.json');
 
         $return = new self();
         foreach ($json->data ?? [] as $item) {
-            if (PayloadValidation::isValidJson('V2_1_1/eMSP/Client/Locations/location.schema.json', $item)) {
+            if (PayloadValidation::isValidJson('V2_2_1/eMSP/Client/Locations/location.schema.json', $item)) {
                 $return->locations[] = LocationFactory::fromJson($item);
             }
             //TODO throw validator errors at the end of the function

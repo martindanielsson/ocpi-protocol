@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Factories;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Capability;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\EVSE;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\EVSEStatus;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\GeoLocation;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ParkingRestriction;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Capability;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\EVSE;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\EVSEStatus;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\GeoLocation;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ParkingRestriction;
 use DateTime;
 use stdClass;
 

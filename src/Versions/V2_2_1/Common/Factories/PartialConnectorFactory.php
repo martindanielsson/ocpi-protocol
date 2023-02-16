@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Factories;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ConnectorFormat;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ConnectorType;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\PartialConnector;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\PowerType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ConnectorFormat;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ConnectorType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialConnector;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PowerType;
 use DateTime;
 use stdClass;
 

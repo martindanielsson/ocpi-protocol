@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Cdrs\GetListing;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractResponse;
 use Chargemap\OCPI\Common\Client\OcpiUnauthorizedException;
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Factories\CdrFactory;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Cdr;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\CdrFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Cdr;
 use Psr\Http\Message\ResponseInterface;
 
 class GetCdrsListingResponse extends AbstractResponse
@@ -31,7 +31,7 @@ class GetCdrsListingResponse extends AbstractResponse
             throw new OcpiUnauthorizedException();
         }
 
-        $json = self::toJson($response, 'V2_1_1/eMSP/Client/CDRs/cdrGetResponse.schema.json');
+        $json = self::toJson($response, 'V2_2_1/eMSP/Client/CDRs/cdrGetResponse.schema.json');
 
         $return = new self();
         foreach ($json->data ?? [] as $item) {

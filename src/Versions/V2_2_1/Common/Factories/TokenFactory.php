@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Factories;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Token;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\TokenType;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\WhiteList;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Token;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\TokenType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\WhiteList;
 use DateTime;
 use stdClass;
 

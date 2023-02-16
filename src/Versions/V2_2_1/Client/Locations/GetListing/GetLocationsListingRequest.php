@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Locations\GetListing;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing;
 
 use Chargemap\OCPI\Common\Client\Modules\ListingRequest;
 use Chargemap\OCPI\Common\Client\Modules\Locations\GetListing\GetLocationsListingRequest as BaseRequest;
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
-use Chargemap\OCPI\Versions\V2_1_1\Client\VersionTrait;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ModuleId;
+use Chargemap\OCPI\Versions\V2_2_1\Client\VersionTrait;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ModuleId;
 use DateTime;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;

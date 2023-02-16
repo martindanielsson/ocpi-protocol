@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Tokens\Patch;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Patch;
 
 
 use Chargemap\OCPI\Common\Client\Modules\Tokens\Patch\PatchTokenRequest as BaseRequest;
-use Chargemap\OCPI\Versions\V2_1_1\Client\VersionTrait;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ModuleId;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\PartialToken;
+use Chargemap\OCPI\Versions\V2_2_1\Client\VersionTrait;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ModuleId;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialToken;
 use Http\Discovery\Psr17FactoryDiscovery;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;

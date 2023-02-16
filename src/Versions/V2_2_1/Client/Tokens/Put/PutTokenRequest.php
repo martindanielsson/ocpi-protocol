@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Tokens\Put;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Put;
 
 use Chargemap\OCPI\Common\Client\Modules\Tokens\Put\PutTokenRequest as BaseRequest;
-use Chargemap\OCPI\Versions\V2_1_1\Client\VersionTrait;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\ModuleId;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Token;
+use Chargemap\OCPI\Versions\V2_2_1\Client\VersionTrait;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ModuleId;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Token;
 use Http\Discovery\Psr17FactoryDiscovery;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestFactoryInterface;

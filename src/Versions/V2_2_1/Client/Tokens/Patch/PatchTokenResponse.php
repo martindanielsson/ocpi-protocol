@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Tokens\Patch;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Patch;
 
 use Chargemap\OCPI\Common\Client\Modules\Tokens\Patch\PatchTokenResponse as BaseResponse;
 use Psr\Http\Message\ResponseInterface;

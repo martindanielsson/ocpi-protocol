@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\Evses;
+namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses;
 
 use Chargemap\OCPI\Common\Server\Errors\OcpiNotEnoughInformationClientError;
-use Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\LocationRequestParams;
-use Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\OcpiLocationUpdateRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\LocationRequestParams;
+use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\OcpiLocationUpdateRequest;
 use Psr\Http\Message\ServerRequestInterface;
 
 abstract class BaseEvseUpdateRequest extends OcpiLocationUpdateRequest

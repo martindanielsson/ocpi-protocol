@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Cdrs\GetListing\GetCdrsListingRequest;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Cdrs\GetListing\GetCdrsListingResponse;
-use Chargemap\OCPI\Versions\V2_1_1\Client\Cdrs\GetListing\GetCdrsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingResponse;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingService;
 
 class Cdrs extends AbstractFeatures
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Locations\Patch;
+namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Patch;
 
 use Chargemap\OCPI\Common\Server\OcpiUpdateResponse;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\PartialLocation;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialLocation;
 
 class OcpiEmspLocationPatchResponse extends OcpiUpdateResponse
 {

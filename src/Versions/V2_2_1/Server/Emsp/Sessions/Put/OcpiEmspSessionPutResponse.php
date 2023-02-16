@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Sessions\Put;
+namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Sessions\Put;
 
 use Chargemap\OCPI\Common\Server\OcpiCreateResponse;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\Session;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Session;
 
 class OcpiEmspSessionPutResponse extends OcpiCreateResponse
 {

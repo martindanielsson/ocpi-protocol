@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Server\Emsp\Tokens\Post;
+namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Tokens\Post;
 
 use Chargemap\OCPI\Common\Server\OcpiCreateResponse;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\AllowedType;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\DisplayText;
-use Chargemap\OCPI\Versions\V2_1_1\Common\Models\LocationReferences;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AllowedType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\DisplayText;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\LocationReferences;
 
 class OcpiEmspTokenPostResponse extends OcpiCreateResponse
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Client\Versions\GetDetails;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Versions\GetDetails;
 
 use Chargemap\OCPI\Common\Models\VersionEndpoint;
 use Psr\Http\Message\ServerRequestFactoryInterface;

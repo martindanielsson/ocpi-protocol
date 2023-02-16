@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_1_1\Common\Models;
+namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
 use DateTime;
@@ -225,7 +225,7 @@ class Session implements JsonSerializable
     /**
      * Null means no difference
      * Empty array means all charging periods was deleted
-     * @return \Chargemap\OCPI\Versions\V2_1_1\Common\Models\ChargingPeriod[]|null
+     * @return \Chargemap\OCPI\Versions\V2_2_1\Common\Models\ChargingPeriod[]|null
      */
     public static function chargingPeriodsDiff(Session $first, Session $second): ?array
     {
