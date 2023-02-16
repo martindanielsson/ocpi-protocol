@@ -182,7 +182,7 @@ class Cdr implements JsonSerializable
         $return = [
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
-            'stop_date_time' => DateTimeFormatter::format($this->stopDateTime),
+            'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
             'auth_id' => $this->authId,
             'auth_method' => $this->authMethod,
             'location' => $this->location,

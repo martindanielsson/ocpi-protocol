@@ -10,7 +10,7 @@
         "start_date_time": {
             "$ref": "common.schema.json#/definitions/timestamp"
         },
-        "stop_date_time": {
+        "end_date_time": {
             "$ref": "common.schema.json#/definitions/timestamp"
         },
         "auth_id": {
@@ -97,7 +97,7 @@
     "required": [
         "id",
         "start_date_time",
-        "stop_date_time",
+        "end_date_time",
         "auth_id",
         "auth_method",
         "location",
