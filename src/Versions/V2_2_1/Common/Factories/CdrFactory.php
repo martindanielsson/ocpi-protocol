@@ -23,7 +23,7 @@ class CdrFactory
             $json->id,
             new DateTime($json->start_date_time),
             new DateTime($json->end_date_time),
-            $json->session_id,
+            $json->session_id ?? null,
             CdrTokenFactory::fromJson($json->cdr_token),
             new AuthenticationMethod($json->auth_method),
             CdrLocationFactory::fromJson($json->cdr_location),
@@ -35,8 +35,9 @@ class CdrFactory
             $json->total_parking_time ?? null,
             $json->remark ?? null,
             new DateTime($json->last_updated),
-            $json->credit,
-            $json->credit_reference_id,
+            $json->credit ?? null,
+            $json->credit_reference_id ?? null,
+            $json->total_fixed_cost ? PriceFactory::fromJson($json->total_fixed_cost) : null,
         );
 
         if (property_exists($json, 'tariffs')) {

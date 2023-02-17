@@ -20,7 +20,7 @@ class Cdr implements JsonSerializable
 
     private DateTime $stopDateTime;
 
-    private string $sessionId;
+    private ?string $sessionId;
 
     private CdrToken $cdrToken;
 
@@ -50,9 +50,11 @@ class Cdr implements JsonSerializable
 
     private DateTime $lastUpdated;
 
-    private bool $credit;
+    private ?bool $credit;
 
-    private ?string $credit_reference_id;
+    private ?string $creditReferenceId;
+
+    private ?Price $totalFixedCost;
 
     public function __construct(
         string               $countyCode,
@@ -60,7 +62,7 @@ class Cdr implements JsonSerializable
         string               $id,
         DateTime             $startDateTime,
         DateTime             $stopDateTime,
-        string               $sessionId,
+        ?string              $sessionId,
         CdrToken             $cdrToken,
         AuthenticationMethod $authMethod,
         CdrLocation          $cdrLocation,
@@ -72,8 +74,9 @@ class Cdr implements JsonSerializable
         ?float               $totalParkingTime,
         ?string              $remark,
         DateTime             $lastUpdated,
-        bool                 $credit,
-        ?string              $credit_reference_id
+        ?bool                $credit,
+        ?string              $creditReferenceId,
+        ?Price               $totalFixedCost
     )
     {
         $this->countyCode = $countyCode;
@@ -94,7 +97,8 @@ class Cdr implements JsonSerializable
         $this->remark = $remark;
         $this->lastUpdated = $lastUpdated;
         $this->credit = $credit;
-        $this->credit_reference_id = $credit_reference_id;
+        $this->creditReferenceId = $creditReferenceId;
+        $this->totalFixedCost = $totalFixedCost;
     }
 
     public function addTariff(Tariff $tariff): self
@@ -205,7 +209,6 @@ class Cdr implements JsonSerializable
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
             'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
-            'session_id' => $this->sessionId,
             'cdr_token' => $this->cdrToken,
             'auth_method' => $this->authMethod,
             'cdr_location' => $this->cdrLocation,
@@ -215,15 +218,19 @@ class Cdr implements JsonSerializable
             'total_energy' => $this->totalEnergy,
             'total_time' => $this->totalTime,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'credit' => $this->credit,
         ];
+
+        if ($this->sessionId) {
+            $return['session_id'] = $this->sessionId;
+        }
 
         if (count($this->tariffs) > 0) {
             $return['tariffs'] = $this->tariffs;
         }
 
         if ($this->credit) {
-            $return['credit_reference_id'] = $this->credit_reference_id;
+            $return['credit'] = $this->credit;
+            $return['credit_reference_id'] = $this->creditReferenceId;
         }
 
         if ($this->meterId !== null) {
@@ -236,6 +243,10 @@ class Cdr implements JsonSerializable
 
         if ($this->remark !== null) {
             $return['remark'] = $this->remark;
+        }
+
+        if ($this->totalFixedCost !== null) {
+            $return['total_fixed_cost'] = $this->totalFixedCost;
         }
 
         return $return;
@@ -257,27 +268,23 @@ class Cdr implements JsonSerializable
         return $this->partyId;
     }
 
-    /**
-     * @return string
-     */
-    public function getSessionId(): string
+    public function getSessionId(): ?string
     {
         return $this->sessionId;
     }
 
-    /**
-     * @return bool
-     */
-    public function isCredit(): bool
+    public function isCredit(): ?bool
     {
         return $this->credit;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCreditReferenceId(): ?string
     {
-        return $this->credit_reference_id;
+        return $this->creditReferenceId;
+    }
+
+    public function getTotalFixedCost(): ?Price
+    {
+        return $this->totalFixedCost;
     }
 }
