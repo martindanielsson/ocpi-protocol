@@ -10,6 +10,8 @@ use JsonSerializable;
 
 class Cdr implements JsonSerializable
 {
+    private string $countyCode;
+
     private string $id;
 
     private DateTime $startDateTime;
@@ -45,6 +47,7 @@ class Cdr implements JsonSerializable
     private DateTime $lastUpdated;
 
     public function __construct(
+        string $countyCode,
         string $id,
         DateTime $startDateTime,
         DateTime $stopDateTime,
@@ -61,6 +64,7 @@ class Cdr implements JsonSerializable
         DateTime $lastUpdated
     )
     {
+        $this->countyCode = $countyCode;
         $this->id = $id;
         $this->startDateTime = $startDateTime;
         $this->stopDateTime = $stopDateTime;
@@ -180,6 +184,7 @@ class Cdr implements JsonSerializable
     public function jsonSerialize(): array
     {
         $return = [
+            'county_code' => $this->countyCode,
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
             'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
@@ -211,5 +216,13 @@ class Cdr implements JsonSerializable
         }
 
         return $return;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountyCode(): string
+    {
+        return $this->countyCode;
     }
 }
