@@ -26,7 +26,7 @@ class CdrFactory
             $json->session_id,
             CdrTokenFactory::fromJson($json->cdr_token),
             new AuthenticationMethod($json->auth_method),
-            LocationFactory::fromJson($json->location),
+            CdrLocationFactory::fromJson($json->cdr_location),
             $json->meter_id ?? null,
             $json->currency,
             PriceFactory::fromJson($json->total_cost),

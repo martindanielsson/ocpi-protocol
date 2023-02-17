@@ -8,15 +8,15 @@ use Chargemap\OCPI\Common\Client\Modules\Locations\GetListing\GetLocationsListin
 use Chargemap\OCPI\Common\Client\OcpiUnauthorizedException;
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\LocationFactory;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\CdrLocationFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CdrLocation;
 use Psr\Http\Message\ResponseInterface;
 
 class GetLocationsListingResponse extends BaseResponse
 {
     private ?GetLocationsListingRequest $nextRequest;
 
-    /** @var Location[] */
+    /** @var CdrLocation[] */
     private array $locations = [];
 
     /**
@@ -37,7 +37,7 @@ class GetLocationsListingResponse extends BaseResponse
         $return = new self();
         foreach ($json->data ?? [] as $item) {
             if (PayloadValidation::isValidJson('V2_2_1/eMSP/Client/Locations/location.schema.json', $item)) {
-                $return->locations[] = LocationFactory::fromJson($item);
+                $return->locations[] = CdrLocationFactory::fromJson($item);
             }
             //TODO throw validator errors at the end of the function
         }
@@ -60,7 +60,7 @@ class GetLocationsListingResponse extends BaseResponse
         return $return;
     }
 
-    /** @return Location[] */
+    /** @return CdrLocation[] */
     public function getLocations(): array
     {
         return $this->locations;

@@ -7,20 +7,20 @@ namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AdditionalGeoLocation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Facility;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\GeoLocation;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CdrLocation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\LocationType;
 use DateTime;
 use stdClass;
 
-class LocationFactory
+class CdrLocationFactory
 {
-    public static function fromJson(?stdClass $json): ?Location
+    public static function fromJson(?stdClass $json): ?CdrLocation
     {
         if ($json === null) {
             return null;
         }
 
-        $location = new Location(
+        $location = new CdrLocation(
             $json->id,
             new LocationType($json->type),
             $json->name ?? null,

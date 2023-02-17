@@ -8,7 +8,7 @@ use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
 use DateTime;
 use JsonSerializable;
 
-class Location implements JsonSerializable
+class CdrLocation implements JsonSerializable
 {
     private string $id;
 

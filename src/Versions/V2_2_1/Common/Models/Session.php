@@ -16,7 +16,7 @@ class Session implements JsonSerializable
     private float $kwh;
     private string $authId;
     private AuthenticationMethod $authMethod;
-    private Location $location;
+    private CdrLocation $location;
     private ?string $meterId;
     private string $currency;
     /** @var ChargingPeriod[] */
@@ -26,18 +26,18 @@ class Session implements JsonSerializable
     private DateTime $lastUpdated;
 
     public function __construct(
-        string $id,
-        DateTime $startDate,
-        ?DateTime $endDate,
-        float $kwh,
-        string $authId,
+        string               $id,
+        DateTime             $startDate,
+        ?DateTime            $endDate,
+        float                $kwh,
+        string               $authId,
         AuthenticationMethod $authMethod,
-        Location $location,
-        ?string $meterId,
-        string $currency,
-        ?float $totalCost,
-        SessionStatus $status,
-        DateTime $lastUpdated
+        CdrLocation          $location,
+        ?string              $meterId,
+        string               $currency,
+        ?float               $totalCost,
+        SessionStatus        $status,
+        DateTime             $lastUpdated
     ) {
         $this->id = $id;
         $this->startDate = $startDate;
@@ -88,7 +88,7 @@ class Session implements JsonSerializable
         return $this->authMethod;
     }
 
-    public function getLocation(): Location
+    public function getLocation(): CdrLocation
     {
         return $this->location;
     }

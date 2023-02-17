@@ -26,7 +26,7 @@ class Cdr implements JsonSerializable
 
     private AuthenticationMethod $authMethod;
 
-    private Location $location;
+    private CdrLocation $cdrLocation;
 
     private ?string $meterId;
 
@@ -59,7 +59,7 @@ class Cdr implements JsonSerializable
         string               $sessionId,
         CdrToken             $cdrToken,
         AuthenticationMethod $authMethod,
-        Location             $location,
+        CdrLocation          $cdrLocation,
         ?string              $meterId,
         string               $currency,
         Price                $totalCost,
@@ -78,7 +78,7 @@ class Cdr implements JsonSerializable
         $this->sessionId = $sessionId;
         $this->cdrToken = $cdrToken;
         $this->authMethod = $authMethod;
-        $this->location = $location;
+        $this->cdrLocation = $cdrLocation;
         $this->meterId = $meterId;
         $this->currency = $currency;
         $this->totalCost = $totalCost;
@@ -128,9 +128,9 @@ class Cdr implements JsonSerializable
         return $this->authMethod;
     }
 
-    public function getLocation(): Location
+    public function getCdrLocation(): CdrLocation
     {
-        return $this->location;
+        return $this->cdrLocation;
     }
 
     public function getMeterId(): ?string
@@ -200,7 +200,7 @@ class Cdr implements JsonSerializable
             'session_id' => $this->sessionId,
             'cdr_token' => $this->cdrToken,
             'auth_method' => $this->authMethod,
-            'location' => $this->location,
+            'cdr_location' => $this->cdrLocation,
             'currency' => $this->currency,
             'charging_periods' => $this->chargingPeriods,
             'total_cost' => $this->totalCost,
