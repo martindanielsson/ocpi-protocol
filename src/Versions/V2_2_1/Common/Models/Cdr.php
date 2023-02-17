@@ -56,6 +56,8 @@ class Cdr implements JsonSerializable
 
     private ?Price $totalFixedCost;
 
+    private ?Price $totalEnergyCost;
+
     public function __construct(
         string               $countyCode,
         string               $partyId,
@@ -76,7 +78,8 @@ class Cdr implements JsonSerializable
         DateTime             $lastUpdated,
         ?bool                $credit,
         ?string              $creditReferenceId,
-        ?Price               $totalFixedCost
+        ?Price               $totalFixedCost,
+        ?Price               $totalEnergyCost
     )
     {
         $this->countyCode = $countyCode;
@@ -99,6 +102,7 @@ class Cdr implements JsonSerializable
         $this->credit = $credit;
         $this->creditReferenceId = $creditReferenceId;
         $this->totalFixedCost = $totalFixedCost;
+        $this->totalEnergyCost = $totalEnergyCost;
     }
 
     public function addTariff(Tariff $tariff): self
@@ -249,6 +253,10 @@ class Cdr implements JsonSerializable
             $return['total_fixed_cost'] = $this->totalFixedCost;
         }
 
+        if ($this->totalEnergyCost !== null) {
+            $return['total_energy_cost'] = $this->totalEnergyCost;
+        }
+
         return $return;
     }
 
@@ -286,5 +294,13 @@ class Cdr implements JsonSerializable
     public function getTotalFixedCost(): ?Price
     {
         return $this->totalFixedCost;
+    }
+
+    /**
+     * @return Price|null
+     */
+    public function getTotalEnergyCost(): ?Price
+    {
+        return $this->totalEnergyCost;
     }
 }
