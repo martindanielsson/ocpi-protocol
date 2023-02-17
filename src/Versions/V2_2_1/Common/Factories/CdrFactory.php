@@ -39,6 +39,7 @@ class CdrFactory
             $json->credit_reference_id ?? null,
             $json->total_fixed_cost ? PriceFactory::fromJson($json->total_fixed_cost) : null,
             $json->total_energy_cost ? PriceFactory::fromJson($json->total_energy_cost) : null,
+            $json->total_time_cost ? PriceFactory::fromJson($json->total_time_cost) : null,
         );
 
         if (property_exists($json, 'tariffs')) {
