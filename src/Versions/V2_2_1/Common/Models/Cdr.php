@@ -20,6 +20,8 @@ class Cdr implements JsonSerializable
 
     private DateTime $stopDateTime;
 
+    private string $sessionId;
+
     private string $authId;
 
     private AuthenticationMethod $authMethod;
@@ -54,6 +56,7 @@ class Cdr implements JsonSerializable
         string $id,
         DateTime $startDateTime,
         DateTime $stopDateTime,
+        string $sessionId,
         string $authId,
         AuthenticationMethod $authMethod,
         Location $location,
@@ -72,6 +75,7 @@ class Cdr implements JsonSerializable
         $this->id = $id;
         $this->startDateTime = $startDateTime;
         $this->stopDateTime = $stopDateTime;
+        $this->sessionId = $sessionId;
         $this->authId = $authId;
         $this->authMethod = $authMethod;
         $this->location = $location;
@@ -193,6 +197,7 @@ class Cdr implements JsonSerializable
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
             'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
+            'session_id' => $this->sessionId,
             'auth_id' => $this->authId,
             'auth_method' => $this->authMethod,
             'location' => $this->location,
@@ -237,5 +242,13 @@ class Cdr implements JsonSerializable
     public function getPartyId(): string
     {
         return $this->partyId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSessionId(): string
+    {
+        return $this->sessionId;
     }
 }

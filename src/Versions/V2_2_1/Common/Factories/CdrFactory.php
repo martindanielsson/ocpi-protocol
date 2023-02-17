@@ -23,6 +23,7 @@ class CdrFactory
             $json->id,
             new DateTime($json->start_date_time),
             new DateTime($json->end_date_time),
+            $json->session_id,
             $json->auth_id,
             new AuthenticationMethod($json->auth_method),
             LocationFactory::fromJson($json->location),
