@@ -29,7 +29,7 @@ class CdrFactory
             LocationFactory::fromJson($json->location),
             $json->meter_id ?? null,
             $json->currency,
-            $json->total_cost,
+            PriceFactory::fromJson($json->total_cost),
             $json->total_energy,
             $json->total_time,
             $json->total_parking_time ?? null,

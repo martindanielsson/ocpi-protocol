@@ -38,7 +38,7 @@ class Cdr implements JsonSerializable
     /** @var ChargingPeriod[] */
     private array $chargingPeriods = [];
 
-    private float $totalCost;
+    private Price $totalCost;
 
     private float $totalEnergy;
 
@@ -62,7 +62,7 @@ class Cdr implements JsonSerializable
         Location $location,
         ?string $meterId,
         string $currency,
-        float $totalCost,
+        Price $totalCost,
         float $totalEnergy,
         float $totalTime,
         ?float $totalParkingTime,
@@ -159,7 +159,7 @@ class Cdr implements JsonSerializable
         return $this->chargingPeriods;
     }
 
-    public function getTotalCost(): float
+    public function getTotalCost(): Price
     {
         return $this->totalCost;
     }
