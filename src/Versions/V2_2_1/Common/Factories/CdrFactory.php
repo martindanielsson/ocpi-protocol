@@ -24,7 +24,7 @@ class CdrFactory
             new DateTime($json->start_date_time),
             new DateTime($json->end_date_time),
             $json->session_id,
-            $json->auth_id,
+            CdrTokenFactory::fromJson($json->cdr_token),
             new AuthenticationMethod($json->auth_method),
             LocationFactory::fromJson($json->location),
             $json->meter_id ?? null,

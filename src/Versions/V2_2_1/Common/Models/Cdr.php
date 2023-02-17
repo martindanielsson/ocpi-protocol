@@ -22,7 +22,7 @@ class Cdr implements JsonSerializable
 
     private string $sessionId;
 
-    private string $authId;
+    private CdrToken $cdrToken;
 
     private AuthenticationMethod $authMethod;
 
@@ -51,23 +51,23 @@ class Cdr implements JsonSerializable
     private DateTime $lastUpdated;
 
     public function __construct(
-        string $countyCode,
-        string $partyId,
-        string $id,
-        DateTime $startDateTime,
-        DateTime $stopDateTime,
-        string $sessionId,
-        string $authId,
+        string               $countyCode,
+        string               $partyId,
+        string               $id,
+        DateTime             $startDateTime,
+        DateTime             $stopDateTime,
+        string               $sessionId,
+        CdrToken             $cdrToken,
         AuthenticationMethod $authMethod,
-        Location $location,
-        ?string $meterId,
-        string $currency,
-        Price $totalCost,
-        float $totalEnergy,
-        float $totalTime,
-        ?float $totalParkingTime,
-        ?string $remark,
-        DateTime $lastUpdated
+        Location             $location,
+        ?string              $meterId,
+        string               $currency,
+        Price                $totalCost,
+        float                $totalEnergy,
+        float                $totalTime,
+        ?float               $totalParkingTime,
+        ?string              $remark,
+        DateTime             $lastUpdated
     )
     {
         $this->countyCode = $countyCode;
@@ -76,7 +76,7 @@ class Cdr implements JsonSerializable
         $this->startDateTime = $startDateTime;
         $this->stopDateTime = $stopDateTime;
         $this->sessionId = $sessionId;
-        $this->authId = $authId;
+        $this->cdrToken = $cdrToken;
         $this->authMethod = $authMethod;
         $this->location = $location;
         $this->meterId = $meterId;
@@ -118,9 +118,9 @@ class Cdr implements JsonSerializable
         return $this->stopDateTime;
     }
 
-    public function getAuthId(): string
+    public function getCdrToken(): CdrToken
     {
-        return $this->authId;
+        return $this->cdrToken;
     }
 
     public function getAuthMethod(): AuthenticationMethod
@@ -198,7 +198,7 @@ class Cdr implements JsonSerializable
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
             'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
             'session_id' => $this->sessionId,
-            'auth_id' => $this->authId,
+            'cdr_token' => $this->cdrToken,
             'auth_method' => $this->authMethod,
             'location' => $this->location,
             'currency' => $this->currency,
