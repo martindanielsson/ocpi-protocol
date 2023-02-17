@@ -12,6 +12,8 @@ class Cdr implements JsonSerializable
 {
     private string $countyCode;
 
+    private string $partyId;
+
     private string $id;
 
     private DateTime $startDateTime;
@@ -48,6 +50,7 @@ class Cdr implements JsonSerializable
 
     public function __construct(
         string $countyCode,
+        string $partyId,
         string $id,
         DateTime $startDateTime,
         DateTime $stopDateTime,
@@ -65,6 +68,7 @@ class Cdr implements JsonSerializable
     )
     {
         $this->countyCode = $countyCode;
+        $this->partyId = $partyId;
         $this->id = $id;
         $this->startDateTime = $startDateTime;
         $this->stopDateTime = $stopDateTime;
@@ -185,6 +189,7 @@ class Cdr implements JsonSerializable
     {
         $return = [
             'county_code' => $this->countyCode,
+            'party_id' => $this->partyId,
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
             'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
@@ -224,5 +229,13 @@ class Cdr implements JsonSerializable
     public function getCountyCode(): string
     {
         return $this->countyCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 }
