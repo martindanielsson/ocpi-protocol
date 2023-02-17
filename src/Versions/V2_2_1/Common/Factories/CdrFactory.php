@@ -34,7 +34,9 @@ class CdrFactory
             $json->total_time,
             $json->total_parking_time ?? null,
             $json->remark ?? null,
-            new DateTime($json->last_updated)
+            new DateTime($json->last_updated),
+            $json->credit,
+            $json->credit_reference_id,
         );
 
         if (property_exists($json, 'tariffs')) {
