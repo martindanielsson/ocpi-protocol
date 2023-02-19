@@ -17,7 +17,6 @@ use MyCLabs\Enum\Enum;
 class CdrDimensionType extends Enum
 {
     public const ENERGY = 'ENERGY';
-    public const FLAT = 'FLAT';
     public const MAX_CURRENT = 'MAX_CURRENT';
     public const MIN_CURRENT = 'MIN_CURRENT';
     public const PARKING_TIME = 'PARKING_TIME';
