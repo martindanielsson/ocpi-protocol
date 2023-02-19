@@ -43,7 +43,8 @@ class CdrFactory
             $json->total_parking_cost ? PriceFactory::fromJson($json->total_parking_cost) : null,
             $json->total_reservation_cost ? PriceFactory::fromJson($json->total_reservation_cost) : null,
             $json->authorization_reference ?? null,
-            $json->signed_data ?? SignedDataFactory::fromJson($json->signed_data)
+            $json->signed_data ?? SignedDataFactory::fromJson($json->signed_data),
+            $json->invoice_reference_id ?? null,
         );
 
         if (property_exists($json, 'tariffs')) {
