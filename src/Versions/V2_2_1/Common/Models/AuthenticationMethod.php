@@ -14,4 +14,5 @@ class AuthenticationMethod extends Enum
 {
     public const AUTH_REQUEST = 'AUTH_REQUEST';
     public const WHITELIST = 'WHITELIST';
+    public const COMMAND = 'COMMAND';
 }
