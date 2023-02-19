@@ -66,6 +66,8 @@ class Cdr implements JsonSerializable
 
     private ?string $authorizationReference;
 
+    private ?SignedData $signedData;
+
     public function __construct(
         string               $countyCode,
         string               $partyId,
@@ -91,7 +93,8 @@ class Cdr implements JsonSerializable
         ?Price               $totalTimeCost,
         ?Price               $totalParkingCost,
         ?Price               $totalReservationCost,
-        ?string              $authorizationReference
+        ?string              $authorizationReference,
+        ?SignedData          $signedData
     )
     {
         $this->countyCode = $countyCode;
@@ -119,6 +122,7 @@ class Cdr implements JsonSerializable
         $this->totalParkingCost = $totalParkingCost;
         $this->totalReservationCost = $totalReservationCost;
         $this->authorizationReference = $authorizationReference;
+        $this->signedData = $signedData;
     }
 
     public function addTariff(Tariff $tariff): self
@@ -289,6 +293,10 @@ class Cdr implements JsonSerializable
             $return['authorization_reference'] = $this->authorizationReference;
         }
 
+        if ($this->signedData !== null) {
+            $return['signed_data'] = $this->signedData;
+        }
+
         return $return;
     }
 
@@ -366,5 +374,13 @@ class Cdr implements JsonSerializable
     public function getAuthorizationReference(): ?string
     {
         return $this->authorizationReference;
+    }
+
+    /**
+     * @return SignedData|null
+     */
+    public function getSignedData(): ?SignedData
+    {
+        return $this->signedData;
     }
 }
