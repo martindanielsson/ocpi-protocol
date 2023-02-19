@@ -14,6 +14,7 @@ use Chargemap\OCPI\Common\Models\BaseModuleId;
  * @method static self SESSIONS()
  * @method static self TARIFFS()
  * @method static self TOKENS()
+ * @method static self ChargingProfiles()
  */
 class ModuleId extends BaseModuleId
 {
@@ -24,4 +25,5 @@ class ModuleId extends BaseModuleId
     public const SESSIONS = 'sessions';
     public const TARIFFS = 'tariffs';
     public const TOKENS = 'tokens';
+    public const ChargingProfiles = 'chargingprofiles';
 }

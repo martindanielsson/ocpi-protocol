@@ -20,7 +20,8 @@
             "locations",
             "sessions",
             "tariffs",
-            "tokens"
+            "tokens",
+            "chargingprofiles"
           ]
         },
         "url": {
