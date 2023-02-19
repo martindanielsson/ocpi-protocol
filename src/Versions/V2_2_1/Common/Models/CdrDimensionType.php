@@ -22,4 +22,5 @@ class CdrDimensionType extends Enum
     public const MIN_CURRENT = 'MIN_CURRENT';
     public const PARKING_TIME = 'PARKING_TIME';
     public const TIME = 'TIME';
+    public const RESERVATION_TIME = 'RESERVATION_TIME';
 }
