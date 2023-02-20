@@ -21,7 +21,8 @@
             "sessions",
             "tariffs",
             "tokens",
-            "chargingprofiles"
+            "chargingprofiles",
+            "hubclientinfo"
           ]
         },
         "url": {
