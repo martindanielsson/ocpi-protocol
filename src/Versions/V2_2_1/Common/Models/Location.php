@@ -12,7 +12,7 @@ class Location implements JsonSerializable
 {
     private string $id;
 
-    private LocationType $locationType;
+    private ?LocationType $locationType;
 
     private ?string $name;
 
@@ -20,7 +20,7 @@ class Location implements JsonSerializable
 
     private string $city;
 
-    private string $postalCode;
+    private ?string $postalCode;
 
     private string $country;
 
@@ -57,13 +57,26 @@ class Location implements JsonSerializable
 
     private DateTime $lastUpdated;
 
+    private string $countryCode;
+
+    private string $partyId;
+
+    private ?string $state;
+
+    private bool $publish;
+
+    /**
+     * @var PublishTokenType[]|null
+     */
+    private ?array $publishAllowedTo;
+
     public function __construct(
         string $id,
-        LocationType $locationType,
+        ?LocationType $locationType,
         ?string $name,
         string $address,
         string $city,
-        string $postalCode,
+        ?string $postalCode,
         string $country,
         GeoLocation $coordinates,
         ?BusinessDetails $operator,
@@ -73,7 +86,12 @@ class Location implements JsonSerializable
         ?Hours $openingTimes,
         ?bool $chargingWhenClosed,
         ?EnergyMix $energyMix,
-        DateTime $lastUpdated
+        DateTime $lastUpdated,
+        string $countryCode,
+        string $partyId,
+        ?string $state,
+        bool $publish,
+        ?array $publishAllowedTo
     )
     {
         $this->id = $id;
@@ -92,6 +110,11 @@ class Location implements JsonSerializable
         $this->chargingWhenClosed = $chargingWhenClosed;
         $this->energyMix = $energyMix;
         $this->lastUpdated = $lastUpdated;
+        $this->countryCode = $countryCode;
+        $this->partyId = $partyId;
+        $this->state = $state;
+        $this->publish = $publish;
+        $this->publishAllowedTo = $publishAllowedTo;
     }
 
     public function addRelatedLocation(AdditionalGeoLocation $relatedLocation): self
@@ -134,7 +157,7 @@ class Location implements JsonSerializable
         return $this->id;
     }
 
-    public function getLocationType(): LocationType
+    public function getLocationType(): ?LocationType
     {
         return $this->locationType;
     }
@@ -154,7 +177,7 @@ class Location implements JsonSerializable
         return $this->city;
     }
 
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
@@ -253,15 +276,32 @@ class Location implements JsonSerializable
     {
         $return = [
             'id' => $this->id,
-            'type' => $this->locationType,
             'address' => $this->address,
             'city' => $this->city,
-            'postal_code' => $this->postalCode,
             'country' => $this->country,
             'coordinates' => $this->coordinates,
             'evses' => $this->evses,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId,
+            'publish' => $this->publish
         ];
+
+        if ($this->publishAllowedTo !== null) {
+            $return['publish_allowed_to'] = $this->publishAllowedTo;
+        }
+
+        if ($this->state !== null) {
+            $return['state'] = $this->state;
+        }
+
+        if ($this->postalCode !== null) {
+            $return['postal_code'] = $this->postalCode;
+        }
+
+        if ($this->locationType !== null) {
+            $return['parking_type'] = $this->locationType;
+        }
 
         if (count($this->relatedLocations) > 0) {
             $return['related_locations'] = $this->relatedLocations;

@@ -22,21 +22,26 @@ class LocationFactory
 
         $location = new Location(
             $json->id,
-            new LocationType($json->type),
+            new LocationType($json->parking_type),
             $json->name ?? null,
             $json->address,
             $json->city,
-            $json->postal_code,
+            $json->postal_code ?? null,
             $json->country,
             GeoLocationFactory::fromJson($json->coordinates),
             BusinessDetailsFactory::fromJson($json->operator ?? null),
             BusinessDetailsFactory::fromJson($json->suboperator ?? null),
             BusinessDetailsFactory::fromJson($json->owner ?? null),
-            $json->time_zone ?? null,
+            $json->time_zone,
             HoursFactory::fromJson($json->opening_times ?? null),
             $json->charging_when_closed ?? null,
             EnergyMixFactory::fromJson($json->energy_mix ?? null),
-            new DateTime($json->last_updated)
+            new DateTime($json->last_updated),
+            $json->country_code,
+            $json->party_id,
+            $json->state ?? null,
+            $json->publish,
+            PublishTokenTypeFactory::fromJson($json->publish_allowed_to)
         );
 
         if (property_exists($json, 'related_locations') && $json->related_locations !== null) {
