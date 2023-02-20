@@ -154,7 +154,11 @@
                     "AIRPORT",
                     "CARPOOL_PARKING",
                     "FUEL_STATION",
-                    "WIFI"
+                    "WIFI",
+                    "BIKE_SHARING",
+                    "PARKING_LOT",
+                    "TRAM_STOP",
+                    "METRO_STATION"
                 ]
             }
         },
