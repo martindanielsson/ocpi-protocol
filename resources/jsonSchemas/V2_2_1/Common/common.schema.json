@@ -135,7 +135,7 @@
                     "max_length": 36
                 },
                 "type": {
-                    "$ref": "common.schema.json#/definitions/token_type"
+                    "$ref": "#/definitions/token_type"
                 },
                 "contract_id": {
                     "type": "string",
@@ -173,7 +173,7 @@
                     "format": "uri"
                 },
                 "business_details": {
-                    "$ref": "common.schema.json#/definitions/business_details"
+                    "$ref": "#/definitions/business_details"
                 },
                 "party_id": {
                     "type": "string",
@@ -522,10 +522,10 @@
             "type": "object",
             "properties": {
                 "role": {
-                    "$ref": "common.schema.json#/definitions/role"
+                    "$ref": "#/definitions/role"
                 },
                 "business_details": {
-                    "$ref": "common.schema.json#/definitions/business_details"
+                    "$ref": "#/definitions/business_details"
                 },
                 "party_id": {
                     "type": "string",
@@ -603,7 +603,7 @@
                 "location_id": {
                     "type": "string",
                     "minLength": 1,
-                    "maxLength": 39
+                    "maxLength": 36
                 },
                 "evse_uids": {
                     "type": [
@@ -613,18 +613,7 @@
                     "items": {
                         "type": "string",
                         "minLength": 1,
-                        "maxLength": 39
-                    }
-                },
-                "connector_ids": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "items": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 39
+                        "maxLength": 36
                     }
                 }
             },
