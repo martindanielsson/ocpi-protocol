@@ -470,6 +470,39 @@
             ],
             "additionalProperties": false
         },
+        "credentials_role": {
+            "type": "object",
+            "properties": {
+                "role": {
+                    "$ref": "common.schema.json#/definitions/role"
+                },
+                "business_details": {
+                    "$ref": "common.schema.json#/definitions/business_details"
+                },
+                "party_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3
+                },
+                "country_code": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2
+                }
+            }
+        },
+        "role": {
+            "type": "string",
+            "enum": [
+                "CPO",
+                "EMSP",
+                "HUB",
+                "NAP",
+                "NSP",
+                "OTHER",
+                "SCSP"
+            ]
+        },
         "charging_period": {
             "type": "object",
             "properties": {
