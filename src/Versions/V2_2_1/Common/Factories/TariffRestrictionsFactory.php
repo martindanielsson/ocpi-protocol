@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\DayOfWeek;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ReservationRestrictionType;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\TariffRestrictions;
 use stdClass;
 
@@ -26,7 +27,10 @@ class TariffRestrictionsFactory
             $json->min_power ?? null,
             $json->max_power ?? null,
             $json->min_duration ?? null,
-            $json->max_duration ?? null
+            $json->max_duration ?? null,
+            $json->reservation ? new ReservationRestrictionType($json->reservation) : null,
+            $json->min_current ?? null,
+            $json->max_current ?? null
         );
 
         if (property_exists($json, 'day_of_week')) {

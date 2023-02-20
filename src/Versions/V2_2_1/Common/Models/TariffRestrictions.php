@@ -31,6 +31,12 @@ class TariffRestrictions implements JsonSerializable
     /** @var DayOfWeek[] */
     private array $daysOfWeek = [];
 
+    private ?ReservationRestrictionType $reservation;
+
+    private ?float $minCurrent;
+
+    private ?float $maxCurrent;
+
     public function __construct(
         ?string $startTime,
         ?string $endTime,
@@ -41,7 +47,10 @@ class TariffRestrictions implements JsonSerializable
         ?float $minPower,
         ?float $maxPower,
         ?int $minDuration,
-        ?int $maxDuration
+        ?int $maxDuration,
+        ?ReservationRestrictionType $reservation,
+        ?float $minCurrent,
+        ?float $maxCurrent
     )
     {
         $this->startTime = $startTime;
@@ -54,6 +63,9 @@ class TariffRestrictions implements JsonSerializable
         $this->maxPower = $maxPower;
         $this->minDuration = $minDuration;
         $this->maxDuration = $maxDuration;
+        $this->reservation = $reservation;
+        $this->minCurrent = $minCurrent;
+        $this->maxCurrent = $maxCurrent;
     }
 
     public function getStartTime(): ?string
@@ -156,6 +168,15 @@ class TariffRestrictions implements JsonSerializable
         }
         if ($this->maxDuration !== null) {
             $return['max_duration'] = $this->maxDuration;
+        }
+        if ($this->reservation !== null) {
+            $return['reservation'] = $this->reservation;
+        }
+        if ($this->minCurrent !== null) {
+            $return['min_current'] = $this->minCurrent;
+        }
+        if ($this->maxCurrent !== null) {
+            $return['max_current'] = $this->maxCurrent;
         }
 
         return $return;
