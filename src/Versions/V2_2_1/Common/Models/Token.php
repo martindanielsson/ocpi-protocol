@@ -14,7 +14,7 @@ class Token implements JsonSerializable
 
     private TokenType $type;
 
-    private string $authId;
+    private string $contractId;
 
     private ?string $visualNumber;
 
@@ -28,17 +28,46 @@ class Token implements JsonSerializable
 
     private DateTime $lastUpdated;
 
-    public function __construct(string $uid, TokenType $type, string $authId, ?string $visualNumber, string $issuer, bool $valid, WhiteList $whiteList, ?string $language, DateTime $lastUpdated)
-    {
+    private string $countryCode;
+
+    private string $partyId;
+
+    private ?string $groupId;
+
+    private ?ProfileType $defaultProfileType;
+
+    private ?EnergyContract $energyContract;
+
+    public function __construct(
+        string    $uid,
+        TokenType $type,
+        string    $contractId,
+        ?string   $visualNumber,
+        string    $issuer,
+        bool      $valid,
+        WhiteList $whiteList,
+        ?string   $language,
+        DateTime  $lastUpdated,
+        string    $countryCode,
+        string    $partyId,
+        ?string   $groupId,
+        ?ProfileType $defaultProfileType,
+        ?EnergyContract $energyContract
+    ) {
         $this->uid = $uid;
         $this->type = $type;
-        $this->authId = $authId;
+        $this->contractId = $contractId;
         $this->visualNumber = $visualNumber;
         $this->issuer = $issuer;
         $this->valid = $valid;
         $this->whiteList = $whiteList;
         $this->language = $language;
         $this->lastUpdated = $lastUpdated;
+        $this->countryCode = $countryCode;
+        $this->partyId = $partyId;
+        $this->groupId = $groupId;
+        $this->defaultProfileType = $defaultProfileType;
+        $this->energyContract = $energyContract;
     }
 
     public function getUid(): string
@@ -51,9 +80,9 @@ class Token implements JsonSerializable
         return $this->type;
     }
 
-    public function getAuthId(): string
+    public function getContractId(): string
     {
-        return $this->authId;
+        return $this->contractId;
     }
 
     public function getVisualNumber(): ?string
@@ -91,12 +120,26 @@ class Token implements JsonSerializable
         $return = [
             'uid' => $this->uid,
             'type' => $this->type,
-            'auth_id' => $this->authId,
+            'auth_id' => $this->contractId,
             'issuer' => $this->issuer,
             'valid' => $this->valid,
             'whitelist' => $this->whiteList,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId
         ];
+
+        if ($this->energyContract !== null) {
+            $return['energy_contract'] = $this->energyContract;
+        }
+
+        if ($this->defaultProfileType !== null) {
+            $return['default_profile_type'] = $this->defaultProfileType;
+        }
+
+        if ($this->groupId !== null) {
+            $return['group_id'] = $this->groupId;
+        }
 
         if ($this->visualNumber !== null) {
             $return['visual_number'] = $this->visualNumber;
@@ -107,5 +150,21 @@ class Token implements JsonSerializable
         }
 
         return $return;
+    }
+
+    /**
+     * @return ProfileType|null
+     */
+    public function getDefaultProfileType(): ?ProfileType
+    {
+        return $this->defaultProfileType;
+    }
+
+    /**
+     * @return EnergyContract|null
+     */
+    public function getEnergyContract(): ?EnergyContract
+    {
+        return $this->energyContract;
     }
 }
