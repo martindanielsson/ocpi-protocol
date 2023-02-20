@@ -5,7 +5,7 @@
         "uid": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 39
+            "maxLength": 36
         },
         "evse_id": {
             "type": [
@@ -56,7 +56,11 @@
                     "REMOTE_START_STOP_CAPABLE",
                     "RESERVABLE",
                     "RFID_READER",
-                    "UNLOCK_CAPABLE"
+                    "UNLOCK_CAPABLE",
+                    "CHARGING_PREFERENCES_CAPABLE",
+                    "DEBIT_CARD_PAYABLE",
+                    "TOKEN_GROUP_CAPABLE",
+                    "START_SESSION_CONNECTOR_REQUIRED"
                 ]
             }
         },
