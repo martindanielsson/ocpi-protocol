@@ -2,20 +2,44 @@
     "title": "V2.1.1\\Location",
     "type": "object",
     "properties": {
+        "county_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2
+        },
+        "party_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+        },
+        "state": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 20
+        },
         "id": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 39
+            "maxLength": 36
         },
-        "type": {
-            "type": "string",
+        "publish": {
+            "type": "boolean"
+        },
+        "publish_allowed_to": {
+            "type": ["array", "null"],
+            "items": {
+                "$ref": "publish_allowed_to.schema.json"
+            }
+        },
+        "parking_type": {
+            "type": ["string", "null"],
             "enum": [
                 "ON_STREET",
                 "PARKING_GARAGE",
                 "UNDERGROUND_GARAGE",
                 "PARKING_LOT",
-                "OTHER",
-                "UNKNOWN"
+                "ON_DRIVEWAY",
+                "ALONG_MOTORWAY"
             ]
         },
         "name": {
@@ -37,7 +61,7 @@
             "maxLength": 45
         },
         "postal_code": {
-            "type": "string",
+            "type": ["string", "null"],
             "minLength": 1,
             "maxLength": 10
         },
@@ -135,10 +159,7 @@
             }
         },
         "time_zone": {
-            "type": [
-                "string",
-                "null"
-            ],
+            "type": "string",
             "minLength": 1,
             "maxLength": 255
         },

@@ -1,0 +1,36 @@
+{
+    "title": "V2.1.1\\PublishAllowedToSchema",
+    "type": "object",
+    "properties": {
+        "uid": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "type": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/token_type"
+                }
+            ]
+        },
+        "visual_number": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 64
+        },
+        "issuer": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 64
+        },
+        "group_id": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 36
+        }
+    }
+}
