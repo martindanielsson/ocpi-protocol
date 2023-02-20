@@ -16,19 +16,22 @@
         "power_type": {
             "$ref": "common.schema.json#/definitions/power_type"
         },
-        "voltage": {
+        "max_voltage": {
             "type": "integer"
         },
-        "amperage": {
+        "max_amperage": {
             "type": "integer"
         },
-        "tariff_id": {
+        "tariff_ids": {
             "type": [
-                "string",
+                "array",
                 "null"
             ],
-            "minLength": 1,
-            "maxLength": 36
+            "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 36
+            }
         },
         "terms_and_conditions": {
             "type": [
@@ -36,6 +39,9 @@
                 "null"
             ],
             "format": "uri"
+        },
+        "max_electric_power": {
+            "type": ["integer", "null"]
         },
         "last_updated": {
             "$ref": "common.schema.json#/definitions/timestamp"
