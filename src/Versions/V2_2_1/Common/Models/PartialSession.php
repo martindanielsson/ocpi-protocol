@@ -14,7 +14,7 @@ use JsonSerializable;
  * @method bool hasStartDate()
  * @method bool hasEndDate()
  * @method bool hasKwh()
- * @method bool hasAuthId()
+ * @method bool hasCdrToken()
  * @method bool hasAuthMethod()
  * @method bool hasLocation()
  * @method bool hasMeterId()
@@ -27,7 +27,7 @@ use JsonSerializable;
  * @method self withStartDate(?DateTime $startDate)
  * @method self withEndDate(?DateTime $endDate)
  * @method self withKwh(?float $kwh)
- * @method self withAuthId(?string $authId)
+ * @method self withCdrToken(?string $cdrToken)
  * @method self withAuthMethod(?AuthenticationMethod $authMethod)
  * @method self withLocation(?Location $location)
  * @method self withMeterId(?string $meterId)
@@ -43,7 +43,7 @@ class PartialSession extends PartialModel implements JsonSerializable
     private ?DateTime $startDate = null;
     private ?DateTime $endDate = null;
     private ?float $kwh = null;
-    private ?string $authId = null;
+    private ?CdrToken $cdrToken = null;
     private ?AuthenticationMethod $authMethod = null;
     private ?Location $location = null;
     private ?string $meterId = null;
@@ -78,9 +78,9 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    protected function _withAuthId(?string $authId): self
+    protected function _withCdrToken(?CdrToken $cdrToken): self
     {
-        $this->authId = $authId;
+        $this->cdrToken = $cdrToken;
         return $this;
     }
 
@@ -158,9 +158,9 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this->kwh;
     }
 
-    public function getAuthId(): ?string
+    public function getCdrToken(): ?string
     {
-        return $this->authId;
+        return $this->cdrToken;
     }
 
     public function getAuthMethod(): ?AuthenticationMethod
@@ -216,8 +216,8 @@ class PartialSession extends PartialModel implements JsonSerializable
         if ($this->hasKwh()) {
             $return['kwh'] = $this->kwh;
         }
-        if ($this->hasAuthId()) {
-            $return['auth_id'] = $this->authId;
+        if ($this->hasCdrToken()) {
+            $return['auth_id'] = $this->cdrToken;
         }
         if ($this->hasAuthMethod()) {
             $return['auth_method'] = $this->authMethod;

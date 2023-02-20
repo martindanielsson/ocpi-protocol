@@ -32,7 +32,7 @@ use JsonSerializable;
  * @method bool hasEnergyMix()
  * @method bool hasLastUpdated()
  * @method self withId(?string $id)
- * @method self withLocationType(?LocationType $locationType)
+ * @method self withLocationType(?ParkingType $locationType)
  * @method self withName(?string $name)
  * @method self withAddress(?string $address)
  * @method self withCity(?string $city)
@@ -56,7 +56,7 @@ use JsonSerializable;
 class PartialLocation extends PartialModel implements JsonSerializable
 {
     private ?string $id = null;
-    private ?LocationType $locationType = null;
+    private ?ParkingType $locationType = null;
     private ?string $name = null;
     private ?string $address = null;
     private ?string $city = null;
@@ -88,7 +88,7 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    protected function _withLocationType(?LocationType $locationType): self
+    protected function _withLocationType(?ParkingType $locationType): self
     {
         $this->locationType = $locationType;
         return $this;
@@ -243,7 +243,7 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this->id;
     }
 
-    public function getLocationType(): ?LocationType
+    public function getLocationType(): ?ParkingType
     {
         return $this->locationType;
     }

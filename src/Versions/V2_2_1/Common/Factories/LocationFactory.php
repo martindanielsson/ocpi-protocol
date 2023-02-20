@@ -8,7 +8,7 @@ use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AdditionalGeoLocation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Facility;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\GeoLocation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\LocationType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ParkingType;
 use DateTime;
 use stdClass;
 
@@ -22,7 +22,7 @@ class LocationFactory
 
         $location = new Location(
             $json->id,
-            new LocationType($json->parking_type),
+            new ParkingType($json->parking_type),
             $json->name ?? null,
             $json->address,
             $json->city,

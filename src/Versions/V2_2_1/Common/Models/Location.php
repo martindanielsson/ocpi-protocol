@@ -12,7 +12,7 @@ class Location implements JsonSerializable
 {
     private string $id;
 
-    private ?LocationType $locationType;
+    private ?ParkingType $locationType;
 
     private ?string $name;
 
@@ -71,18 +71,18 @@ class Location implements JsonSerializable
     private ?array $publishAllowedTo;
 
     public function __construct(
-        string $id,
-        ?LocationType $locationType,
-        ?string $name,
-        string $address,
-        string $city,
-        ?string $postalCode,
-        string $country,
-        GeoLocation $coordinates,
+        string           $id,
+        ?ParkingType     $locationType,
+        ?string          $name,
+        string           $address,
+        string           $city,
+        ?string          $postalCode,
+        string           $country,
+        GeoLocation      $coordinates,
         ?BusinessDetails $operator,
         ?BusinessDetails $suboperator,
         ?BusinessDetails $owner,
-        ?string $timeZone,
+        ?string          $timeZone,
         ?Hours $openingTimes,
         ?bool $chargingWhenClosed,
         ?EnergyMix $energyMix,
@@ -157,7 +157,7 @@ class Location implements JsonSerializable
         return $this->id;
     }
 
-    public function getLocationType(): ?LocationType
+    public function getLocationType(): ?ParkingType
     {
         return $this->locationType;
     }

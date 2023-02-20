@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Facility;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\LocationType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ParkingType;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialLocation;
 use DateTime;
 use stdClass;
@@ -24,7 +24,7 @@ class PartialLocationFactory
             $location->withId($json->id);
         }
         if (property_exists($json, 'type')) {
-            $location->withLocationType(new LocationType($json->type));
+            $location->withLocationType(new ParkingType($json->type));
         }
         if (property_exists($json, 'name')) {
             $location->withName($json->name);

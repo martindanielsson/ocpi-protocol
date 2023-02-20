@@ -14,43 +14,64 @@ class Session implements JsonSerializable
     private DateTime $startDate;
     private ?DateTime $endDate;
     private float $kwh;
-    private string $authId;
+    private CdrToken $cdrToken;
     private AuthenticationMethod $authMethod;
-    private Location $location;
     private ?string $meterId;
     private string $currency;
     /** @var ChargingPeriod[] */
     private array $chargingPeriods = [];
-    private ?float $totalCost;
+    private ?Price $totalCost;
     private SessionStatus $status;
     private DateTime $lastUpdated;
+    private string $countyCode;
+    private string $partyId;
+    private DateTime $startDateTime;
+    private ?DateTime $endDateTime;
+    private string $locationId;
+    private string $evseUid;
+    private string $connectorId;
+    private string $authorizationReference;
 
     public function __construct(
         string               $id,
         DateTime             $startDate,
         ?DateTime            $endDate,
         float                $kwh,
-        string               $authId,
+        CdrToken             $cdrToken,
         AuthenticationMethod $authMethod,
-        Location             $location,
         ?string              $meterId,
         string               $currency,
-        ?float               $totalCost,
+        ?Price               $totalCost,
         SessionStatus        $status,
-        DateTime             $lastUpdated
+        DateTime             $lastUpdated,
+        string               $countyCode,
+        string               $partyId,
+        DateTime             $startDateTime,
+        ?DateTime            $endDateTime,
+        string               $locationId,
+        string               $evseUid,
+        string               $connectorId,
+        string               $authorizationReference
     ) {
         $this->id = $id;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->kwh = $kwh;
-        $this->authId = $authId;
+        $this->cdrToken = $cdrToken;
         $this->authMethod = $authMethod;
-        $this->location = $location;
         $this->meterId = $meterId;
         $this->currency = $currency;
         $this->totalCost = $totalCost;
         $this->status = $status;
         $this->lastUpdated = $lastUpdated;
+        $this->countyCode = $countyCode;
+        $this->partyId = $partyId;
+        $this->startDateTime = $startDateTime;
+        $this->endDateTime = $endDateTime;
+        $this->locationId = $locationId;
+        $this->evseUid = $evseUid;
+        $this->connectorId = $connectorId;
+        $this->authorizationReference = $authorizationReference;
     }
 
     public function addChargingPeriod(ChargingPeriod $period): void
@@ -78,19 +99,14 @@ class Session implements JsonSerializable
         return $this->kwh;
     }
 
-    public function getAuthId(): string
+    public function getCdrToken(): CdrToken
     {
-        return $this->authId;
+        return $this->cdrToken;
     }
 
     public function getAuthMethod(): AuthenticationMethod
     {
         return $this->authMethod;
-    }
-
-    public function getLocation(): Location
-    {
-        return $this->location;
     }
 
     public function getCurrency(): string
@@ -108,7 +124,7 @@ class Session implements JsonSerializable
         return $this->chargingPeriods;
     }
 
-    public function getTotalCost(): ?float
+    public function getTotalCost(): ?Price
     {
         return $this->totalCost;
     }
@@ -130,7 +146,7 @@ class Session implements JsonSerializable
             $partialSession->hasStartDate() ? $partialSession->getStartDate() : $this->startDate,
             $partialSession->hasEndDate() ? $partialSession->getEndDate() : $this->endDate,
             $partialSession->hasKwh() ? $partialSession->getKwh() : $this->kwh,
-            $partialSession->hasAuthId() ? $partialSession->getAuthId() : $this->authId,
+            $partialSession->hasCdrToken() ? $partialSession->getCdrToken() : $this->cdrToken,
             $partialSession->hasAuthMethod() ? $partialSession->getAuthMethod() : $this->authMethod,
             $partialSession->hasLocation() ? $partialSession->getLocation() : $this->location,
             $partialSession->hasMeterId() ? $partialSession->getMeterId() : $this->meterId,
@@ -176,9 +192,9 @@ class Session implements JsonSerializable
             $diff = $diff ?? new PartialSession();
             $diff = $diff->withKwh($other->kwh);
         }
-        if ($this->authId !== $other->authId) {
+        if ($this->cdrToken !== $other->cdrToken) {
             $diff = $diff ?? new PartialSession();
-            $diff = $diff->withAuthId($other->authId);
+            $diff = $diff->withAuthId($other->cdrToken);
         }
         if (!$this->authMethod->equals($other->authMethod)) {
             $diff = $diff ?? new PartialSession();
@@ -270,14 +286,25 @@ class Session implements JsonSerializable
             'id' => $this->id,
             'start_datetime' => DateTimeFormatter::format($this->startDate),
             'kwh' => $this->kwh,
-            'auth_id' => $this->authId,
+            'auth_id' => $this->cdrToken,
             'auth_method' => $this->authMethod,
             'location' => $this->location,
             'currency' => $this->currency,
             'charging_periods' => $this->chargingPeriods,
             'status' => $this->status,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'county_code' => $this->countyCode,
+            'party_id' => $this->partyId,
+            'start_date_time' => $this->startDateTime,
+            'location_id' => $this->locationId,
+            'evse_uid' => $this->evseUid,
+            'connector_id' => $this->connectorId,
+            'authorization_reference' => $this->authorizationReference
         ];
+
+        if ($this->endDateTime !== null) {
+            $return['end_date_time'] = $this->endDateTime;
+        }
 
         if ($this->meterId !== null) {
             $return['meter_id'] = $this->meterId;
