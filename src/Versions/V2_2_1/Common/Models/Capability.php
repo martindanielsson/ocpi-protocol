@@ -13,6 +13,9 @@ use MyCLabs\Enum\Enum;
  * @method static self RESERVABLE()
  * @method static self RFID_READER()
  * @method static self UNLOCK_CAPABLE()
+ * @method static self CHARGING_PREFERENCES_CAPABLE()
+ * @method static self DEBIT_CARD_PAYABLE()
+ * @method static self TOKEN_GROUP_CAPABLE()
  */
 class Capability extends Enum
 {
@@ -22,4 +25,7 @@ class Capability extends Enum
     public const RESERVABLE = 'RESERVABLE';
     public const RFID_READER = 'RFID_READER';
     public const UNLOCK_CAPABLE = 'UNLOCK_CAPABLE';
+    public const CHARGING_PREFERENCES_CAPABLE = 'CHARGING_PREFERENCES_CAPABLE';
+    public const DEBIT_CARD_PAYABLE = 'DEBIT_CARD_PAYABLE';
+    public const TOKEN_GROUP_CAPABLE = 'TOKEN_GROUP_CAPABLE';
 }
