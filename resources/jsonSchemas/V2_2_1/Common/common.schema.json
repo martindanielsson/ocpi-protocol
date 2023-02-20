@@ -1,6 +1,14 @@
 {
     "title": "V2.1.1\\Common",
     "definitions": {
+        "auth_method": {
+            "type": "string",
+            "enum": [
+                "AUTH_REQUEST",
+                "WHITELIST",
+                "COMMAND"
+            ]
+        },
         "connector_type": {
             "type": "string",
             "enum": [

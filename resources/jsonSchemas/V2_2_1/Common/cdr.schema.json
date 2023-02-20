@@ -29,11 +29,7 @@
             "$ref": "common.schema.json#/definitions/timestamp"
         },
         "auth_method": {
-            "type": "string",
-            "enum": [
-                "AUTH_REQUEST",
-                "WHITELIST"
-            ]
+            "$ref": "common.schema.json#/definitions/auth_method"
         },
         "cdr_location": {
             "$ref": "cdr_location.schema.json",

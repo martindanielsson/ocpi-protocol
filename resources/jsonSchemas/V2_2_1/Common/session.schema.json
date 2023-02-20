@@ -29,11 +29,7 @@
             "maxLength": 36
         },
         "auth_method": {
-            "type": "string",
-            "enum": [
-                "AUTH_REQUEST",
-                "WHITELIST"
-            ]
+            "$ref": "common.schema.json#/definitions/auth_method"
         },
         "location": {
             "$ref": "location.schema.json",
