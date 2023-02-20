@@ -45,6 +45,7 @@ class CdrFactory
             $json->authorization_reference ?? null,
             $json->signed_data ?? SignedDataFactory::fromJson($json->signed_data),
             $json->invoice_reference_id ?? null,
+            $json->home_charging_compensation ?? null
         );
 
         if (property_exists($json, 'tariffs')) {
