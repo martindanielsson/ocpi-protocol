@@ -18,9 +18,7 @@ class CredentialsFactory
         return new Credentials(
             $json->token,
             $json->url,
-            BusinessDetailsFactory::fromJson($json->business_details),
-            $json->party_id,
-            $json->country_code
+            $json->roles
         );
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\CredentialsRoleFactory;
 use JsonSerializable;
+use stdClass;
 
 class Credentials implements JsonSerializable
 {
@@ -12,19 +14,21 @@ class Credentials implements JsonSerializable
 
     private string $url;
 
-    private BusinessDetails $businessDetails;
+    /**
+     * @var CredentialsRole[]
+     */
+    private array $roles;
 
-    private string $partyId;
-
-    private string $countryCode;
-
-    public function __construct(string $token, string $url, BusinessDetails $businessDetails, string $partyId, string $countryCode)
+    /**
+     * @param string $token
+     * @param string $url
+     * @param stdClass|null $roles
+     */
+    public function __construct(string $token, string $url, ?stdClass $roles)
     {
         $this->token = $token;
         $this->url = $url;
-        $this->businessDetails = $businessDetails;
-        $this->partyId = $partyId;
-        $this->countryCode = $countryCode;
+        $this->roles = CredentialsRoleFactory::fromJson($roles);
     }
 
     public function getToken(): string
@@ -37,29 +41,20 @@ class Credentials implements JsonSerializable
         return $this->url;
     }
 
-    public function getBusinessDetails(): BusinessDetails
-    {
-        return $this->businessDetails;
-    }
-
-    public function getPartyId(): string
-    {
-        return $this->partyId;
-    }
-
-    public function getCountryCode(): string
-    {
-        return $this->countryCode;
-    }
-
     public function jsonSerialize(): array
     {
         return [
             'token' => $this->token,
             'url' => $this->url,
-            'business_details' => $this->businessDetails,
-            'party_id' => $this->partyId,
-            'country_code' => $this->countryCode,
+            'roles' => $this->roles,
         ];
+    }
+
+    /**
+     * @return CredentialsRole[]
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
     }
 }
