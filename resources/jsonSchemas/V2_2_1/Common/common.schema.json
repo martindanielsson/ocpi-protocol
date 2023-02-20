@@ -486,11 +486,11 @@
                                 "type": "string",
                                 "enum": [
                                     "ENERGY",
-                                    "FLAT",
                                     "MAX_CURRENT",
                                     "MIN_CURRENT",
                                     "PARKING_TIME",
-                                    "TIME"
+                                    "TIME",
+                                    "RESERVATION_TIME"
                                 ]
                             },
                             "volume": {

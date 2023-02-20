@@ -8,7 +8,6 @@ use MyCLabs\Enum\Enum;
 
 /**
  * @method static self ENERGY()
- * @method static self FLAT()
  * @method static self MAX_CURRENT()
  * @method static self MIN_CURRENT()
  * @method static self PARKING_TIME()
