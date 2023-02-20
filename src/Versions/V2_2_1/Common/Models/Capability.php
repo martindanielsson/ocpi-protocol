@@ -16,6 +16,7 @@ use MyCLabs\Enum\Enum;
  * @method static self CHARGING_PREFERENCES_CAPABLE()
  * @method static self DEBIT_CARD_PAYABLE()
  * @method static self TOKEN_GROUP_CAPABLE()
+ * @method static self START_SESSION_CONNECTOR_REQUIRED()
  */
 class Capability extends Enum
 {
@@ -28,4 +29,5 @@ class Capability extends Enum
     public const CHARGING_PREFERENCES_CAPABLE = 'CHARGING_PREFERENCES_CAPABLE';
     public const DEBIT_CARD_PAYABLE = 'DEBIT_CARD_PAYABLE';
     public const TOKEN_GROUP_CAPABLE = 'TOKEN_GROUP_CAPABLE';
+    public const START_SESSION_CONNECTOR_REQUIRED = 'START_SESSION_CONNECTOR_REQUIRED';
 }

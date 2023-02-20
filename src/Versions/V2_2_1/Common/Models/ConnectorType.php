@@ -34,6 +34,11 @@ use MyCLabs\Enum\Enum;
  * @method static self TESLA_S()
  * @method static self PANTOGRAPH_TOP_DOWN()
  * @method static self PANTOGRAPH_BOTTOM_UP()
+ * @method static self NEMA()
+ * @method static self GB_T()
+ * @method static self CHAOJI()
+ * @method static self N()
+ * @method static self O()
  */
 class ConnectorType extends Enum
 {
@@ -64,4 +69,9 @@ class ConnectorType extends Enum
     public const TESLA_S = 'TESLA_S';
     public const PANTOGRAPH_TOP_DOWN = 'PANTOGRAPH_TOP_DOWN';
     public const PANTOGRAPH_BOTTOM_UP = 'PANTOGRAPH_BOTTOM_UP';
+    public const NEMA = 'NEMA';
+    public const GB_T = 'GB/T';
+    public const CHAOJI = 'ChaoJi and Domestic M';
+    public const N = 'N';
+    public const O = 'O';
 }
