@@ -476,6 +476,11 @@
                 "start_date_time": {
                     "type": "string"
                 },
+                "tariff_id": {
+                    "type": ["string", "null"],
+                    "minLength": 1,
+                    "maxLength": 36
+                },
                 "dimensions": {
                     "type": "array",
                     "minItems": 1,
