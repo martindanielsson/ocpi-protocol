@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CdrLocation;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\LocationReferences;
 use stdClass;
 

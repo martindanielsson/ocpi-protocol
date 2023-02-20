@@ -1,18 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
-use DateTime;
-use JsonSerializable;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\GeoLocationFactory;
 
-class CdrLocation implements JsonSerializable
+class CdrLocation implements \JsonSerializable
 {
     private string $id;
-
-    private LocationType $locationType;
 
     private ?string $name;
 
@@ -20,295 +14,196 @@ class CdrLocation implements JsonSerializable
 
     private string $city;
 
-    private string $postalCode;
+    private ?string $postalCode;
+
+    private ?string $state;
 
     private string $country;
 
     private GeoLocation $coordinates;
 
-    /** @var AdditionalGeoLocation[] */
-    private array $relatedLocations = [];
+    private string $evseUid;
 
-    /** @var EVSE[] */
-    private array $evses = [];
+    private string $evseId;
 
-    /** @var DisplayText[] */
-    private array $directions = [];
+    private string $connectorId;
 
-    private ?BusinessDetails $operator;
+    private ConnectorType $connectorStandard;
 
-    private ?BusinessDetails $suboperator;
+    private ConnectorFormat $connectorFormat;
 
-    private ?BusinessDetails $owner;
-
-    /** @var Facility[] */
-    private array $facilities = [];
-
-    private ?string $timeZone;
-
-    private ?Hours $openingTimes;
-
-    private ?bool $chargingWhenClosed;
-
-    /** @var Image[] */
-    private array $images = [];
-
-    private ?EnergyMix $energyMix;
-
-    private DateTime $lastUpdated;
+    private PowerType $connectorPowerType;
 
     public function __construct(
         string $id,
-        LocationType $locationType,
         ?string $name,
         string $address,
         string $city,
-        string $postalCode,
+        ?string $postalCode,
+        ?string $state,
         string $country,
-        GeoLocation $coordinates,
-        ?BusinessDetails $operator,
-        ?BusinessDetails $suboperator,
-        ?BusinessDetails $owner,
-        ?string $timeZone,
-        ?Hours $openingTimes,
-        ?bool $chargingWhenClosed,
-        ?EnergyMix $energyMix,
-        DateTime $lastUpdated
-    )
-    {
+        \stdClass $coordinates,
+        string $evseUid,
+        string $evseId,
+        string $connectorId,
+        string $connectorStandard,
+        string $connectorFormat,
+        string $connectorPowerType
+    ) {
         $this->id = $id;
-        $this->locationType = $locationType;
         $this->name = $name;
         $this->address = $address;
         $this->city = $city;
         $this->postalCode = $postalCode;
+        $this->state = $state;
         $this->country = $country;
-        $this->coordinates = $coordinates;
-        $this->operator = $operator;
-        $this->suboperator = $suboperator;
-        $this->owner = $owner;
-        $this->timeZone = $timeZone;
-        $this->openingTimes = $openingTimes;
-        $this->chargingWhenClosed = $chargingWhenClosed;
-        $this->energyMix = $energyMix;
-        $this->lastUpdated = $lastUpdated;
+        $this->coordinates = GeoLocationFactory::fromJson($coordinates);
+        $this->evseUid = $evseUid;
+        $this->evseId = $evseId;
+        $this->connectorId = $connectorId;
+        $this->connectorStandard = new ConnectorType($connectorStandard);
+        $this->connectorFormat = new ConnectorFormat($connectorFormat);
+        $this->connectorPowerType = new PowerType($connectorPowerType);
     }
 
-    public function addRelatedLocation(AdditionalGeoLocation $relatedLocation): self
-    {
-        $this->relatedLocations[] = $relatedLocation;
-
-        return $this;
-    }
-
-    public function addEVSE(EVSE $evse): self
-    {
-        $this->evses[] = $evse;
-
-        return $this;
-    }
-
-    public function addDirection(DisplayText $direction): self
-    {
-        $this->directions[] = $direction;
-
-        return $this;
-    }
-
-    public function addFacility(Facility $facility): self
-    {
-        $this->facilities[] = $facility;
-
-        return $this;
-    }
-
-    public function addImage(Image $image): self
-    {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
+    /**
+     * @return string
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    public function getLocationType(): LocationType
-    {
-        return $this->locationType;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
+    /**
+     * @return string
+     */
     public function getCity(): string
     {
         return $this->city;
     }
 
-    public function getPostalCode(): string
+    /**
+     * @return string|null
+     */
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @return string
+     */
     public function getCountry(): string
     {
         return $this->country;
     }
 
-    public function getCoordinates(): GeoLocation
+    /**
+     * @return GeoLocation|null
+     */
+    public function getCoordinates(): ?GeoLocation
     {
         return $this->coordinates;
     }
 
     /**
-     * @return AdditionalGeoLocation[]
+     * @return string
      */
-    public function getRelatedLocations(): array
+    public function getEvseUid(): string
     {
-        return $this->relatedLocations;
+        return $this->evseUid;
     }
 
     /**
-     * @return EVSE[]
+     * @return string
      */
-    public function getEvses(): array
+    public function getEvseId(): string
     {
-        return $this->evses;
+        return $this->evseId;
     }
 
     /**
-     * @return DisplayText[]
+     * @return string
      */
-    public function getDirections(): array
+    public function getConnectorId(): string
     {
-        return $this->directions;
-    }
-
-    public function getOperator(): ?BusinessDetails
-    {
-        return $this->operator;
-    }
-
-    public function getSuboperator(): ?BusinessDetails
-    {
-        return $this->suboperator;
-    }
-
-    public function getOwner(): ?BusinessDetails
-    {
-        return $this->owner;
+        return $this->connectorId;
     }
 
     /**
-     * @return Facility[]
+     * @return ConnectorType
      */
-    public function getFacilities(): array
+    public function getConnectorStandard(): ConnectorType
     {
-        return $this->facilities;
-    }
-
-    public function getTimeZone(): ?string
-    {
-        return $this->timeZone;
-    }
-
-    public function getOpeningTimes(): ?Hours
-    {
-        return $this->openingTimes;
-    }
-
-    public function getChargingWhenClosed(): ?bool
-    {
-        return $this->chargingWhenClosed;
+        return $this->connectorStandard;
     }
 
     /**
-     * @return Image[]
+     * @return ConnectorFormat
      */
-    public function getImages(): array
+    public function getConnectorFormat(): ConnectorFormat
     {
-        return $this->images;
+        return $this->connectorFormat;
     }
 
-    public function getEnergyMix(): ?EnergyMix
+    /**
+     * @return PowerType
+     */
+    public function getConnectorPowerType(): PowerType
     {
-        return $this->energyMix;
-    }
-
-    public function getLastUpdated(): DateTime
-    {
-        return $this->lastUpdated;
+        return $this->connectorPowerType;
     }
 
     public function jsonSerialize(): array
     {
         $return = [
             'id' => $this->id,
-            'type' => $this->locationType,
             'address' => $this->address,
             'city' => $this->city,
-            'postal_code' => $this->postalCode,
             'country' => $this->country,
             'coordinates' => $this->coordinates,
-            'evses' => $this->evses,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'evse_uid' => $this->evseUid,
+            'evse_id' => $this->evseId,
+            'connector_id' => $this->connectorId,
+            'connector_standard' => $this->connectorStandard,
+            'connector_format' => $this->connectorFormat,
+            'connector_power_type' => $this->connectorPowerType
         ];
-
-        if (count($this->relatedLocations) > 0) {
-            $return['related_locations'] = $this->relatedLocations;
-        }
-
-        if (count($this->directions) > 0) {
-            $return['directions'] = $this->directions;
-        }
-
-        if (count($this->facilities) > 0) {
-            $return['facilities'] = $this->facilities;
-        }
-
-        if (count($this->images) > 0) {
-            $return['images'] = $this->images;
-        }
 
         if ($this->name !== null) {
             $return['name'] = $this->name;
         }
 
-        if ($this->operator !== null) {
-            $return['operator'] = $this->operator;
+        if ($this->postalCode !== null) {
+            $return['postal_code'] = $this->postalCode;
         }
 
-        if ($this->suboperator !== null) {
-            $return['suboperator'] = $this->suboperator;
-        }
-
-        if ($this->owner !== null) {
-            $return['owner'] = $this->owner;
-        }
-
-        if ($this->timeZone !== null) {
-            $return['time_zone'] = $this->timeZone;
-        }
-
-        if ($this->openingTimes !== null) {
-            $return['opening_times'] = $this->openingTimes;
-        }
-
-        if ($this->chargingWhenClosed !== null) {
-            $return['charging_when_closed'] = $this->chargingWhenClosed;
-        }
-
-        if ($this->energyMix !== null) {
-            $return['energy_mix'] = $this->energyMix;
+        if ($this->state !== null) {
+            $return['state'] = $this->state;
         }
 
         return $return;

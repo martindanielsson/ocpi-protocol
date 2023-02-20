@@ -16,7 +16,7 @@ class Session implements JsonSerializable
     private float $kwh;
     private string $authId;
     private AuthenticationMethod $authMethod;
-    private CdrLocation $location;
+    private Location $location;
     private ?string $meterId;
     private string $currency;
     /** @var ChargingPeriod[] */
@@ -32,7 +32,7 @@ class Session implements JsonSerializable
         float                $kwh,
         string               $authId,
         AuthenticationMethod $authMethod,
-        CdrLocation          $location,
+        Location             $location,
         ?string              $meterId,
         string               $currency,
         ?float               $totalCost,
@@ -88,7 +88,7 @@ class Session implements JsonSerializable
         return $this->authMethod;
     }
 
-    public function getLocation(): CdrLocation
+    public function getLocation(): Location
     {
         return $this->location;
     }

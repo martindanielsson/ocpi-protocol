@@ -25,7 +25,7 @@ class SessionFactory
             $json->kwh,
             $json->auth_id,
             new AuthenticationMethod($json->auth_method),
-            CdrLocationFactory::fromJson($json->location),
+            LocationFactory::fromJson($json->location),
             $json->meter_id ?? null,
             $json->currency,
             $json->total_cost ?? null,

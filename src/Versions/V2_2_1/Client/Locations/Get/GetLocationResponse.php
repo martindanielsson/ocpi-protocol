@@ -7,13 +7,13 @@ namespace Chargemap\OCPI\Versions\V2_2_1\Client\Locations\Get;
 use Chargemap\OCPI\Common\Client\Modules\Locations\Get\GetLocationResponse as BaseResponse;
 use Chargemap\OCPI\Common\Client\OcpiUnauthorizedException;
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\CdrLocationFactory;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CdrLocation;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\LocationFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
 use Psr\Http\Message\ResponseInterface;
 
 class GetLocationResponse extends BaseResponse
 {
-    private ?CdrLocation $location = null;
+    private ?Location $location = null;
 
     /**
      * @param ResponseInterface $response
@@ -34,12 +34,12 @@ class GetLocationResponse extends BaseResponse
         if (empty($json->data)) {
             return $return;
         }
-        $return->location = CdrLocationFactory::fromJson($json->data);
+        $return->location = LocationFactory::fromJson($json->data);
 
         return $return;
     }
 
-    public function getLocation(): ?CdrLocation
+    public function getLocation(): ?Location
     {
         return $this->location;
     }
