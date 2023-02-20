@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Tariff;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\TariffType;
 use DateTime;
 use stdClass;
 
@@ -40,7 +41,12 @@ class TariffFactory
             $json->currency,
             $json->tariff_alt_url ?? null,
             EnergyMixFactory::fromJson($json->energy_mix ?? null),
-            new DateTime($json->last_updated)
+            new DateTime($json->last_updated),
+            $json->county_code,
+            $json->party_id,
+            $json->min_price ? PriceFactory::fromJson($json->min_price) : null,
+            $json->max_price ? PriceFactory::fromJson($json->max_price) : null,
+            $json->type ? new TariffType($json->type) : null
         );
 
         if (property_exists($json, 'tariff_alt_text')) {

@@ -13,6 +13,7 @@ use MyCLabs\Enum\Enum;
  * @method static self MIN_CURRENT()
  * @method static self PARKING_TIME()
  * @method static self TIME()
+ * @method static self RESERVATION_TIME()
  */
 class CdrDimensionType extends Enum
 {

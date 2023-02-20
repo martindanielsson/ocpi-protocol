@@ -9,6 +9,7 @@ use MyCLabs\Enum\Enum;
 /**
  * @method static self AUTH_REQUEST()
  * @method static self WHITELIST()
+ * @method static self COMMAND()
  */
 class AuthenticationMethod extends Enum
 {

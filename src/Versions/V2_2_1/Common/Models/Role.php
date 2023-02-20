@@ -4,6 +4,15 @@ namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use MyCLabs\Enum\Enum;
 
+/**
+ * @method static self CPO()
+ * @method static self EMSP()
+ * @method static self HUB()
+ * @method static self NAP()
+ * @method static self NSP()
+ * @method static self OTHER()
+ * @method static self SCSP()
+ */
 class Role extends Enum
 {
     public const CPO = 'CPO';

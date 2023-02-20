@@ -26,13 +26,38 @@ class Tariff implements JsonSerializable
 
     private DateTime $lastUpdated;
 
-    public function __construct(string $id, string $currency, ?string $tariffAltUrl, ?EnergyMix $energyMix, DateTime $lastUpdated)
-    {
+    private string $countyCode;
+
+    private string $partyId;
+
+    private ?Price $minPrice;
+
+    private ?Price $maxPrice;
+
+    private ?TariffType $type;
+
+    public function __construct(
+        string $id,
+        string $currency,
+        ?string $tariffAltUrl,
+        ?EnergyMix $energyMix,
+        DateTime $lastUpdated,
+        string $countyCode,
+        string $partyId,
+        ?Price $minPrice,
+        ?Price $maxPrice,
+        ?TariffType $type
+    ) {
         $this->id = $id;
         $this->currency = $currency;
         $this->tariffAltUrl = $tariffAltUrl;
         $this->energyMix = $energyMix;
         $this->lastUpdated = $lastUpdated;
+        $this->countyCode = $countyCode;
+        $this->partyId = $partyId;
+        $this->minPrice = $minPrice;
+        $this->maxPrice = $maxPrice;
+        $this->type = $type;
     }
 
     public function addTariffAltText(DisplayText $text): self
@@ -97,7 +122,21 @@ class Tariff implements JsonSerializable
             'currency' => $this->currency,
             'elements' => $this->elements,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'country_code' => $this->countyCode,
+            'party_id' => $this->partyId,
         ];
+
+        if ($this->minPrice !== null) {
+            $return['min_price'] = $this->minPrice;
+        }
+
+        if ($this->maxPrice !== null) {
+            $return['maxPrice'] = $this->maxPrice;
+        }
+
+        if ($this->type !== null) {
+            $return['type'] = $this->type;
+        }
 
         if (count($this->tariffAltText) > 0) {
             $return['tariff_alt_text'] = $this->tariffAltText;
