@@ -32,6 +32,8 @@ use MyCLabs\Enum\Enum;
  * @method static self IEC_62196_T3C()
  * @method static self TESLA_R()
  * @method static self TESLA_S()
+ * @method static self PANTOGRAPH_TOP_DOWN()
+ * @method static self PANTOGRAPH_BOTTOM_UP()
  */
 class ConnectorType extends Enum
 {
@@ -60,4 +62,6 @@ class ConnectorType extends Enum
     public const IEC_62196_T3C = 'IEC_62196_T3C';
     public const TESLA_R = 'TESLA_R';
     public const TESLA_S = 'TESLA_S';
+    public const PANTOGRAPH_TOP_DOWN = 'PANTOGRAPH_TOP_DOWN';
+    public const PANTOGRAPH_BOTTOM_UP = 'PANTOGRAPH_BOTTOM_UP';
 }
