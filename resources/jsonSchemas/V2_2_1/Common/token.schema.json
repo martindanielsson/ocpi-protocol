@@ -2,6 +2,16 @@
     "title": "V2.1.1\\Token",
     "type": "object",
     "properties": {
+        "county_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2
+        },
+        "party_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+        },
         "uid": {
             "type": "string",
             "minLength": 1,
@@ -14,10 +24,35 @@
                 "OTHER"
             ]
         },
-        "auth_id": {
+        "contract_id": {
             "type": "string",
             "minLength": 1,
             "maxLength": 36
+        },
+        "group_id": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "default_profile_type": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/profile_type"
+                }
+            ]
+        },
+        "energy_contract": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/energy_contract"
+                }
+            ]
         },
         "visual_number": {
             "type": "string",

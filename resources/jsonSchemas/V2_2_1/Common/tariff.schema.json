@@ -115,6 +115,22 @@
                         "null"
                     ],
                     "properties": {
+                        "reservation": {
+                            "oneOf": [
+                                {
+                                    "type": "null"
+                                },
+                                {
+                                    "$ref": "common.schema.json#/definitions/reservation_restriction_type"
+                                }
+                            ]
+                        },
+                        "min_current": {
+                            "type": ["number", "null"]
+                        },
+                        "max_current": {
+                            "type": ["number", "null"]
+                        },
                         "start_time": {
                             "type": [
                                 "string",
