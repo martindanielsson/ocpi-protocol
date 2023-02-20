@@ -36,7 +36,14 @@
                 "IEC_62196_T3A",
                 "IEC_62196_T3C",
                 "TESLA_R",
-                "TESLA_S"
+                "TESLA_S",
+                "PANTOGRAPH_TOP_DOWN",
+                "PANTOGRAPH_BOTTOM_UP",
+                "NEMA",
+                "GB_T",
+                "ChaoJi and Domestic M",
+                "N",
+                "O"
             ]
         },
         "connector_format": {
