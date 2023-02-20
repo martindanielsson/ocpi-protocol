@@ -11,10 +11,10 @@ use MyCLabs\Enum\Enum;
  * @method static self PARKING_GARAGE()
  * @method static self UNDERGROUND_GARAGE()
  * @method static self PARKING_LOT()
- * @method static self OTHER()
- * @method static self UNKNOWN()
+ * @method static self ON_DRIVEWAY()
+ * @method static self ALONG_MOTORWAY()
  */
-class LocationType extends Enum
+class ParkingType extends Enum
 {
     /**
      * Parking in public space.
@@ -40,15 +40,7 @@ class LocationType extends Enum
      */
     public const PARKING_LOT = 'PARKING_LOT';
 
-    /**
-     * None of the given possibilities.
-     * @var string
-     */
-    public const OTHER = 'OTHER';
+    public const ON_DRIVEWAY = 'ON_DRIVEWAY';
 
-    /**
-     * Parking location type is not known by the operator (default).
-     * @var string
-     */
-    public const UNKNOWN = 'UNKNOWN';
+    public const ALONG_MOTORWAY = 'ALONG_MOTORWAY';
 }
