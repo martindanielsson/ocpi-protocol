@@ -8,49 +8,13 @@
             "maxLength": 36
         },
         "standard": {
-            "type": "string",
-            "enum": [
-                "CHADEMO",
-                "DOMESTIC_A",
-                "DOMESTIC_B",
-                "DOMESTIC_C",
-                "DOMESTIC_D",
-                "DOMESTIC_E",
-                "DOMESTIC_F",
-                "DOMESTIC_G",
-                "DOMESTIC_H",
-                "DOMESTIC_I",
-                "DOMESTIC_J",
-                "DOMESTIC_K",
-                "DOMESTIC_L",
-                "IEC_60309_2_single_16",
-                "IEC_60309_2_three_16",
-                "IEC_60309_2_three_32",
-                "IEC_60309_2_three_64",
-                "IEC_62196_T1",
-                "IEC_62196_T1_COMBO",
-                "IEC_62196_T2",
-                "IEC_62196_T2_COMBO",
-                "IEC_62196_T3A",
-                "IEC_62196_T3C",
-                "TESLA_R",
-                "TESLA_S"
-            ]
+            "$ref": "common.schema.json#/definitions/connector_type"
         },
         "format": {
-            "type": "string",
-            "enum": [
-                "SOCKET",
-                "CABLE"
-            ]
+            "$ref": "common.schema.json#/definitions/connector_format"
         },
         "power_type": {
-            "type": "string",
-            "enum": [
-                "AC_1_PHASE",
-                "AC_3_PHASE",
-                "DC"
-            ]
+            "$ref": "common.schema.json#/definitions/power_type"
         },
         "voltage": {
             "type": "integer"

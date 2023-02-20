@@ -1,6 +1,109 @@
 {
     "title": "V2.1.1\\Common",
     "definitions": {
+        "connector_type": {
+            "type": "string",
+            "enum": [
+                "CHADEMO",
+                "DOMESTIC_A",
+                "DOMESTIC_B",
+                "DOMESTIC_C",
+                "DOMESTIC_D",
+                "DOMESTIC_E",
+                "DOMESTIC_F",
+                "DOMESTIC_G",
+                "DOMESTIC_H",
+                "DOMESTIC_I",
+                "DOMESTIC_J",
+                "DOMESTIC_K",
+                "DOMESTIC_L",
+                "IEC_60309_2_single_16",
+                "IEC_60309_2_three_16",
+                "IEC_60309_2_three_32",
+                "IEC_60309_2_three_64",
+                "IEC_62196_T1",
+                "IEC_62196_T1_COMBO",
+                "IEC_62196_T2",
+                "IEC_62196_T2_COMBO",
+                "IEC_62196_T3A",
+                "IEC_62196_T3C",
+                "TESLA_R",
+                "TESLA_S"
+            ]
+        },
+        "connector_format": {
+            "type": "string",
+            "enum": [
+                "SOCKET",
+                "CABLE"
+            ]
+        },
+        "power_type": {
+            "type": "string",
+            "enum": [
+                "AC_1_PHASE",
+                "AC_3_PHASE",
+                "DC"
+            ]
+        },
+        "price": {
+            "type": "object",
+            "properties": {
+                "excl_vat": {
+                    "type": "number"
+                },
+                "incl_vat": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "excl_vat"
+            ]
+        },
+        "cdr_token": {
+            "type": "object",
+            "properties": {
+                "country_code": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 2
+                },
+                "party_id": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 3
+                },
+                "uid": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 36
+                },
+                "type": {
+                    "$ref": "common.schema.json#/definitions/token_type"
+                },
+                "contract_id": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 36
+                }
+            },
+            "required": [
+                "country_code",
+                "party_id",
+                "uid",
+                "type",
+                "contract_id"
+            ]
+        },
+        "token_type": {
+            "type": "string",
+            "enum": [
+                "AD_HOC_USER",
+                "APP_USER",
+                "OTHER",
+                "RFID"
+            ]
+        },
         "credentials": {
             "type": "object",
             "properties": {

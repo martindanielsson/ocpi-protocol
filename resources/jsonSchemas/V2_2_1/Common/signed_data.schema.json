@@ -1,0 +1,30 @@
+{
+    "title": "V2.2.1\\SignedData",
+    "type": "object",
+    "properties": {
+        "encoding_method": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "encoding_method_version": {
+            "type": ["integer", "null"]
+        },
+        "public_key": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 512
+        },
+        "signed_values": {
+            "type": "array",
+            "items": {
+                "$ref": "signed_value.schema.json"
+            }
+        },
+        "url": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 512
+        }
+    }
+}

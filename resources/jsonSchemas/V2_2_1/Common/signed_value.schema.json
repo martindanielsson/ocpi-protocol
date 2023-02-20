@@ -1,0 +1,21 @@
+{
+    "title": "V2.2.1\\SignedValue",
+    "type": "object",
+    "properties": {
+        "nature": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32
+        },
+        "plain_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+        },
+        "signed_data": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+        }
+    }
+}

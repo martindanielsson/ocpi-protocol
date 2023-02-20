@@ -2,21 +2,31 @@
     "title": "V2.1.1\\CDR",
     "type": "object",
     "properties": {
+        "county_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2
+        },
+        "party_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+        },
+        "session_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 36
+        },
         "id": {
             "type": "string",
             "minLength": 1,
-            "max_length": 36
+            "maxLength": 39
         },
         "start_date_time": {
             "$ref": "common.schema.json#/definitions/timestamp"
         },
         "end_date_time": {
             "$ref": "common.schema.json#/definitions/timestamp"
-        },
-        "auth_id": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 36
         },
         "auth_method": {
             "type": "string",
@@ -25,8 +35,8 @@
                 "WHITELIST"
             ]
         },
-        "location": {
-            "$ref": "location.schema.json",
+        "cdr_location": {
+            "$ref": "cdr_location.schema.json",
             "required": [
                 "id",
                 "type",
@@ -37,6 +47,93 @@
                 "coordinates",
                 "last_updated"
             ]
+        },
+        "credit": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "credit_reference_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 39
+        },
+        "total_fixed_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "total_energy_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "total_time_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "total_parking_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "total_reservation_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "authorization_reference": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "signed_data": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "signed_data.schema.json"
+                }
+            ]
+        },
+        "invoice_reference_id": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 39
         },
         "meter_id": {
             "type": [
@@ -68,7 +165,10 @@
             }
         },
         "total_cost": {
-            "type": "number"
+            "$ref": "common.schema.json#/definitions/price"
+        },
+        "cdr_token": {
+            "$ref": "common.schema.json#/definitions/cdr_token"
         },
         "total_energy": {
             "type": "number"
@@ -98,7 +198,6 @@
         "id",
         "start_date_time",
         "end_date_time",
-        "auth_id",
         "auth_method",
         "location",
         "currency",
@@ -106,7 +205,10 @@
         "total_cost",
         "total_energy",
         "total_time",
-        "last_updated"
+        "last_updated",
+        "country_code",
+        "party_id",
+        "cdr_token"
     ],
     "additionalProperties": false
 }

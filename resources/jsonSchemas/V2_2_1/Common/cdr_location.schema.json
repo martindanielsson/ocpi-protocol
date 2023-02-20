@@ -1,0 +1,68 @@
+{
+    "title": "V2.2.1\\Location",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 36
+        },
+        "name": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 255
+        },
+        "address": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 45
+        },
+        "city": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 45
+        },
+        "postal_code": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 10
+        },
+        "state": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 20
+        },
+        "country": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 3
+        },
+        "coordinates": {
+            "$ref": "common.schema.json#/definitions/geo_location"
+        },
+        "evse_uid": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 36
+        },
+        "evse_id": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 48
+        },
+        "connector_id": {
+            "type": "string",
+            "min_length": 1,
+            "max_length": 36
+        },
+        "connector_standard": {
+            "$ref": "common.schema.json#/definitions/connector_type"
+        },
+        "connector_format": {
+            "$ref": "common.schema.json#/definitions/connector_format"
+        },
+        "connector_power_type": {
+            "$ref": "common.schema.json#/definitions/power_type"
+        }
+    }
+}
