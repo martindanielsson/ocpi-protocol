@@ -7,6 +7,46 @@
             "minLength": 1,
             "max_length": 36
         },
+        "county_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2
+        },
+        "party_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+        },
+        "min_price": {
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "max_price": {
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "type": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/tariff_type"
+                }
+            ]
+        },
         "currency": {
             "type": "string",
             "minLength": 3,
@@ -53,7 +93,9 @@
         "id",
         "currency",
         "elements",
-        "last_updated"
+        "last_updated",
+        "county_code",
+        "party_id"
     ],
     "additionalProperties": false,
     "definitions": {
