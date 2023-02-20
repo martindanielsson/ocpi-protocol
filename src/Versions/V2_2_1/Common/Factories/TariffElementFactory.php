@@ -24,7 +24,8 @@ class TariffElementFactory
                 new PriceComponent(
                     new TariffDimensionType($jsonPriceComponent->type),
                     $jsonPriceComponent->price,
-                    $jsonPriceComponent->step_size
+                    $jsonPriceComponent->step_size,
+                    $jsonPriceComponent->vat
                 )
             );
         }
