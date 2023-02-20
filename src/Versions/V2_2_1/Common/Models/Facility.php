@@ -23,6 +23,10 @@ use MyCLabs\Enum\Enum;
  * @method static self CARPOOL_PARKING()
  * @method static self FUEL_STATION()
  * @method static self WIFI()
+ * @method static self BIKE_SHARING()
+ * @method static self PARKING_LOT()
+ * @method static self TRAM_STOP()
+ * @method static self METRO_STATION()
  */
 class Facility extends Enum
 {
@@ -42,4 +46,8 @@ class Facility extends Enum
     public const CARPOOL_PARKING = 'CARPOOL_PARKING';
     public const FUEL_STATION = 'FUEL_STATION';
     public const WIFI = 'WIFI';
+    public const BIKE_SHARING = 'BIKE_SHARING';
+    public const PARKING_LOT = 'PARKING_LOT';
+    public const TRAM_STOP = 'TRAM_STOP';
+    public const METRO_STATION = 'METRO_STATION';
 }
