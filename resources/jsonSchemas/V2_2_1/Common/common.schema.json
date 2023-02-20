@@ -1,6 +1,13 @@
 {
     "title": "V2.1.1\\Common",
     "definitions": {
+        "reservation_restriction_type": {
+            "type": "string",
+            "enum": [
+                "RESERVATION",
+                "RESERVATION_EXPIRES"
+            ]
+        },
         "tariff_type": {
             "type": "string",
             "enum": [
