@@ -231,6 +231,9 @@
                         "step_size": {
                             "type": "integer",
                             "minimum": 0
+                        },
+                        "vat": {
+                            "type": ["number", "null"]
                         }
                     },
                     "required": [
