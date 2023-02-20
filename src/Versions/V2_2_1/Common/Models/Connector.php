@@ -23,11 +23,13 @@ class Connector implements JsonSerializable
 
     private int $amperage;
 
-    private ?string $tariffId;
+    private ?array $tariffIds;
 
     private ?string $termsAndConditions;
 
     private DateTime $lastUpdated;
+
+    private ?int $maxElectricPower;
 
     /**
      * Connector constructor.
@@ -37,11 +39,12 @@ class Connector implements JsonSerializable
      * @param PowerType $powerType
      * @param int $voltage
      * @param int $amperage
-     * @param string|null $tariffId
+     * @param array|null $tariffIds
      * @param string|null $termsAndConditions
      * @param DateTime $lastUpdated
+     * @param int|null $maxElectricPower
      */
-    public function __construct(string $id, ConnectorType $standard, ConnectorFormat $format, PowerType $powerType, int $voltage, int $amperage, ?string $tariffId, ?string $termsAndConditions, DateTime $lastUpdated)
+    public function __construct(string $id, ConnectorType $standard, ConnectorFormat $format, PowerType $powerType, int $voltage, int $amperage, ?array $tariffIds, ?string $termsAndConditions, DateTime $lastUpdated, ?int $maxElectricPower)
     {
         $this->id = $id;
         $this->standard = $standard;
@@ -49,9 +52,10 @@ class Connector implements JsonSerializable
         $this->powerType = $powerType;
         $this->voltage = $voltage;
         $this->amperage = $amperage;
-        $this->tariffId = $tariffId;
+        $this->tariffIds = $tariffIds;
         $this->termsAndConditions = $termsAndConditions;
         $this->lastUpdated = $lastUpdated;
+        $this->maxElectricPower = $maxElectricPower;
     }
 
     public function getId(): string
@@ -84,9 +88,9 @@ class Connector implements JsonSerializable
         return $this->amperage;
     }
 
-    public function getTariffId(): ?string
+    public function getTariffIds(): ?array
     {
-        return $this->tariffId;
+        return $this->tariffIds;
     }
 
     public function getTermsAndConditions(): ?string
@@ -111,14 +115,23 @@ class Connector implements JsonSerializable
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
         ];
 
-        if ($this->tariffId !== null) {
-            $return['tariff_id'] = $this->tariffId;
+        if ($this->tariffIds !== null) {
+            $return['tariff_ids'] = $this->tariffIds;
         }
 
         if ($this->termsAndConditions !== null) {
             $return['terms_and_conditions'] = $this->termsAndConditions;
         }
 
+        if ($this->maxElectricPower !== null) {
+            $return['max_electric_power'] = $this->maxElectricPower;
+        }
+
         return $return;
+    }
+
+    public function getMaxElectricPower(): ?int
+    {
+        return $this->maxElectricPower;
     }
 }
