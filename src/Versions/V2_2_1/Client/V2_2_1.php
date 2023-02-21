@@ -18,6 +18,8 @@ class V2_2_1 extends AbstractFeatures
 
     private Versions $versions;
 
+    private Commands $commands;
+
     public function credentials(): Credentials
     {
         if (!isset($this->credentials)) {
@@ -61,5 +63,14 @@ class V2_2_1 extends AbstractFeatures
         }
 
         return $this->versions;
+    }
+
+    public function commands(): Commands
+    {
+        if(!isset($this->commands)) {
+            $this->commands = new Commands($this->ocpiConfiguration);
+        }
+
+        return $this->commands;
     }
 }
