@@ -1,0 +1,16 @@
+{
+    "title": "V2.1.1\\Emsp\\Server\\Commands\\Post",
+    "properties": {
+        "data": {
+            "$ref": "../../../Common/commands.schema.json"
+        },
+        "status_code": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+        }
+    },
+    "required": [
+        "data",
+        "status_code"
+    ],
+    "additionalProperties": false
+}
