@@ -1,21 +1,16 @@
 {
-    "title": "V2.1.1\\CDR",
+    "title": "V2.2.1\\CDR",
     "type": "object",
     "properties": {
-        "county_code": {
+        "country_code": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 2,
             "maxLength": 2
         },
         "party_id": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 3,
             "maxLength": 3
-        },
-        "session_id": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 36
         },
         "id": {
             "type": "string",
@@ -28,85 +23,19 @@
         "end_date_time": {
             "$ref": "common.schema.json#/definitions/timestamp"
         },
-        "auth_method": {
-            "$ref": "common.schema.json#/definitions/auth_method"
-        },
-        "cdr_location": {
-            "$ref": "cdr_location.schema.json",
-            "required": [
-                "id",
-                "type",
-                "address",
-                "city",
-                "postal_code",
-                "country",
-                "coordinates",
-                "last_updated"
-            ]
-        },
-        "credit": {
-            "type": [
-                "boolean",
-                "null"
-            ]
-        },
-        "credit_reference_id": {
+        "session_id": {
             "type": [
                 "string",
                 "null"
             ],
             "minLength": 1,
-            "maxLength": 39
+            "maxLength": 36
         },
-        "total_fixed_cost": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "common.schema.json#/definitions/price"
-                }
-            ]
+        "cdr_token": {
+            "$ref": "common.schema.json#/definitions/cdr_token"
         },
-        "total_energy_cost": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "common.schema.json#/definitions/price"
-                }
-            ]
-        },
-        "total_time_cost": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "common.schema.json#/definitions/price"
-                }
-            ]
-        },
-        "total_parking_cost": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "common.schema.json#/definitions/price"
-                }
-            ]
-        },
-        "total_reservation_cost": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "common.schema.json#/definitions/price"
-                }
-            ]
+        "auth_method": {
+            "$ref": "common.schema.json#/definitions/auth_method"
         },
         "authorization_reference": {
             "type": [
@@ -116,20 +45,8 @@
             "minLength": 1,
             "maxLength": 36
         },
-        "signed_data": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "signed_data.schema.json"
-                }
-            ]
-        },
-        "invoice_reference_id": {
-            "type": ["string", "null"],
-            "minLength": 1,
-            "maxLength": 39
+        "cdr_location": {
+            "$ref": "#/definitions/cdr_location"
         },
         "meter_id": {
             "type": [
@@ -160,22 +77,79 @@
                 "$ref": "common.schema.json#/definitions/charging_period"
             }
         },
+        "signed_data": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "#/definitions/signed_data"
+                }
+            ]
+        },
         "total_cost": {
             "$ref": "common.schema.json#/definitions/price"
         },
-        "cdr_token": {
-            "$ref": "common.schema.json#/definitions/cdr_token"
+        "total_fixed_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
         },
         "total_energy": {
             "type": "number"
         },
+        "total_energy_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
         "total_time": {
             "type": "number"
+        },
+        "total_time_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
         },
         "total_parking_time": {
             "type": [
                 "number",
                 "null"
+            ]
+        },
+        "total_parking_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
+            ]
+        },
+        "total_reservation_cost": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "common.schema.json#/definitions/price"
+                }
             ]
         },
         "remark": {
@@ -186,25 +160,212 @@
             "minLength": 1,
             "maxLength": 255
         },
+        "invoice_reference_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 39
+        },
+        "credit": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "credit_reference_id": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 39
+        },
+        "home_charging_compensation": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
         "last_updated": {
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
     "required": [
+        "country_code",
+        "party_id",
         "id",
         "start_date_time",
         "end_date_time",
+        "cdr_token",
         "auth_method",
-        "location",
+        "cdr_location",
         "currency",
         "charging_periods",
         "total_cost",
         "total_energy",
         "total_time",
-        "last_updated",
-        "country_code",
-        "party_id",
-        "cdr_token"
+        "last_updated"
     ],
-    "additionalProperties": false
+    "additionalProperties": false,
+    "definitions": {
+        "cdr_location" : {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 36
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "min_length": 1,
+                    "max_length": 255
+                },
+                "address": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 45
+                },
+                "city": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 45
+                },
+                "postal_code": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "min_length": 1,
+                    "max_length": 10
+                },
+                "state": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "min_length": 1,
+                    "max_length": 20
+                },
+                "country": {
+                    "type": "string",
+                    "min_length": 3,
+                    "max_length": 3
+                },
+                "coordinates": {
+                    "$ref": "common.schema.json#/definitions/geo_location"
+                },
+                "evse_uid": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 36
+                },
+                "evse_id": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 48
+                },
+                "connector_id": {
+                    "type": "string",
+                    "min_length": 1,
+                    "max_length": 36
+                },
+                "connector_standard": {
+                    "$ref": "common.schema.json#/definitions/connector_type"
+                },
+                "connector_format": {
+                    "$ref": "common.schema.json#/definitions/connector_format"
+                },
+                "connector_power_type": {
+                    "$ref": "common.schema.json#/definitions/power_type"
+                }
+            },
+            "required": [
+                "id",
+                "address",
+                "city",
+                "country",
+                "coordinates",
+                "evse_uid",
+                "evse_id",
+                "connector_id",
+                "connector_standard",
+                "connector_format",
+                "connector_power_type"
+            ]
+        },
+        "signed_data": {
+            "type": "object",
+            "properties": {
+                "encoding_method": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 36
+                },
+                "encoding_method_version": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "public_key": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 512
+                },
+                "signed_values": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/signed_value"
+                    }
+                },
+                "url": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 512
+                }
+            },
+            "required": [
+                "encoding_method",
+                "signed_values"
+            ]
+        },
+        "signed_value": {
+            "type": "object",
+            "properties": {
+                "nature": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 32
+                },
+                "plain_data": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 512
+                },
+                "signed_data": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 5000
+                }
+            },
+            "required": [
+                "nature",
+                "plain_data",
+                "signed_data"
+            ]
+        }
+    }
 }

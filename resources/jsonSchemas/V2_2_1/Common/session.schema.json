@@ -1,15 +1,15 @@
 {
-    "title": "V2.1.1\\Session",
+    "title": "V2.2.1\\Session",
     "type": "object",
     "properties": {
-        "county_code": {
+        "country_code": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 2,
             "maxLength": 2
         },
         "party_id": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 3,
             "maxLength": 3
         },
         "id": {
@@ -17,10 +17,10 @@
             "minLength": 1,
             "maxLength": 36
         },
-        "start_datetime": {
+        "start_date_time": {
             "$ref": "common.schema.json#/definitions/timestamp"
         },
-        "end_datetime": {
+        "end_date_time": {
             "oneOf": [
                 {
                     "type": "null"
@@ -39,6 +39,14 @@
         "auth_method": {
             "$ref": "common.schema.json#/definitions/auth_method"
         },
+        "authorization_reference": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 36
+        },
         "location_id": {
             "type": "string",
             "minLength": 1,
@@ -51,11 +59,6 @@
         },
         "connector_id": {
             "type": "string",
-            "minLength": 1,
-            "maxLength": 36
-        },
-        "authorization_reference": {
-            "type": ["string", "null"],
             "minLength": 1,
             "maxLength": 36
         },
@@ -91,31 +94,34 @@
                 }
             ]
         },
-        "start_date_time": {
-            "$ref": "common.schema.json#/definitions/timestamp"
-        },
-        "end_date_time": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "common.schema.json#/definitions/timestamp"
-                }
-            ]
-        },
         "status": {
             "type": "string",
             "enum": [
                 "ACTIVE",
                 "COMPLETED",
                 "INVALID",
-                "PENDING"
+                "PENDING",
+                "RESERVATION"
             ]
         },
         "last_updated": {
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
+    "required": [
+        "country_code",
+        "party_id",
+        "id",
+        "start_date_time",
+        "kwh",
+        "cdr_token",
+        "auth_method",
+        "location_id",
+        "evse_uid",
+        "connector_id",
+        "currency",
+        "status",
+        "last_updated"
+    ],
     "additionalProperties": false
 }

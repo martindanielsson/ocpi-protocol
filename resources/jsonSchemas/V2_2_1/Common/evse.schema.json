@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Evse",
+    "title": "V2.2.1\\Evse",
     "type": "object",
     "properties": {
         "uid": {
@@ -16,7 +16,7 @@
             "maxLength": 48
         },
         "status": {
-            "$ref": "common.schema.json#/definitions/evse_status"
+            "$ref": "#/definitions/status"
         },
         "status_schedule": {
             "type": [
@@ -33,7 +33,7 @@
                         "$ref": "common.schema.json#/definitions/timestamp"
                     },
                     "status": {
-                        "$ref": "common.schema.json#/definitions/evse_status"
+                        "$ref": "#/definitions/status"
                     }
                 },
                 "required": [
@@ -52,15 +52,18 @@
                 "type": "string",
                 "enum": [
                     "CHARGING_PROFILE_CAPABLE",
+                    "CHARGING_PREFERENCES_CAPABLE",
+                    "CHIP_CARD_SUPPORT",
+                    "CONTACTLESS_CARD_SUPPORT",
                     "CREDIT_CARD_PAYABLE",
+                    "DEBIT_CARD_PAYABLE",
+                    "PED_TERMINAL",
                     "REMOTE_START_STOP_CAPABLE",
                     "RESERVABLE",
                     "RFID_READER",
-                    "UNLOCK_CAPABLE",
-                    "CHARGING_PREFERENCES_CAPABLE",
-                    "DEBIT_CARD_PAYABLE",
+                    "START_SESSION_CONNECTOR_REQUIRED",
                     "TOKEN_GROUP_CAPABLE",
-                    "START_SESSION_CONNECTOR_REQUIRED"
+                    "UNLOCK_CAPABLE"
                 ]
             }
         },
@@ -135,5 +138,27 @@
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
-    "additionalProperties": false
+    "required": [
+        "uid",
+        "status",
+        "connectors",
+        "last_updated"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "status": {
+            "type": "string",
+            "enum": [
+                "AVAILABLE",
+                "BLOCKED",
+                "CHARGING",
+                "INOPERATIVE",
+                "OUTOFORDER",
+                "PLANNED",
+                "REMOVED",
+                "RESERVED",
+                "UNKNOWN"
+            ]
+        }
+    }
 }

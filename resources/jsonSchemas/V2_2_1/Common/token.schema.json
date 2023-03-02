@@ -1,15 +1,15 @@
 {
-    "title": "V2.1.1\\Token",
+    "title": "V2.2.1\\Token",
     "type": "object",
     "properties": {
-        "county_code": {
+        "country_code": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 2,
             "maxLength": 2
         },
         "party_id": {
             "type": "string",
-            "minLength": 1,
+            "minLength": 3,
             "maxLength": 3
         },
         "uid": {
@@ -18,21 +18,47 @@
             "maxLength": 36
         },
         "type": {
-            "type": "string",
-            "enum": [
-                "RFID",
-                "OTHER"
-            ]
+            "$ref": "common.schema.json#/definitions/token_type"
         },
         "contract_id": {
             "type": "string",
             "minLength": 1,
             "maxLength": 36
         },
+        "visual_number": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+        },
+        "issuer": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+        },
         "group_id": {
-            "type": ["string", "null"],
+            "type": [
+                "string",
+                "null"
+            ],
             "minLength": 1,
             "maxLength": 36
+        },
+        "valid": {
+            "type": "boolean"
+        },
+        "whitelist": {
+            "type": "string",
+            "enum": [
+                "ALWAYS",
+                "ALLOWED",
+                "ALLOWED_OFFLINE",
+                "NEVER"
+            ]
+        },
+        "language": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
         },
         "default_profile_type": {
             "oneOf": [
@@ -50,40 +76,47 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "common.schema.json#/definitions/energy_contract"
+                    "$ref": "#/definitions/energy_contract"
                 }
             ]
-        },
-        "visual_number": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-        },
-        "issuer": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-        },
-        "valid": {
-            "type": "boolean"
-        },
-        "whitelist": {
-            "type": "string",
-            "enum": [
-                "ALWAYS",
-                "ALLOWED",
-                "ALLOWED_OFFLINE",
-                "NEVER"
-            ]
-        },
-        "language": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 2
         },
         "last_updated": {
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
-    "additionalProperties": false
+    "required": [
+        "country_code",
+        "party_id",
+        "uid",
+        "type",
+        "contract_id",
+        "issuer",
+        "valid",
+        "whitelist",
+        "last_updated"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "energy_contract": {
+            "type": "object",
+            "properties": {
+                "supplier_name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "contract_id": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 64
+                }
+            },
+            "required": [
+                "supplier_name"
+            ]
+        }
+    }
 }
