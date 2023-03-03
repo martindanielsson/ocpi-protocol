@@ -236,7 +236,7 @@ class Cdr implements JsonSerializable
     public function jsonSerialize(): array
     {
         $return = [
-            'county_code' => $this->countyCode,
+            'country_code' => $this->countyCode,
             'party_id' => $this->partyId,
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),

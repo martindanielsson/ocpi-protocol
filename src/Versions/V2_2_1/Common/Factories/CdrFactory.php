@@ -18,7 +18,7 @@ class CdrFactory
         }
 
         $cdr = new Cdr(
-            $json->county_code,
+            $json->country_code,
             $json->party_id,
             $json->id,
             new DateTime($json->start_date_time),

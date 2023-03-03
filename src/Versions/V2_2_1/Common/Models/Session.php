@@ -293,7 +293,7 @@ class Session implements JsonSerializable
             'charging_periods' => $this->chargingPeriods,
             'status' => $this->status,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'county_code' => $this->countyCode,
+            'country_code' => $this->countyCode,
             'party_id' => $this->partyId,
             'start_date_time' => $this->startDateTime,
             'location_id' => $this->locationId,

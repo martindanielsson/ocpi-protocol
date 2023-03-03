@@ -42,7 +42,7 @@ class TariffFactory
             $json->tariff_alt_url ?? null,
             EnergyMixFactory::fromJson($json->energy_mix ?? null),
             new DateTime($json->last_updated),
-            $json->county_code,
+            $json->country_code,
             $json->party_id,
             $json->min_price ? PriceFactory::fromJson($json->min_price) : null,
             $json->max_price ? PriceFactory::fromJson($json->max_price) : null,
