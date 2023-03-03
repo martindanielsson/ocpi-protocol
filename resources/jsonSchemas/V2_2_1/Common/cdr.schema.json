@@ -193,6 +193,8 @@
         }
     },
     "required": [
+        "country_code",
+        "party_id",
         "id",
         "start_date_time",
         "end_date_time",

@@ -4,6 +4,8 @@
         {
             "$ref": "../../../Common/token.schema.json",
             "required": [
+                "country_code",
+                "party_id",
                 "uid",
                 "type",
                 "contract_id",

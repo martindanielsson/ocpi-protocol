@@ -4,6 +4,8 @@
         {
             "$ref": "../../../Common/location.schema.json",
             "required": [
+                "country_code",
+                "party_id",
                 "id",
                 "publish",
                 "address",

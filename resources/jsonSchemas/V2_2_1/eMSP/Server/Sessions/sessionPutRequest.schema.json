@@ -4,6 +4,8 @@
         {
             "$ref": "../../../Common/session.schema.json",
             "required": [
+                "country_code",
+                "party_id",
                 "id",
                 "start_date_time",
                 "kwh",
