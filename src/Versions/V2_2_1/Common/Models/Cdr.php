@@ -10,7 +10,7 @@ use JsonSerializable;
 
 class Cdr implements JsonSerializable
 {
-    private string $countyCode;
+    private string $countryCode;
 
     private string $partyId;
 
@@ -73,7 +73,7 @@ class Cdr implements JsonSerializable
     private ?string $homeChargingCompensation;
 
     public function __construct(
-        string               $countyCode,
+        string               $countryCode,
         string               $partyId,
         string               $id,
         DateTime             $startDateTime,
@@ -103,7 +103,7 @@ class Cdr implements JsonSerializable
         ?string              $homeChargingCompensation
     )
     {
-        $this->countyCode = $countyCode;
+        $this->countryCode = $countryCode;
         $this->partyId = $partyId;
         $this->id = $id;
         $this->startDateTime = $startDateTime;
@@ -236,7 +236,7 @@ class Cdr implements JsonSerializable
     public function jsonSerialize(): array
     {
         $return = [
-            'country_code' => $this->countyCode,
+            'country_code' => $this->countryCode,
             'party_id' => $this->partyId,
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
@@ -319,9 +319,9 @@ class Cdr implements JsonSerializable
     /**
      * @return string
      */
-    public function getCountyCode(): string
+    public function getCountryCode(): string
     {
-        return $this->countyCode;
+        return $this->countryCode;
     }
 
     /**
