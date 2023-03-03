@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Emsp\\Server\\Locations\\Get",
+    "title": "V2.2.1\\Emsp\\Server\\Locations\\Get",
     "properties": {
         "data": {
             "$ref": "../../../Common/location.schema.json",

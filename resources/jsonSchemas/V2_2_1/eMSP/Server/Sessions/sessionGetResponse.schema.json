@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Emsp\\Server\\Sessions\\Get",
+    "title": "V2.2.1\\Emsp\\Server\\Sessions\\Get",
     "properties": {
         "data": {
             "$ref": "../../../Common/session.schema.json",
