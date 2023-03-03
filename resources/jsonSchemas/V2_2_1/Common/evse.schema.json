@@ -24,23 +24,7 @@
                 "null"
             ],
             "items": {
-                "type": "object",
-                "properties": {
-                    "period_begin": {
-                        "$ref": "common.schema.json#/definitions/timestamp"
-                    },
-                    "period_end": {
-                        "$ref": "common.schema.json#/definitions/timestamp"
-                    },
-                    "status": {
-                        "$ref": "#/definitions/status"
-                    }
-                },
-                "required": [
-                    "period_begin",
-                    "status"
-                ],
-                "additionalProperties": false
+                "$ref": "#/definitions/status_schedule"
             }
         },
         "capabilities": {
@@ -138,12 +122,6 @@
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
-    "required": [
-        "uid",
-        "status",
-        "connectors",
-        "last_updated"
-    ],
     "additionalProperties": false,
     "definitions": {
         "status": {
@@ -159,6 +137,25 @@
                 "RESERVED",
                 "UNKNOWN"
             ]
+        },
+        "status_schedule": {
+            "type": "object",
+            "properties": {
+                "period_begin": {
+                    "$ref": "common.schema.json#/definitions/timestamp"
+                },
+                "period_end": {
+                    "$ref": "common.schema.json#/definitions/timestamp"
+                },
+                "status": {
+                    "$ref": "#/definitions/status"
+                }
+            },
+            "required": [
+                "period_begin",
+                "status"
+            ],
+            "additionalProperties": false
         }
     }
 }

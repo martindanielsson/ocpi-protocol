@@ -50,14 +50,5 @@
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
-    "required": [
-        "id",
-        "standard",
-        "format",
-        "power_type",
-        "max_voltage",
-        "max_amperage",
-        "last_updated"
-    ],
     "additionalProperties": false
 }

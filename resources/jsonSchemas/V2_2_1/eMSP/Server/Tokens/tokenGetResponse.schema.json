@@ -11,15 +11,13 @@
                 "required": [
                     "uid",
                     "type",
-                    "auth_id",
+                    "contract_id",
                     "issuer",
                     "valid",
                     "whitelist",
                     "last_updated"
-                ],
-                "additionalProperties": false
-            },
-            "additionalProperties": false
+                ]
+            }
         },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"

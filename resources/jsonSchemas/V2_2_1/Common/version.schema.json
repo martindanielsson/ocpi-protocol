@@ -46,5 +46,9 @@
             }
         }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "required": [
+        "version",
+        "endpoints"
+    ]
 }

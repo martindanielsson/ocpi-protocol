@@ -5,12 +5,12 @@
             "$ref": "../../../Common/location.schema.json",
             "required": [
                 "id",
-                "type",
+                "publish",
                 "address",
                 "city",
-                "postal_code",
                 "country",
                 "coordinates",
+                "time_zone",
                 "last_updated"
             ],
             "additionalProperties": false

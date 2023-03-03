@@ -1,18 +1,17 @@
 {
-    "title": "V2.1.1\\Emsp\\Client\\Token\\Get",
+    "title": "V2.2.1\\Emsp\\Client\\Token\\Get",
     "properties": {
         "data": {
             "$ref": "../../../Common/token.schema.json",
             "required": [
                 "uid",
                 "type",
-                "auth_id",
+                "contract_id",
                 "issuer",
                 "valid",
                 "whitelist",
                 "last_updated"
-            ],
-            "additionalProperties": false
+            ]
         },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"

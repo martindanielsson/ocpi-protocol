@@ -84,17 +84,6 @@
             "$ref": "common.schema.json#/definitions/timestamp"
         }
     },
-    "required": [
-        "country_code",
-        "party_id",
-        "uid",
-        "type",
-        "contract_id",
-        "issuer",
-        "valid",
-        "whitelist",
-        "last_updated"
-    ],
     "additionalProperties": false,
     "definitions": {
         "energy_contract": {
