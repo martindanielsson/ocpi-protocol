@@ -31,7 +31,7 @@ class SessionFactory
             $json->total_cost ? PriceFactory::fromJson($json->total_cost) : null,
             new SessionStatus($json->status),
             new DateTime($json->last_updated),
-            $json->county_code,
+            $json->country_code,
             $json->party_id,
             new DateTime($json->start_date_time),
             $json->end_date_time ? new DateTime($json->end_date_time) : null,

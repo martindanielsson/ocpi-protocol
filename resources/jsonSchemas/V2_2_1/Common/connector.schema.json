@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Emsp\\Locations\\Evses\\Connectors\\Put",
+    "title": "V2.2.1\\Connector",
     "type": "object",
     "properties": {
         "id": {
@@ -22,6 +22,12 @@
         "max_amperage": {
             "type": "integer"
         },
+        "max_electric_power": {
+            "type": [
+                "integer",
+                "null"
+            ]
+        },
         "tariff_ids": {
             "type": [
                 "array",
@@ -39,9 +45,6 @@
                 "null"
             ],
             "format": "uri"
-        },
-        "max_electric_power": {
-            "type": ["integer", "null"]
         },
         "last_updated": {
             "$ref": "common.schema.json#/definitions/timestamp"

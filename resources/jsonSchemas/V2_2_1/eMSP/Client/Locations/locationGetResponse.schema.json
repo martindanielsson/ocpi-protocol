@@ -1,6 +1,28 @@
 {
-    "title": "V2.1.1\\Emsp\\Client\\Locations\\Get",
+    "title": "V2.2.1\\Emsp\\Client\\Locations\\Get",
     "properties": {
+        "data": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../../../Common/location.schema.json",
+                    "required": [
+                        "country_code",
+                        "party_id",
+                        "id",
+                        "publish",
+                        "address",
+                        "city",
+                        "country",
+                        "coordinates",
+                        "time_zone",
+                        "last_updated"
+                    ]
+                }
+            ]
+        },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"
         },
@@ -11,27 +33,6 @@
                 },
                 {
                     "$ref": "../../../Common/common.schema.json#/definitions/status_message"
-                }
-            ]
-        },
-        "data": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "../../../Common/location.schema.json",
-                    "required": [
-                        "id",
-                        "type",
-                        "address",
-                        "city",
-                        "postal_code",
-                        "country",
-                        "coordinates",
-                        "last_updated"
-                    ],
-                    "additionalProperties": false
                 }
             ]
         },

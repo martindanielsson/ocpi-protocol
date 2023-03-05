@@ -23,7 +23,7 @@ class Session implements JsonSerializable
     private ?Price $totalCost;
     private SessionStatus $status;
     private DateTime $lastUpdated;
-    private string $countyCode;
+    private string $countryCode;
     private string $partyId;
     private DateTime $startDateTime;
     private ?DateTime $endDateTime;
@@ -44,7 +44,7 @@ class Session implements JsonSerializable
         ?Price               $totalCost,
         SessionStatus        $status,
         DateTime             $lastUpdated,
-        string               $countyCode,
+        string               $countryCode,
         string               $partyId,
         DateTime             $startDateTime,
         ?DateTime            $endDateTime,
@@ -64,7 +64,7 @@ class Session implements JsonSerializable
         $this->totalCost = $totalCost;
         $this->status = $status;
         $this->lastUpdated = $lastUpdated;
-        $this->countyCode = $countyCode;
+        $this->countryCode = $countryCode;
         $this->partyId = $partyId;
         $this->startDateTime = $startDateTime;
         $this->endDateTime = $endDateTime;
@@ -293,7 +293,7 @@ class Session implements JsonSerializable
             'charging_periods' => $this->chargingPeriods,
             'status' => $this->status,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'county_code' => $this->countyCode,
+            'country_code' => $this->countryCode,
             'party_id' => $this->partyId,
             'start_date_time' => $this->startDateTime,
             'location_id' => $this->locationId,

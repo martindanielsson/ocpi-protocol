@@ -1,21 +1,6 @@
 {
-    "title": "V2.1.1\\Common",
+    "title": "V2.2.1\\Common",
     "definitions": {
-        "energy_contract": {
-            "type": "object",
-            "properties": {
-                "supplier_name": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 64
-                },
-                "contract_id": {
-                    "type": ["string", "null"],
-                    "minLength": 1,
-                    "maxLength": 64
-                }
-            }
-        },
         "profile_type": {
             "type": "string",
             "enum": [
@@ -25,35 +10,19 @@
                 "REGULAR"
             ]
         },
-        "reservation_restriction_type": {
-            "type": "string",
-            "enum": [
-                "RESERVATION",
-                "RESERVATION_EXPIRES"
-            ]
-        },
-        "tariff_type": {
-            "type": "string",
-            "enum": [
-                "AD_HOC_PAYMENT",
-                "PROFILE_CHEAP",
-                "PROFILE_FAST",
-                "PROFILE_GREEN",
-                "REGULAR"
-            ]
-        },
         "auth_method": {
             "type": "string",
             "enum": [
                 "AUTH_REQUEST",
-                "WHITELIST",
-                "COMMAND"
+                "COMMAND",
+                "WHITELIST"
             ]
         },
         "connector_type": {
             "type": "string",
             "enum": [
                 "CHADEMO",
+                "CHAOJI",
                 "DOMESTIC_A",
                 "DOMESTIC_B",
                 "DOMESTIC_C",
@@ -66,6 +35,11 @@
                 "DOMESTIC_J",
                 "DOMESTIC_K",
                 "DOMESTIC_L",
+                "DOMESTIC_M",
+                "DOMESTIC_N",
+                "DOMESTIC_O",
+                "GBT_AC",
+                "GBT_DC",
                 "IEC_60309_2_single_16",
                 "IEC_60309_2_three_16",
                 "IEC_60309_2_three_32",
@@ -76,15 +50,17 @@
                 "IEC_62196_T2_COMBO",
                 "IEC_62196_T3A",
                 "IEC_62196_T3C",
-                "TESLA_R",
-                "TESLA_S",
-                "PANTOGRAPH_TOP_DOWN",
+                "NEMA_5_20",
+                "NEMA_6_30",
+                "NEMA_6_50",
+                "NEMA_10_30",
+                "NEMA_10_50",
+                "NEMA_14_30",
+                "NEMA_14_50",
                 "PANTOGRAPH_BOTTOM_UP",
-                "NEMA",
-                "GB_T",
-                "ChaoJi and Domestic M",
-                "N",
-                "O"
+                "PANTOGRAPH_TOP_DOWN",
+                "TESLA_R",
+                "TESLA_S"
             ]
         },
         "connector_format": {
@@ -98,6 +74,8 @@
             "type": "string",
             "enum": [
                 "AC_1_PHASE",
+                "AC_2_PHASE",
+                "AC_2_PHASE_SPLIT",
                 "AC_3_PHASE",
                 "DC"
             ]
@@ -109,7 +87,10 @@
                     "type": "number"
                 },
                 "incl_vat": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 }
             },
             "required": [
@@ -121,12 +102,12 @@
             "properties": {
                 "country_code": {
                     "type": "string",
-                    "min_length": 1,
+                    "min_length": 2,
                     "max_length": 2
                 },
                 "party_id": {
                     "type": "string",
-                    "min_length": 1,
+                    "min_length": 3,
                     "max_length": 3
                 },
                 "uid": {
@@ -159,34 +140,6 @@
                 "OTHER",
                 "RFID"
             ]
-        },
-        "credentials": {
-            "type": "object",
-            "properties": {
-                "token": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 64
-                },
-                "url": {
-                    "type": "string",
-                    "format": "uri"
-                },
-                "business_details": {
-                    "$ref": "#/definitions/business_details"
-                },
-                "party_id": {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 3
-                },
-                "country_code": {
-                    "type": "string",
-                    "minLength": 2,
-                    "maxLength": 2
-                }
-            },
-            "additionalProperties": false
         },
         "status_code": {
             "type": "integer"
@@ -230,72 +183,6 @@
             "required": [
                 "name"
             ],
-            "additionalProperties": false
-        },
-        "evse_status": {
-            "type": "string",
-            "enum": [
-                "AVAILABLE",
-                "BLOCKED",
-                "CHARGING",
-                "INOPERATIVE",
-                "OUTOFORDER",
-                "PLANNED",
-                "REMOVED",
-                "RESERVED",
-                "UNKNOWN"
-            ]
-        },
-        "exceptional_period": {
-            "type": "object",
-            "properties": {
-                "period_begin": {
-                    "$ref": "#/definitions/timestamp"
-                },
-                "period_end": {
-                    "$ref": "#/definitions/timestamp"
-                }
-            },
-            "required": [
-                "period_begin",
-                "period_end"
-            ],
-            "additionalProperties": false
-        },
-        "hours": {
-            "type": "object",
-            "properties": {
-                "regular_hours": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "items": {
-                        "$ref": "#/definitions/regular_hours"
-                    }
-                },
-                "twentyfourseven": {
-                    "type": "boolean"
-                },
-                "exceptional_openings": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "items": {
-                        "$ref": "#/definitions/exceptional_period"
-                    }
-                },
-                "exceptional_closings": {
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "items": {
-                        "$ref": "#/definitions/exceptional_period"
-                    }
-                }
-            },
             "additionalProperties": false
         },
         "image": {
@@ -394,42 +281,6 @@
             ],
             "additionalProperties": false
         },
-        "regular_hours": {
-            "type": "object",
-            "properties": {
-                "weekday": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 7
-                },
-                "period_begin": {
-                    "type": "string",
-                    "pattern": "[0-2][0-9]:[0-5][0-9]"
-                },
-                "period_end": {
-                    "type": "string",
-                    "pattern": "[0-2][0-9]:[0-5][0-9]"
-                }
-            },
-            "additionalProperties": false
-        },
-        "related_locations": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "latitude": {
-                        "$ref": "#/definitions/latitude"
-                    },
-                    "longitude": {
-                        "$ref": "#/definitions/longitude"
-                    },
-                    "name": {
-                        "$ref": "#/definitions/display_text"
-                    }
-                }
-            }
-        },
         "energy_mix": {
             "type": "object",
             "properties": {
@@ -518,27 +369,6 @@
             ],
             "additionalProperties": false
         },
-        "credentials_role": {
-            "type": "object",
-            "properties": {
-                "role": {
-                    "$ref": "#/definitions/role"
-                },
-                "business_details": {
-                    "$ref": "#/definitions/business_details"
-                },
-                "party_id": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 3
-                },
-                "country_code": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 2
-                }
-            }
-        },
         "role": {
             "type": "string",
             "enum": [
@@ -557,11 +387,6 @@
                 "start_date_time": {
                     "type": "string"
                 },
-                "tariff_id": {
-                    "type": ["string", "null"],
-                    "minLength": 1,
-                    "maxLength": 36
-                },
                 "dimensions": {
                     "type": "array",
                     "minItems": 1,
@@ -571,12 +396,19 @@
                             "type": {
                                 "type": "string",
                                 "enum": [
+                                    "CURRENT",
                                     "ENERGY",
+                                    "ENERGY_EXPORT",
+                                    "ENERGY_IMPORT",
                                     "MAX_CURRENT",
                                     "MIN_CURRENT",
+                                    "MAX_POWER",
+                                    "MIN_POWER",
                                     "PARKING_TIME",
-                                    "TIME",
-                                    "RESERVATION_TIME"
+                                    "POWER",
+                                    "RESERVATION_TIME",
+                                    "STATE_OF_CHARGE",
+                                    "TIME"
                                 ]
                             },
                             "volume": {
@@ -589,6 +421,14 @@
                         ],
                         "additionalProperties": false
                     }
+                },
+                "tariff_id": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 36
                 }
             },
             "required": [
@@ -626,7 +466,9 @@
             "enum": [
                 "2.0",
                 "2.1",
-                "2.1.1"
+                "2.1.1",
+                "2.2",
+                "2.2.1"
             ]
         }
     }

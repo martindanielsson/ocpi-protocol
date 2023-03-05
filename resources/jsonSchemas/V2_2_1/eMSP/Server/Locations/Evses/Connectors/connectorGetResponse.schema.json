@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Emsp\\Server\\Locations\\Evses\\Connectors\\Get",
+    "title": "V2.2.1\\Emsp\\Server\\Locations\\Evses\\Connectors\\Get",
     "properties": {
         "data": {
             "$ref": "../../../../../Common/connector.schema.json",

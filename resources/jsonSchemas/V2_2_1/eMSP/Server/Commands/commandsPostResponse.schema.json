@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Emsp\\Server\\Commands\\Post",
+    "title": "V2.2.1\\Emsp\\Server\\Commands\\Post",
     "properties": {
         "data": {
             "$ref": "../../../Common/commands.schema.json"

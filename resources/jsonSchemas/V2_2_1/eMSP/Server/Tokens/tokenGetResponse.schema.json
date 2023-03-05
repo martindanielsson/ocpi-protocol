@@ -1,5 +1,5 @@
 {
-    "title": "V2.1.1\\Emsp\\Server\\Token\\Get",
+    "title": "V2.2.1\\Emsp\\Server\\Token\\Get",
     "properties": {
         "data": {
             "type": [
@@ -9,17 +9,17 @@
             "items": {
                 "$ref": "../../../Common/token.schema.json",
                 "required": [
+                    "country_code",
+                    "party_id",
                     "uid",
                     "type",
-                    "auth_id",
+                    "contract_id",
                     "issuer",
                     "valid",
                     "whitelist",
                     "last_updated"
-                ],
-                "additionalProperties": false
-            },
-            "additionalProperties": false
+                ]
+            }
         },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"

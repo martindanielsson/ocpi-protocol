@@ -26,7 +26,7 @@ class Tariff implements JsonSerializable
 
     private DateTime $lastUpdated;
 
-    private string $countyCode;
+    private string $countryCode;
 
     private string $partyId;
 
@@ -42,7 +42,7 @@ class Tariff implements JsonSerializable
         ?string $tariffAltUrl,
         ?EnergyMix $energyMix,
         DateTime $lastUpdated,
-        string $countyCode,
+        string $countryCode,
         string $partyId,
         ?Price $minPrice,
         ?Price $maxPrice,
@@ -53,7 +53,7 @@ class Tariff implements JsonSerializable
         $this->tariffAltUrl = $tariffAltUrl;
         $this->energyMix = $energyMix;
         $this->lastUpdated = $lastUpdated;
-        $this->countyCode = $countyCode;
+        $this->countryCode = $countryCode;
         $this->partyId = $partyId;
         $this->minPrice = $minPrice;
         $this->maxPrice = $maxPrice;
@@ -122,7 +122,7 @@ class Tariff implements JsonSerializable
             'currency' => $this->currency,
             'elements' => $this->elements,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'country_code' => $this->countyCode,
+            'country_code' => $this->countryCode,
             'party_id' => $this->partyId,
         ];
 
