@@ -1,5 +1,5 @@
 {
-    "title": "V2.2.1\\Connector",
+    "title": "V2.2.1\\Locations\\Connector",
     "type": "object",
     "properties": {
         "id": {
@@ -8,13 +8,13 @@
             "maxLength": 36
         },
         "standard": {
-            "$ref": "common.schema.json#/definitions/connector_type"
+            "$ref": "../common.schema.json#/definitions/connector_type"
         },
         "format": {
-            "$ref": "common.schema.json#/definitions/connector_format"
+            "$ref": "../common.schema.json#/definitions/connector_format"
         },
         "power_type": {
-            "$ref": "common.schema.json#/definitions/power_type"
+            "$ref": "../common.schema.json#/definitions/power_type"
         },
         "max_voltage": {
             "type": "integer"
@@ -47,7 +47,7 @@
             "format": "uri"
         },
         "last_updated": {
-            "$ref": "common.schema.json#/definitions/timestamp"
+            "$ref": "../common.schema.json#/definitions/timestamp"
         }
     },
     "additionalProperties": false

@@ -7,7 +7,7 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "../../../Common/location.schema.json",
+                    "$ref": "../../../Common/Locations/location.schema.json",
                     "required": [
                         "country_code",
                         "party_id",
