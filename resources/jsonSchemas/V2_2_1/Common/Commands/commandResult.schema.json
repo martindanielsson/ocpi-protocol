@@ -1,0 +1,24 @@
+{
+    "title": "V2.2.1\\Commands\\CommandResult",
+    "type": "object",
+    "properties": {
+        "result": {
+            "type": "string",
+            "enum": [
+                "ACCEPTED",
+                "CANCELED_RESERVATION",
+                "EVSE_OCCUPIED",
+                "EVSE_INOPERATIVE",
+                "FAILED",
+                "NOT_SUPPORTED",
+                "REJECTED",
+                "TIMEOUT",
+                "UNKNOWN_RESERVATION"
+            ]
+        },
+        "message": {
+            "$ref": "common.schema.json#/definitions/display_text"
+        }
+    },
+    "additionalProperties": false
+}

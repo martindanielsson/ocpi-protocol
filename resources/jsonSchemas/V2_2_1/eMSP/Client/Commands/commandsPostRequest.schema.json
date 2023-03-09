@@ -1,0 +1,25 @@
+{
+    "title": "V2.2.1\\Emsp\\Client\\Commands\\Post",
+    "oneOf": [
+        {
+            "$ref": "../../../Common/Commands/cancelReservation.schema.json",
+            "additionalProperties": false
+        },
+        {
+            "$ref": "../../../Common/Commands/reserveNow.schema.json",
+            "additionalProperties": false
+        },
+        {
+            "$ref": "../../../Common/Commands/startSession.schema.json",
+            "additionalProperties": false
+        },
+        {
+            "$ref": "../../../Common/Commands/stopSession.schema.json",
+            "additionalProperties": false
+        },
+        {
+            "$ref": "../../../Common/Commands/unlockConnector.schema.json",
+            "additionalProperties": false
+        }
+    ]
+}

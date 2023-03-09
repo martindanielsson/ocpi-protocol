@@ -1,0 +1,23 @@
+{
+    "title": "V2.2.1\\Emsp\\Client\\Commands\\Post",
+    "properties": {
+        "data": {
+            "$ref": "../../../Common/Commands/commandResponse.schema.json",
+        },
+        "status_code": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+        },
+        "status_message": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_message"
+        },
+        "timestamp": {
+            "$ref": "../../../Common/common.schema.json#/definitions/timestamp"
+        }
+    },
+    "required": [
+        "data",
+        "status_code",
+        "timestamp"
+    ],
+    "additionalProperties": false
+}
