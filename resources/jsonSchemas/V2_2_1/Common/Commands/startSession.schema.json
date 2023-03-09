@@ -7,7 +7,7 @@
             "format": "uri"
         },
         "token": {
-            "$ref": "token.schema.json"
+            "$ref": "../Tokens/token.schema.json"
         },
         "location_id": {
             "type": "string",

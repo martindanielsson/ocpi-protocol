@@ -1,5 +1,5 @@
 {
-    "title": "V2.2.1\\Token",
+    "title": "V2.2.1\\Tokens\\Token",
     "type": "object",
     "properties": {
         "country_code": {
@@ -18,7 +18,7 @@
             "maxLength": 36
         },
         "type": {
-            "$ref": "common.schema.json#/definitions/token_type"
+            "$ref": "../common.schema.json#/definitions/token_type"
         },
         "contract_id": {
             "type": "string",
@@ -66,7 +66,7 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "common.schema.json#/definitions/profile_type"
+                    "$ref": "../common.schema.json#/definitions/profile_type"
                 }
             ]
         },
@@ -81,7 +81,7 @@
             ]
         },
         "last_updated": {
-            "$ref": "common.schema.json#/definitions/timestamp"
+            "$ref": "../common.schema.json#/definitions/timestamp"
         }
     },
     "additionalProperties": false,

@@ -7,7 +7,7 @@
                 "null"
             ],
             "items": {
-                "$ref": "../../../Common/token.schema.json",
+                "$ref": "../../../Common/Tokens/token.schema.json",
                 "required": [
                     "country_code",
                     "party_id",

@@ -7,10 +7,10 @@
             "format": "uri"
         },
         "token": {
-            "$ref": "token.schema.json"
+            "$ref": "../Tokens/token.schema.json"
         },
         "expiry_date": {
-            "$ref": "common.schema.json#/definitions/timestamp"
+            "$ref": "../common.schema.json#/definitions/timestamp"
         },
         "reservation_id": {
             "type": "string",

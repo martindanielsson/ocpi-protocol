@@ -17,7 +17,7 @@
             ]
         },
         "message": {
-            "$ref": "common.schema.json#/definitions/display_text"
+            "$ref": "../common.schema.json#/definitions/display_text"
         }
     },
     "additionalProperties": false
