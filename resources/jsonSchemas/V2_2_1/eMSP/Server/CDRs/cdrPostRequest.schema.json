@@ -2,7 +2,8 @@
     "title": "V2.2.1\\Emsp\\Server\\Cdrs\\Post",
     "oneOf": [
         {
-            "$ref": "../../../Common/cdr.schema.json"
+            "$ref": "../../../Common/cdr.schema.json",
+            "additionalProperties": false
         }
     ]
 }

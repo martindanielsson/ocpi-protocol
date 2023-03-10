@@ -1,5 +1,5 @@
 {
-    "title": "V2.2.1\\Evse",
+    "title": "V2.2.1\\Locations\\Evse",
     "type": "object",
     "properties": {
         "uid": {
@@ -72,7 +72,7 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "common.schema.json#/definitions/geo_location"
+                    "$ref": "../common.schema.json#/definitions/geo_location"
                 }
             ]
         },
@@ -90,7 +90,7 @@
                 "null"
             ],
             "items": {
-                "$ref": "common.schema.json#/definitions/display_text"
+                "$ref": "../common.schema.json#/definitions/display_text"
             }
         },
         "parking_restrictions": {
@@ -115,11 +115,11 @@
                 "null"
             ],
             "items": {
-                "$ref": "common.schema.json#/definitions/image"
+                "$ref": "../common.schema.json#/definitions/image"
             }
         },
         "last_updated": {
-            "$ref": "common.schema.json#/definitions/timestamp"
+            "$ref": "../common.schema.json#/definitions/timestamp"
         }
     },
     "additionalProperties": false,
@@ -142,10 +142,10 @@
             "type": "object",
             "properties": {
                 "period_begin": {
-                    "$ref": "common.schema.json#/definitions/timestamp"
+                    "$ref": "../common.schema.json#/definitions/timestamp"
                 },
                 "period_end": {
-                    "$ref": "common.schema.json#/definitions/timestamp"
+                    "$ref": "../common.schema.json#/definitions/timestamp"
                 },
                 "status": {
                     "$ref": "#/definitions/status"

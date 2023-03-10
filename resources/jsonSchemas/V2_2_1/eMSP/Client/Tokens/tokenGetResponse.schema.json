@@ -2,7 +2,7 @@
     "title": "V2.2.1\\Emsp\\Client\\Token\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../Common/token.schema.json",
+            "$ref": "../../../Common/Tokens/token.schema.json",
             "required": [
                 "country_code",
                 "party_id",
@@ -19,14 +19,7 @@
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"
         },
         "status_message": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "../../../Common/common.schema.json#/definitions/status_message"
-                }
-            ]
+            "$ref": "../../../Common/common.schema.json#/definitions/status_message"
         },
         "timestamp": {
             "$ref": "../../../Common/common.schema.json#/definitions/timestamp"

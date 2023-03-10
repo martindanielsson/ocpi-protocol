@@ -1,5 +1,5 @@
 {
-    "title": "V2.2.1\\Session",
+    "title": "V2.2.1\\Sessions\\Session",
     "type": "object",
     "properties": {
         "country_code": {
@@ -18,7 +18,7 @@
             "maxLength": 36
         },
         "start_date_time": {
-            "$ref": "common.schema.json#/definitions/timestamp"
+            "$ref": "../common.schema.json#/definitions/timestamp"
         },
         "end_date_time": {
             "oneOf": [
@@ -26,7 +26,7 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "common.schema.json#/definitions/timestamp"
+                    "$ref": "../common.schema.json#/definitions/timestamp"
                 }
             ]
         },
@@ -34,10 +34,10 @@
             "type": "number"
         },
         "cdr_token": {
-            "$ref": "common.schema.json#/definitions/cdr_token"
+            "$ref": "../common.schema.json#/definitions/cdr_token"
         },
         "auth_method": {
-            "$ref": "common.schema.json#/definitions/auth_method"
+            "$ref": "../common.schema.json#/definitions/auth_method"
         },
         "authorization_reference": {
             "type": [
@@ -81,7 +81,7 @@
                 "null"
             ],
             "items": {
-                "$ref": "common.schema.json#/definitions/charging_period"
+                "$ref": "../common.schema.json#/definitions/charging_period"
             }
         },
         "total_cost": {
@@ -90,7 +90,7 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "common.schema.json#/definitions/price"
+                    "$ref": "../common.schema.json#/definitions/price"
                 }
             ]
         },
@@ -105,7 +105,7 @@
             ]
         },
         "last_updated": {
-            "$ref": "common.schema.json#/definitions/timestamp"
+            "$ref": "../common.schema.json#/definitions/timestamp"
         }
     },
     "additionalProperties": false

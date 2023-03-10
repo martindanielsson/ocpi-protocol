@@ -1,0 +1,50 @@
+{
+    "title": "V2.2.1\\Commands\\ReserveNow",
+    "type": "object",
+    "properties": {
+        "response_url": {
+            "type": "string",
+            "format": "uri"
+        },
+        "token": {
+            "$ref": "../Tokens/token.schema.json"
+        },
+        "expiry_date": {
+            "$ref": "../common.schema.json#/definitions/timestamp"
+        },
+        "reservation_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "location_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "evse_uid": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "authorization_reference": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 36
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "response_url",
+        "token",
+        "expiry_date",
+        "reservation_id",
+        "location_id"
+    ]
+}
