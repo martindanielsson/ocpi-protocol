@@ -25,7 +25,7 @@ trait CommandRequestTrait
 
     protected function dispatchParams(string $command, ?string $commandId = null)
     {
-        if (empty($command) || !in_array($command, CommandType::values()) {
+        if (empty($command) || !in_array($command, CommandType::values())) {
             throw new OcpiGenericClientError('Unsupported command');
         }
 

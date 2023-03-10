@@ -25,5 +25,9 @@
             }
         }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "required": [
+        "result",
+        "timeout"
+    ]
 }
