@@ -1,35 +1,33 @@
 <?php
 
-namespace Chargemap\OCPI\Versions\V2_2_1\Client\Commands;
+declare(strict_types=1);
 
-use Chargemap\OCPI\Common\Client\OcpiVersion;
-use Chargemap\OCPI\Common\Models\BaseModuleId;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Commands\Post;
+
+use Chargemap\OCPI\Common\Client\Modules\Commands\Post\PostCommandsRequest as BaseRequest;
+use Chargemap\OCPI\Common\Models\BaseCommand;
 use Chargemap\OCPI\Versions\V2_2_1\Client\VersionTrait;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CancelReservation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CommandType;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ModuleId;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ReserveNow;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\StartSession;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\StopSession;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\UnlockConnector;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
-class PostCommandsRequest extends \Chargemap\OCPI\Common\Client\Modules\Commands\PostCommandsRequest
+class PostCommandRequest extends BaseRequest
 {
     use VersionTrait;
 
     private CommandType $commandType;
-    private CommandsTypeInterface $commandData;
+    private BaseCommand $command;
 
-    public function __construct(CommandType $commandType, CommandsTypeInterface $commandData) {
+    public function __construct(CommandType $commandType, BaseCommand $command)
+    {
         $this->commandType = $commandType;
-        $this->commandData = $commandData;
+        $this->command = $command;
     }
 
-    public function getModule(): BaseModuleId
+    public function getModule(): ModuleId
     {
         return ModuleId::COMMANDS();
     }
@@ -41,8 +39,8 @@ class PostCommandsRequest extends \Chargemap\OCPI\Common\Client\Modules\Commands
         }
 
         return $serverRequestFactory->createServerRequest('POST',
-            '/' . $this->commandType)
+            '/' . $this->command)
             ->withHeader('Content-Type', 'application/json')
-            ->withBody($streamFactory->createStream(json_encode($this->commandData)));
+            ->withBody($streamFactory->createStream(json_encode($this->command)));
     }
 }

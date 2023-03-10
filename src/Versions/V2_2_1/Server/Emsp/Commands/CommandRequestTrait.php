@@ -9,13 +9,13 @@ use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CommandType;
 
 trait CommandRequestTrait
 {
-    protected CommandType $command;
+    protected CommandType $commandType;
 
     protected ?string $commandId;
 
-    public function getCommand(): CommandType
+    public function getCommandType(): CommandType
     {
-        return $this->command;
+        return $this->commandType;
     }
 
     public function getCommandId(): ?string
@@ -23,13 +23,13 @@ trait CommandRequestTrait
         return $this->commandId;
     }
 
-    protected function dispatchParams(string $command, ?string $commandId = null)
+    protected function dispatchParams(string $commandType, ?string $commandId = null)
     {
-        if (empty($command) || !in_array($command, CommandType::values())) {
-            throw new OcpiGenericClientError('Unsupported command');
+        if (empty($commandType) || !in_array($commandType, CommandType::values())) {
+            throw new OcpiGenericClientError('Unsupported command type');
         }
 
-        $this->command = new CommandType($command);
+        $this->commandType = new CommandType($commandType);
         $this->commandId = $commandId;
     }
 }

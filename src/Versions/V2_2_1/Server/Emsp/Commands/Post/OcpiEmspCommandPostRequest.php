@@ -18,10 +18,10 @@ class OcpiEmspCommandPostRequest extends OcpiUpdateRequest
 
     private CommandResult $commandResult;
 
-    public function __construct(ServerRequestInterface $request, string $command, ?string $commandId = null)
+    public function __construct(ServerRequestInterface $request, string $commandType, ?string $commandId = null)
     {
         parent::__construct($request);
-        $this->dispatchParams($command, $commandId);
+        $this->dispatchParams($commandType, $commandId);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Commands/commandPostRequest.schema.json', $this->jsonBody);
         $commandResult = CommandResultFactory::fromJson($this->jsonBody);
         if ($commandResult === null) {

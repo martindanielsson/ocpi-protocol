@@ -2,10 +2,12 @@
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
+use Chargemap\OCPI\Common\Models\BaseCommand;
 use Chargemap\OCPI\Versions\V2_2_1\Client\Commands\CommandsTypeInterface;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\TokenFactory;
+use JsonSerializable;
 
-class StartSession implements \JsonSerializable, CommandsTypeInterface
+class StartSession extends BaseCommand implements JsonSerializable
 {
     private string $responseUrl;
     private Token $token;

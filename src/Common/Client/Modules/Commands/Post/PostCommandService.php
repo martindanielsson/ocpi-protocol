@@ -1,19 +1,21 @@
 <?php
 
-namespace Chargemap\OCPI\Versions\V2_2_1\Client\Commands;
+declare(strict_types=1);
+
+namespace Chargemap\OCPI\Common\Client\Modules\Commands\Post;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 use Chargemap\OCPI\Common\Client\OcpiServiceNotFoundException;
 use Chargemap\OCPI\Common\Client\ServiceFactory;
 
-class PostCommandsService extends AbstractFeatures
+class PostCommandService extends AbstractFeatures
 {
-    public function handle(\Chargemap\OCPI\Common\Client\Modules\Commands\PostCommandsRequest $request): PostCommandsResponse
+    public function handle(PostCommandRequest $request): PostCommandResponse
     {
         $service = ServiceFactory::from($request, $this->ocpiConfiguration);
 
         switch (get_class($service)) {
-            case PostCommandsService::class:
+            case \Chargemap\OCPI\Versions\V2_2_1\Client\Commands\Post\PostCommandService::class:
                 return $service->handle($request);
         }
 
