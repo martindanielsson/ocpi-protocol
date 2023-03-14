@@ -33,7 +33,6 @@ class SessionFactory
             $json->connector_id,
             $json->meter_id ?? null,
             $json->currency,
-            $json->charging_periods,
             !empty($json->total_cost) ? PriceFactory::fromJson($json->total_cost) : null,
             new SessionStatus($json->status),
             new DateTime($json->last_updated)
