@@ -28,12 +28,12 @@ class LocationRequestParams
             throw new InvalidArgumentException('Party ID should contain exactly 3 characters.');
         }
 
-        if (empty($locationId) || mb_strlen($locationId) > 39) {
-            throw new InvalidArgumentException('Location ID should contain less than 39 characters.');
+        if (empty($locationId) || mb_strlen($locationId) > 36) {
+            throw new InvalidArgumentException('Location ID should contain less than 36 characters.');
         }
 
-        if ($evseUid !== null && (empty($evseUid) || mb_strlen($evseUid) > 39)) {
-            throw new InvalidArgumentException('EVSE UID should contain less than 39 characters.');
+        if ($evseUid !== null && (empty($evseUid) || mb_strlen($evseUid) > 36)) {
+            throw new InvalidArgumentException('EVSE UID should contain less than 36 characters.');
         }
 
         if ($connectorId !== null && (empty($connectorId) || mb_strlen($connectorId) > 36)) {

@@ -2,9 +2,10 @@
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-use Chargemap\OCPI\Versions\V2_2_1\Client\Commands\CommandsTypeInterface;
+use Chargemap\OCPI\Common\Models\BaseCommand;
+use JsonSerializable;
 
-class CancelReservation implements \JsonSerializable, CommandsTypeInterface
+class CancelReservation extends BaseCommand implements JsonSerializable
 {
     private string $responseUrl;
 

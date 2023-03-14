@@ -17,8 +17,17 @@
             ]
         },
         "message": {
-            "$ref": "../common.schema.json#/definitions/display_text"
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../common.schema.json#/definitions/display_text"
+            }
         }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "required": [
+        "result"
+    ]
 }
