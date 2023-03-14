@@ -200,7 +200,7 @@ class Session implements JsonSerializable
             'charging_periods' => $this->chargingPeriods,
             'total_cost' => $this->totalCost,
             'status' => $this->status,
-            'last_updated' => $this->lastUpdated
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
     }
 
