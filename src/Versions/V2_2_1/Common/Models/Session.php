@@ -10,73 +10,94 @@ use JsonSerializable;
 
 class Session implements JsonSerializable
 {
+    private string $countryCode;
+
+    private string $partyId;
+
     private string $id;
-    private DateTime $startDate;
-    private ?DateTime $endDate;
+
+    private DateTime $startDateTime;
+
+    private ?DateTime $endDateTime;
+
     private float $kwh;
+
     private CdrToken $cdrToken;
+
     private AuthenticationMethod $authMethod;
+
+    private ?string $authorizationReference;
+
+    private string $locationId;
+
+    private string $evseUid;
+
+    private string $connectorId;
+
     private ?string $meterId;
+
     private string $currency;
+
     /** @var ChargingPeriod[] */
     private array $chargingPeriods = [];
+
     private ?Price $totalCost;
+
     private SessionStatus $status;
+
     private DateTime $lastUpdated;
-    private string $countryCode;
-    private string $partyId;
-    private DateTime $startDateTime;
-    private ?DateTime $endDateTime;
-    private string $locationId;
-    private string $evseUid;
-    private string $connectorId;
-    private string $authorizationReference;
 
     public function __construct(
-        string               $id,
-        DateTime             $startDate,
-        ?DateTime            $endDate,
-        float                $kwh,
-        CdrToken             $cdrToken,
+        string $countryCode,
+        string $partyId,
+        string $id,
+        DateTime $startDateTime,
+        ?DateTime $endDateTime,
+        float $kwh,
+        CdrToken $cdrToken,
         AuthenticationMethod $authMethod,
-        ?string              $meterId,
-        string               $currency,
-        ?Price               $totalCost,
-        SessionStatus        $status,
-        DateTime             $lastUpdated,
-        string               $countryCode,
-        string               $partyId,
-        DateTime             $startDateTime,
-        ?DateTime            $endDateTime,
-        string               $locationId,
-        string               $evseUid,
-        string               $connectorId,
-        string               $authorizationReference
+        ?string $authorizationReference,
+        string $locationId,
+        string $evseUid,
+        string $connectorId,
+        ?string $meterId,
+        string $currency,
+        ?Price $totalCost,
+        SessionStatus $status,
+        DateTime $lastUpdated
     ) {
+        $this->countryCode = $countryCode;
+        $this->partyId = $partyId;
         $this->id = $id;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
+        $this->startDateTime = $startDateTime;
+        $this->endDateTime = $endDateTime;
         $this->kwh = $kwh;
         $this->cdrToken = $cdrToken;
         $this->authMethod = $authMethod;
+        $this->authorizationReference = $authorizationReference;
+        $this->locationId = $locationId;
+        $this->evseUid = $evseUid;
+        $this->connectorId = $connectorId;
         $this->meterId = $meterId;
         $this->currency = $currency;
         $this->totalCost = $totalCost;
         $this->status = $status;
         $this->lastUpdated = $lastUpdated;
-        $this->countryCode = $countryCode;
-        $this->partyId = $partyId;
-        $this->startDateTime = $startDateTime;
-        $this->endDateTime = $endDateTime;
-        $this->locationId = $locationId;
-        $this->evseUid = $evseUid;
-        $this->connectorId = $connectorId;
-        $this->authorizationReference = $authorizationReference;
     }
 
-    public function addChargingPeriod(ChargingPeriod $period): void
+    public function addChargingPeriod(ChargingPeriod $chargingPeriod): void
     {
-        $this->chargingPeriods[] = $period;
+        $this->chargingPeriods[] = $chargingPeriod;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 
     public function getId(): string
@@ -84,17 +105,17 @@ class Session implements JsonSerializable
         return $this->id;
     }
 
-    public function getStartDate(): DateTime
+    public function getStartDateTime(): DateTime
     {
-        return $this->startDate;
+        return $this->startDateTime;
     }
 
-    public function getEndDate(): ?DateTime
+    public function getEndDateTime(): ?DateTime
     {
-        return $this->endDate;
+        return $this->endDateTime;
     }
 
-    public function getKwh(): float
+    public function getkwh(): float
     {
         return $this->kwh;
     }
@@ -109,14 +130,34 @@ class Session implements JsonSerializable
         return $this->authMethod;
     }
 
-    public function getCurrency(): string
+    public function getAuthorizationReference(): ?string
     {
-        return $this->currency;
+        return $this->authorizationReference;
+    }
+
+    public function getLocationId(): string
+    {
+        return $this->locationId;
+    }
+
+    public function getEvseUid(): string
+    {
+        return $this->evseUid;
+    }
+
+    public function getConnectorId(): string
+    {
+        return $this->connectorId;
     }
 
     public function getMeterId(): ?string
     {
         return $this->meterId;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
     }
 
     public function getChargingPeriods(): array
@@ -137,6 +178,30 @@ class Session implements JsonSerializable
     public function getLastUpdated(): DateTime
     {
         return $this->lastUpdated;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId,
+            'id' => $this->id,
+            'start_date_time' => DateTimeFormatter::format($this->startDateTime),
+            'end_date_time' => $this->endDateTime ? DateTimeFormatter::format($this->endDateTime) : null,
+            'kwh' => $this->kwh,
+            'cdr_token' => $this->cdrToken,
+            'auth_method' => $this->authMethod,
+            'authorization_reference' => $this->authorizationReference,
+            'location_id' => $this->locationId,
+            'evse_uid' => $this->evseUid,
+            'connector_id' => $this->connectorId,
+            'meter_id' => $this->meterId,
+            'currency' => $this->currency,
+            'charging_periods' => $this->chargingPeriods,
+            'total_cost' => $this->totalCost,
+            'status' => $this->status,
+            'last_updated' => $this->lastUpdated
+        ];
     }
 
     public function merge(PartialSession $partialSession): self
@@ -278,46 +343,5 @@ class Session implements JsonSerializable
         }
 
         return $diff;
-    }
-
-    public function jsonSerialize(): array
-    {
-        $return = [
-            'id' => $this->id,
-            'start_datetime' => DateTimeFormatter::format($this->startDate),
-            'kwh' => $this->kwh,
-            'auth_id' => $this->cdrToken,
-            'auth_method' => $this->authMethod,
-            'location' => $this->location,
-            'currency' => $this->currency,
-            'charging_periods' => $this->chargingPeriods,
-            'status' => $this->status,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'country_code' => $this->countryCode,
-            'party_id' => $this->partyId,
-            'start_date_time' => $this->startDateTime,
-            'location_id' => $this->locationId,
-            'evse_uid' => $this->evseUid,
-            'connector_id' => $this->connectorId,
-            'authorization_reference' => $this->authorizationReference
-        ];
-
-        if ($this->endDateTime !== null) {
-            $return['end_date_time'] = $this->endDateTime;
-        }
-
-        if ($this->meterId !== null) {
-            $return['meter_id'] = $this->meterId;
-        }
-
-        if ($this->totalCost !== null) {
-            $return['total_cost'] = $this->totalCost;
-        }
-
-        if ($this->endDate !== null) {
-            $return['end_datetime'] = DateTimeFormatter::format($this->endDate);
-        }
-
-        return $return;
     }
 }

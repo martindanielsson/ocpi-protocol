@@ -58,8 +58,8 @@ class PartialSessionFactory
         }
         if (property_exists($json, 'charging_periods')) {
             $session->withChargingPeriods();
-            foreach (ChargingPeriodFactory::arrayFromJsonArray($json->charging_periods) ?? [] as $chargingPeriod) {
-                $session->withChargingPeriod($chargingPeriod);
+            foreach ($json->charging_periods ?? [] as $chargingPeriod) {
+                $session->withChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));
             }
         }
 

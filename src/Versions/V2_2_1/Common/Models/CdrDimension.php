@@ -12,8 +12,10 @@ class CdrDimension implements JsonSerializable
 
     private float $volume;
 
-    public function __construct(CdrDimensionType $type, float $volume)
-    {
+    public function __construct(
+        CdrDimensionType $type,
+        float $volume
+    ) {
         $this->type = $type;
         $this->volume = $volume;
     }

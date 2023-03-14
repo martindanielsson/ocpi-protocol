@@ -12,32 +12,16 @@ use stdClass;
 
 class ChargingPeriodFactory
 {
-    /**
-     * @param stdClass[]|null $json
-     * @return ChargingPeriod[]
-     */
-    public static function arrayFromJsonArray(?array $json): ?array
-    {
-        if ($json === null) {
-            return null;
-        }
-
-        $chargingPeriods = [];
-
-        foreach ($json as $jsonChargingPeriod) {
-            $chargingPeriods[] = self::fromJson($jsonChargingPeriod);
-        }
-
-        return $chargingPeriods;
-    }
-
     public static function fromJson(?stdClass $json): ?ChargingPeriod
     {
         if ($json === null) {
             return null;
         }
 
-        $chargingPeriod = new ChargingPeriod(new DateTime($json->start_date_time), $json->tariff_id ?? null);
+        $chargingPeriod = new ChargingPeriod(
+            new DateTime($json->start_date_time),
+            $json->tariff_id ?? null
+        );
 
         foreach ($json->dimensions as $jsonCdrDimension) {
             $chargingPeriod->addDimension(CdrDimensionFactory::fromJson($jsonCdrDimension));

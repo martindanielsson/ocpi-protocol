@@ -55,8 +55,8 @@ class CdrFactory
         }
 
         if (property_exists($json, 'charging_periods')) {
-            foreach (ChargingPeriodFactory::arrayFromJsonArray($json->charging_periods) as $chargingPeriod) {
-                $cdr->addChargingPeriod($chargingPeriod);
+            foreach ($json->charging_periods as $chargingPeriod) {
+                $cdr->addChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));
             }
         }
 
