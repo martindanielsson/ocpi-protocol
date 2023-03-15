@@ -21,13 +21,15 @@ class OcpiEmspConnectorPatchRequest extends BaseConnectorUpdateRequest
     {
         parent::__construct($request, $params);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/Evses/Connectors/connectorPatchRequest.schema.json', $this->jsonBody);
+
         $partialConnector = PartialConnectorFactory::fromJson($this->jsonBody);
+
         if ($partialConnector === null) {
             throw new UnexpectedValueException('PartialConnector cannot be null');
         }
 
-        if($partialConnector->hasId() && $partialConnector->getId() !== $params->getConnectorId()) {
-            throw new UnsupportedPatchException( 'Property id can not be patched at the moment' );
+        if ($partialConnector->hasId() && $partialConnector->getId() !== $params->getConnectorId()) {
+            throw new UnsupportedPatchException('ID can not be patched at the moment');
         }
 
         $this->partialConnector = $partialConnector;

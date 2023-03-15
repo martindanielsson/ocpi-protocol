@@ -20,13 +20,23 @@ class OcpiEmspLocationPatchRequest extends OcpiLocationUpdateRequest
     {
         parent::__construct($request, $params);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/locationPatchRequest.schema.json', $this->jsonBody);
+
         $partialLocation = PartialLocationFactory::fromJson($this->jsonBody);
+
         if ($partialLocation === null) {
             throw new UnexpectedValueException('PartialLocation cannot be null');
         }
 
-        if($partialLocation->hasId() && $partialLocation->getId() !== $params->getLocationId()) {
-            throw new UnsupportedPatchException( 'Property id can not be patched at the moment' );
+        if ($partialLocation->hasCountryCode() && $partialLocation->getCountryCode() !== $params->getCountryId()) {
+            throw new UnsupportedPatchException('Country code can not be patched at the moment');
+        }
+
+        if ($partialLocation->hasPartyId() && $partialLocation->getPartyId() !== $params->getPartyId()) {
+            throw new UnsupportedPatchException('Party ID can not be patched at the moment');
+        }
+
+        if ($partialLocation->hasId() && $partialLocation->getId() !== $params->getLocationId()) {
+            throw new UnsupportedPatchException('ID can not be patched at the moment');
         }
 
         $this->partialLocation = $partialLocation;

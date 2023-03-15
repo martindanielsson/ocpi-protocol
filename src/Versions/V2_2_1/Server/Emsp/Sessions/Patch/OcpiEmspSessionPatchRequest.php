@@ -22,12 +22,21 @@ class OcpiEmspSessionPatchRequest extends OcpiSessionUpdateRequest
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Sessions/sessionPatchRequest.schema.json', $this->jsonBody);
 
         $partialSession = PartialSessionFactory::fromJson($this->jsonBody);
+
         if ($partialSession === null) {
             throw new UnexpectedValueException('PartialSession cannot be null');
         }
 
+        if ($partialSession->hasCountryCode() && $partialSession->getCountryCode() !== $countryCode) {
+            throw new UnsupportedPatchException('Country code can not be patched at the moment');
+        }
+
+        if ($partialSession->hasPartyId() && $partialSession->getPartyId() !== $partyId) {
+            throw new UnsupportedPatchException('Party ID can not be patched at the moment');
+        }
+
         if ($partialSession->hasId() && $partialSession->getId() !== $sessionId) {
-            throw new UnsupportedPatchException('Property id can not be patched at the moment');
+            throw new UnsupportedPatchException('ID can not be patched at the moment');
         }
 
         $this->partialSession = $partialSession;

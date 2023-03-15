@@ -27,14 +27,15 @@ class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
     {
         parent::__construct($request, $params);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/Evses/evsePatchRequest.schema.json', $this->jsonBody);
+
         $partialEvse = PartialEVSEFactory::fromJson($this->jsonBody);
 
         if ($partialEvse === null) {
             throw new UnexpectedValueException('PartialConnector cannot be null');
         }
 
-        if($partialEvse->hasUid() && $partialEvse->getUid() !== $params->getEvseUid()) {
-            throw new UnsupportedPatchException( 'Property uid can not be patched at the moment' );
+        if ($partialEvse->hasUid() && $partialEvse->getUid() !== $params->getEvseUid()) {
+            throw new UnsupportedPatchException('UID can not be patched at the moment');
         }
 
         $this->partialEvse = $partialEvse;
