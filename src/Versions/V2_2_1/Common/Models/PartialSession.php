@@ -40,91 +40,91 @@ class PartialSession extends PartialModel implements JsonSerializable
     protected function _withCountryCode(?string $countryCode): self
     {
         $this->countryCode = $countryCode;
-        return $this
+        return $this;
     }
 
     protected function _withPartyId(?string $partyId): self
     {
         $this->partyId = $partyId;
-        return $this
+        return $this;
     }
 
     protected function _withId(?string $id): self
     {
         $this->id = $id;
-        return $this
+        return $this;
     }
 
     protected function _withStartDateTime(?DateTime $startDateTime): self
     {
         $this->startDateTime = $startDateTime;
-        return $this
+        return $this;
     }
 
     protected function _withEndDateTime(?DateTime $endDateTime): self
     {
         $this->endDateTime = $endDateTime;
-        return $this
+        return $this;
     }
 
     protected function _withKwh(?float $kwh): self
     {
         $this->kwh = $kwh;
-        return $this
+        return $this;
     }
 
     protected function _withCdrToken(?CdrToken $cdrToken): self
     {
         $this->cdrToken = $cdrToken;
-        return $this
+        return $this;
     }
 
     protected function _withAuthMethod(?AuthenticationMethod $authMethod): self
     {
         $this->authMethod = $authMethod;
-        return $this
+        return $this;
     }
 
     protected function _withAuthorizationReference(?string $authorizationReference): self
     {
         $this->authorizationReference = $authorizationReference;
-        return $this
+        return $this;
     }
 
     protected function _withLocationId(?string $locationId): self
     {
         $this->locationId = $locationId;
-        return $this
+        return $this;
     }
 
     protected function _withEvseUid(?string $evseUid): self
     {
         $this->evseUid = $evseUid;
-        return $this
+        return $this;
     }
 
     protected function _withConnectorId(?string $connectorId): self
     {
         $this->connectorId = $connectorId;
-        return $this
+        return $this;
     }
 
     protected function _withMeterId(?string $meterId): self
     {
         $this->meterId = $meterId;
-        return $this
+        return $this;
     }
 
     protected function _withCurrency(?string $currency): self
     {
         $this->currency = $currency;
-        return $this
+        return $this;
     }
 
     protected function _withChargingPeriods(): self
     {
         $this->chargingPeriods = [];
-        return $this
+        return $this;
     }
 
     public function withChargingPeriod(ChargingPeriod $period): self
@@ -136,19 +136,19 @@ class PartialSession extends PartialModel implements JsonSerializable
     protected function _withTotalCost(?Price $totalCost): self
     {
         $this->totalCost = $totalCost;
-        return $this
+        return $this;
     }
 
     protected function _withStatus(?SessionStatus $status): self
     {
         $this->status = $status;
-        return $this
+        return $this;
     }
 
     protected function _withLastUpdated(?DateTime $lastUpdated): self
     {
         $this->lastUpdated = $lastUpdated;
-        return $this
+        return $this;
     }
 
     public function getCountryCode(): ?string
