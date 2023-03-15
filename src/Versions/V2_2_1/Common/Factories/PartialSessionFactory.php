@@ -20,43 +20,59 @@ class PartialSessionFactory
 
         $session = new PartialSession();
 
-        if (property_exists($json, 'id')) {
+        if (isset($json->country_code) {
+            $session->withCountryCode($json->country_code);
+        }
+        if (isset($json->party_id) {
+            $session->withPartyId($json->party_id);
+        }
+        if (isset($json->id) {
             $session->withId($json->id);
         }
-        if (property_exists($json, 'start_datetime')) {
-            $session->withStartDate(new DateTime($json->start_datetime));
+        if (isset($json->start_date_time) {
+            $session->withStartDateTime(!empty($json->start_date_time) ? new DateTime($json->start_date_time) : null);
         }
-        if (property_exists($json, 'end_datetime')) {
-            $session->withEndDate(new DateTime($json->end_datetime));
+        if (isset($json->end_date_time) {
+            $session->withEndDateTime(!empty($json->end_date_time) ? new DateTime($json->end_date_time) : null);
         }
-        if (property_exists($json, 'kwh')) {
+        if (isset($json->kwh) {
             $session->withKwh($json->kwh);
         }
-        if (property_exists($json, 'auth_id')) {
-            $session->withAuthId($json->auth_id);
+        if (isset($json->cdr_token) {
+            $session->withCdrToken(!empty($json->cdr_token) ? CdrTokenFactory::fromJson($json->cdr_token) : null);
         }
-        if (property_exists($json, 'auth_method')) {
-            $session->withAuthMethod(new AuthenticationMethod($json->auth_method));
+        if (isset($json->auth_method) {
+            $session->withAuthMethod(!empty($json->auth_method) ? new AuthenticationMethod($json->auth_method) : null);
         }
-        if (property_exists($json, 'location')) {
-            $session->withLocation(LocationFactory::fromJson($json->location));
+        if (isset($json->authorization_reference) {
+            $session->withAuthorizationReference($json->authorization_reference);
         }
-        if (property_exists($json, 'meter_id')) {
+        if (isset($json->location_id) {
+            $session->withLocationId($json->location_id);
+        }
+        if (isset($json->evse_uid) {
+            $session->withEvseUid($json->evse_uid);
+        }
+        if (isset($json->connector_id) {
+            $session->withConnectorId($json->connector_id);
+        }
+        if (isset($json->meter_id) {
             $session->withMeterId($json->meter_id);
         }
-        if (property_exists($json, 'currency')) {
+        if (isset($json->currency) {
             $session->withCurrency($json->currency);
         }
-        if (property_exists($json, 'total_cost')) {
-            $session->withTotalCost($json->total_cost);
+        if (isset($json->total_cost) {
+            $session->withTotalCost(!empty($json->total_cost) ? PriceFactory::fromJson($json->total_cost) : null);
         }
-        if (property_exists($json, 'status')) {
-            $session->withStatus(new SessionStatus($json->status));
+        if (isset($json->status) {
+            $session->withStatus(!empty($json->status) ? new SessionStatus($json->status) : null);
         }
-        if (property_exists($json, 'last_updated')) {
-            $session->withLastUpdated(new DateTime($json->last_updated));
+        if (isset($json->last_updated) {
+            $session->withLastUpdated(!empty($json->last_updated) ? new DateTime($json->last_updated) : null);
         }
-        if (property_exists($json, 'charging_periods')) {
+
+        if (isset($json->charging_periods)) {
             $session->withChargingPeriods();
             foreach ($json->charging_periods ?? [] as $chargingPeriod) {
                 $session->withChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));

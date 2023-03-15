@@ -11,107 +11,120 @@ use JsonSerializable;
 
 /**
  * @method bool hasId()
- * @method bool hasStartDate()
- * @method bool hasEndDate()
- * @method bool hasKwh()
- * @method bool hasCdrToken()
- * @method bool hasAuthMethod()
- * @method bool hasLocation()
- * @method bool hasMeterId()
- * @method bool hasCurrency()
- * @method bool hasChargingPeriods()
- * @method bool hasTotalCost()
- * @method bool hasStatus()
- * @method bool hasLastUpdated()
+ * TODO: Put down other methods
  * @method self withId(?string $id)
- * @method self withStartDate(?DateTime $startDate)
- * @method self withEndDate(?DateTime $endDate)
- * @method self withKwh(?float $kwh)
- * @method self withCdrToken(?string $cdrToken)
- * @method self withAuthMethod(?AuthenticationMethod $authMethod)
- * @method self withLocation(?Location $location)
- * @method self withMeterId(?string $meterId)
- * @method self withCurrency(?string $currency)
- * @method self withChargingPeriods()
- * @method self withTotalCost(?float $totalCost)
- * @method self withStatus(?SessionStatus $status)
- * @method self withLastUpdated(?DateTime $lastUpdated)
+ * TODO: Put down other methods
  */
 class PartialSession extends PartialModel implements JsonSerializable
 {
+    private ?string $countryCode = null;
+    private ?string $partyId = null;
     private ?string $id = null;
-    private ?DateTime $startDate = null;
-    private ?DateTime $endDate = null;
+    private ?DateTime $startDateTime = null;
+    private ?DateTime $endDateTime = null;
     private ?float $kwh = null;
     private ?CdrToken $cdrToken = null;
     private ?AuthenticationMethod $authMethod = null;
-    private ?Location $location = null;
+    private ?string $authorizationReference = null;
+    private ?string $locationId = null;
+    private ?string $evseUid = null;
+    private ?string $connectorId = null;
     private ?string $meterId = null;
     private ?string $currency = null;
     /** @var ChargingPeriod[]|null */
     private ?array $chargingPeriods = null;
-    private ?float $totalCost = null;
+    private ?Price $totalCost = null;
     private ?SessionStatus $status = null;
     private ?DateTime $lastUpdated = null;
+
+    protected function _withCountryCode(?string $countryCode): self
+    {
+        $this->countryCode = $countryCode;
+        return $this
+    }
+
+    protected function _withPartyId(?string $partyId): self
+    {
+        $this->partyId = $partyId;
+        return $this
+    }
 
     protected function _withId(?string $id): self
     {
         $this->id = $id;
-        return $this;
+        return $this
     }
 
-    protected function _withStartDate(?DateTime $startDate): self
+    protected function _withStartDateTime(?DateTime $startDateTime): self
     {
-        $this->startDate = $startDate;
-        return $this;
+        $this->startDateTime = $startDateTime;
+        return $this
     }
 
-    protected function _withEndDate(?DateTime $endDate): self
+    protected function _withEndDateTime(?DateTime $endDateTime): self
     {
-        $this->endDate = $endDate;
-        return $this;
+        $this->endDateTime = $endDateTime;
+        return $this
     }
 
     protected function _withKwh(?float $kwh): self
     {
         $this->kwh = $kwh;
-        return $this;
+        return $this
     }
 
     protected function _withCdrToken(?CdrToken $cdrToken): self
     {
         $this->cdrToken = $cdrToken;
-        return $this;
+        return $this
     }
 
     protected function _withAuthMethod(?AuthenticationMethod $authMethod): self
     {
         $this->authMethod = $authMethod;
-        return $this;
+        return $this
     }
 
-    protected function _withLocation(?Location $location): self
+    protected function _withAuthorizationReference(?string $authorizationReference): self
     {
-        $this->location = $location;
-        return $this;
+        $this->authorizationReference = $authorizationReference;
+        return $this
+    }
+
+    protected function _withLocationId(?string $locationId): self
+    {
+        $this->locationId = $locationId;
+        return $this
+    }
+
+    protected function _withEvseUid(?string $evseUid): self
+    {
+        $this->evseUid = $evseUid;
+        return $this
+    }
+
+    protected function _withConnectorId(?string $connectorId): self
+    {
+        $this->connectorId = $connectorId;
+        return $this
     }
 
     protected function _withMeterId(?string $meterId): self
     {
         $this->meterId = $meterId;
-        return $this;
+        return $this
     }
 
     protected function _withCurrency(?string $currency): self
     {
         $this->currency = $currency;
-        return $this;
+        return $this
     }
 
     protected function _withChargingPeriods(): self
     {
         $this->chargingPeriods = [];
-        return $this;
+        return $this
     }
 
     public function withChargingPeriod(ChargingPeriod $period): self
@@ -120,22 +133,32 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    protected function _withTotalCost(?float $totalCost): self
+    protected function _withTotalCost(?Price $totalCost): self
     {
         $this->totalCost = $totalCost;
-        return $this;
+        return $this
     }
 
     protected function _withStatus(?SessionStatus $status): self
     {
         $this->status = $status;
-        return $this;
+        return $this
     }
 
     protected function _withLastUpdated(?DateTime $lastUpdated): self
     {
         $this->lastUpdated = $lastUpdated;
-        return $this;
+        return $this
+    }
+
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): ?string
+    {
+        return $this->partyId;
     }
 
     public function getId(): ?string
@@ -143,22 +166,22 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this->id;
     }
 
-    public function getStartDate(): ?DateTime
+    public function getStartDateTime(): ?DateTime
     {
-        return $this->startDate;
+        return $this->startDateTime;
     }
 
-    public function getEndDate(): ?DateTime
+    public function getEndDateTime(): ?DateTime
     {
-        return $this->endDate;
+        return $this->endDateTime;
     }
 
-    public function getKwh(): ?float
+    public function getkwh(): ?float
     {
         return $this->kwh;
     }
 
-    public function getCdrToken(): ?string
+    public function getCdrToken(): ?CdrToken
     {
         return $this->cdrToken;
     }
@@ -168,14 +191,24 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this->authMethod;
     }
 
-    public function getLocation(): ?Location
+    public function getAuthorizationReference(): ?string
     {
-        return $this->location;
+        return $this->authorizationReference;
     }
 
-    public function getCurrency(): ?string
+    public function getLocationId(): ?string
     {
-        return $this->currency;
+        return $this->locationId;
+    }
+
+    public function getEvseUid(): ?string
+    {
+        return $this->evseUid;
+    }
+
+    public function getConnectorId(): ?string
+    {
+        return $this->connectorId;
     }
 
     public function getMeterId(): ?string
@@ -183,12 +216,17 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this->meterId;
     }
 
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
     public function getChargingPeriods(): ?array
     {
         return $this->chargingPeriods;
     }
 
-    public function getTotalCost(): ?float
+    public function getTotalCost(): ?Price
     {
         return $this->totalCost;
     }
@@ -207,23 +245,44 @@ class PartialSession extends PartialModel implements JsonSerializable
     {
         $return = [];
 
+        if ($this->hasCountryCode()) {
+            $return['country_code'] = $this->countryCode;
+        }
+        if ($this->hasPartyId()) {
+            $return['party_id'] = $this->partyId;
+        }
         if ($this->hasId()) {
             $return['id'] = $this->id;
         }
-        if ($this->hasStartDate()) {
-            $return['start_datetime'] = DateTimeFormatter::format($this->startDate);
+        if ($this->hasStartDateTime()) {
+            $return['start_date_time'] = DateTimeFormatter::format($this->startDateTime);
+        }
+        if ($this->hasEndDateTime()) {
+            $return['end_date_time'] = DateTimeFormatter::format($this->endDateTime);
         }
         if ($this->hasKwh()) {
             $return['kwh'] = $this->kwh;
         }
         if ($this->hasCdrToken()) {
-            $return['auth_id'] = $this->cdrToken;
+            $return['cdr_token'] = $this->cdrToken;
         }
         if ($this->hasAuthMethod()) {
             $return['auth_method'] = $this->authMethod;
         }
-        if ($this->hasLocation()) {
-            $return['location'] = $this->location;
+        if ($this->hasAuthorizationReference()) {
+            $return['authorization_reference'] = $this->authorizationReference;
+        }
+        if ($this->hasLocationId()) {
+            $return['location_id'] = $this->locationId;
+        }
+        if ($this->hasEvseUid()) {
+            $return['evse_uid'] = $this->evseUid;
+        }
+        if ($this->hasConnectorId()) {
+            $return['connector_id'] = $this->connectorId;
+        }
+        if ($this->hasMeterId()) {
+            $return['meter_id'] = $this->meterId;
         }
         if ($this->hasCurrency()) {
             $return['currency'] = $this->currency;
@@ -231,21 +290,16 @@ class PartialSession extends PartialModel implements JsonSerializable
         if ($this->hasChargingPeriods()) {
             $return['charging_periods'] = $this->chargingPeriods;
         }
+        if ($this->hasTotalCost()) {
+            $return['total_cost'] = $this->totalCost;
+        }
         if ($this->hasStatus()) {
             $return['status'] = $this->status;
         }
         if ($this->hasLastUpdated()) {
             $return['last_updated'] = DateTimeFormatter::format($this->lastUpdated);
         }
-        if ($this->hasMeterId()) {
-            $return['meter_id'] = $this->meterId;
-        }
-        if ($this->hasTotalCost()) {
-            $return['total_cost'] = $this->totalCost;
-        }
-        if ($this->hasEndDate()) {
-            $return['end_datetime'] = DateTimeFormatter::format($this->endDate);
-        }
+
         return $return;
     }
 }

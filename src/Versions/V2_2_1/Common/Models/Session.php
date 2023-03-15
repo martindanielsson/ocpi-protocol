@@ -11,40 +11,23 @@ use JsonSerializable;
 class Session implements JsonSerializable
 {
     private string $countryCode;
-
     private string $partyId;
-
     private string $id;
-
     private DateTime $startDateTime;
-
     private ?DateTime $endDateTime;
-
     private float $kwh;
-
     private CdrToken $cdrToken;
-
     private AuthenticationMethod $authMethod;
-
     private ?string $authorizationReference;
-
     private string $locationId;
-
     private string $evseUid;
-
     private string $connectorId;
-
     private ?string $meterId;
-
     private string $currency;
-
     /** @var ChargingPeriod[] */
     private array $chargingPeriods = [];
-
     private ?Price $totalCost;
-
     private SessionStatus $status;
-
     private DateTime $lastUpdated;
 
     public function __construct(
@@ -187,7 +170,7 @@ class Session implements JsonSerializable
             'party_id' => $this->partyId,
             'id' => $this->id,
             'start_date_time' => DateTimeFormatter::format($this->startDateTime),
-            'end_date_time' => $this->endDateTime ? DateTimeFormatter::format($this->endDateTime) : null,
+            'end_date_time' => DateTimeFormatter::format($this->endDateTime),
             'kwh' => $this->kwh,
             'cdr_token' => $this->cdrToken,
             'auth_method' => $this->authMethod,
@@ -207,26 +190,36 @@ class Session implements JsonSerializable
     public function merge(PartialSession $partialSession): self
     {
         $new = new Session(
+            $partialSession->hasCountryCode() ? $partialSession->getCountryCode() : $this->countryCode,
+            $partialSession->hasPartyId() ? $partialSession->getPartyId() : $this->partyId,
             $partialSession->hasId() ? $partialSession->getId() : $this->id,
-            $partialSession->hasStartDate() ? $partialSession->getStartDate() : $this->startDate,
-            $partialSession->hasEndDate() ? $partialSession->getEndDate() : $this->endDate,
+            $partialSession->hasStartDateTime() ? $partialSession->getStartDateTime() : $this->startDateTime,
+            $partialSession->hasEndDateTime() ? $partialSession->getEndDateTime() : $this->endDateTime,
             $partialSession->hasKwh() ? $partialSession->getKwh() : $this->kwh,
             $partialSession->hasCdrToken() ? $partialSession->getCdrToken() : $this->cdrToken,
             $partialSession->hasAuthMethod() ? $partialSession->getAuthMethod() : $this->authMethod,
-            $partialSession->hasLocation() ? $partialSession->getLocation() : $this->location,
+            $partialSession->hasAuthorizationReference() ? $partialSession->getAuthorizationReference() : $this->authorizationReference,
+            $partialSession->hasLocationId() ? $partialSession->getLocationId() : $this->locationId,
+            $partialSession->hasEvseUid() ? $partialSession->getEvseUid() : $this->evseUid,
+            $partialSession->hasConnectorId() ? $partialSession->getConnectorId() : $this->connectorId,
             $partialSession->hasMeterId() ? $partialSession->getMeterId() : $this->meterId,
             $partialSession->hasCurrency() ? $partialSession->getCurrency() : $this->currency,
             $partialSession->hasTotalCost() ? $partialSession->getTotalCost() : $this->totalCost,
             $partialSession->hasStatus() ? $partialSession->getStatus() : $this->status,
             $partialSession->hasLastUpdated() ? $partialSession->getLastUpdated() : $this->lastUpdated
         );
+
         $chargingPeriods = $partialSession->hasChargingPeriods() ? $partialSession->getChargingPeriods() : $this->chargingPeriods;
         foreach ($chargingPeriods as $chargingPeriod) {
             $new->addChargingPeriod($chargingPeriod);
         }
+
         return $new;
     }
 
+    /**
+     * TODO: Update method
+     */
     public function diff(Session $other): ?PartialSession
     {
         $diff = null;
