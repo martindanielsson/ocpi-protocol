@@ -20,55 +20,55 @@ class PartialSessionFactory
 
         $session = new PartialSession();
 
-        if (isset($json->country_code) {
+        if (isset($json->country_code)) {
             $session->withCountryCode($json->country_code);
         }
-        if (isset($json->party_id) {
+        if (isset($json->party_id)) {
             $session->withPartyId($json->party_id);
         }
-        if (isset($json->id) {
+        if (isset($json->id)) {
             $session->withId($json->id);
         }
-        if (isset($json->start_date_time) {
+        if (isset($json->start_date_time)) {
             $session->withStartDateTime(!empty($json->start_date_time) ? new DateTime($json->start_date_time) : null);
         }
-        if (isset($json->end_date_time) {
+        if (isset($json->end_date_time)) {
             $session->withEndDateTime(!empty($json->end_date_time) ? new DateTime($json->end_date_time) : null);
         }
-        if (isset($json->kwh) {
+        if (isset($json->kwh)) {
             $session->withKwh($json->kwh);
         }
-        if (isset($json->cdr_token) {
+        if (isset($json->cdr_token)) {
             $session->withCdrToken(!empty($json->cdr_token) ? CdrTokenFactory::fromJson($json->cdr_token) : null);
         }
-        if (isset($json->auth_method) {
+        if (isset($json->auth_method)) {
             $session->withAuthMethod(!empty($json->auth_method) ? new AuthenticationMethod($json->auth_method) : null);
         }
-        if (isset($json->authorization_reference) {
+        if (isset($json->authorization_reference)) {
             $session->withAuthorizationReference($json->authorization_reference);
         }
-        if (isset($json->location_id) {
+        if (isset($json->location_id)) {
             $session->withLocationId($json->location_id);
         }
-        if (isset($json->evse_uid) {
+        if (isset($json->evse_uid)) {
             $session->withEvseUid($json->evse_uid);
         }
-        if (isset($json->connector_id) {
+        if (isset($json->connector_id)) {
             $session->withConnectorId($json->connector_id);
         }
-        if (isset($json->meter_id) {
+        if (isset($json->meter_id)) {
             $session->withMeterId($json->meter_id);
         }
-        if (isset($json->currency) {
+        if (isset($json->currency)) {
             $session->withCurrency($json->currency);
         }
-        if (isset($json->total_cost) {
+        if (isset($json->total_cost)) {
             $session->withTotalCost(!empty($json->total_cost) ? PriceFactory::fromJson($json->total_cost) : null);
         }
-        if (isset($json->status) {
+        if (isset($json->status)) {
             $session->withStatus(!empty($json->status) ? new SessionStatus($json->status) : null);
         }
-        if (isset($json->last_updated) {
+        if (isset($json->last_updated)) {
             $session->withLastUpdated(!empty($json->last_updated) ? new DateTime($json->last_updated) : null);
         }
 
