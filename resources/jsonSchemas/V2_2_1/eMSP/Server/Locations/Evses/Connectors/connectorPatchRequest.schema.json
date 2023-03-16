@@ -6,11 +6,6 @@
             "required": [
                 "last_updated"
             ],
-            "not": {
-                "anyOf": [
-                    {"required": ["id"]}
-                ]
-            },
             "additionalProperties": false
         }
     ]

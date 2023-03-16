@@ -6,13 +6,6 @@
             "required": [
                 "last_updated"
             ],
-            "not": {
-                "anyOf": [
-                    {"required": ["country_code"]},
-                    {"required": ["party_id"]},
-                    {"required": ["id"]}
-                ]
-            },
             "additionalProperties": false
         }
     ]
