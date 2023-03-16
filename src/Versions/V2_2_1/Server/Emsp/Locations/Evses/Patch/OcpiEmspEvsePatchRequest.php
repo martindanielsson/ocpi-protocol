@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\Patch;
 
+use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\PartialEVSEFactory;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialEVSE;
 use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\BaseEvseUpdateRequest;
 use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\LocationRequestParams;
-use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Patch\UnsupportedPatchException;
 use Psr\Http\Message\ServerRequestInterface;
 use UnexpectedValueException;
 
@@ -21,7 +21,7 @@ class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
      * OcpiEmspEvsePatchRequest constructor.
      * @param ServerRequestInterface $request
      * @param LocationRequestParams $params
-     * @throws UnsupportedPatchException
+     * @throws OcpiGenericClientError
      */
     public function __construct(ServerRequestInterface $request, LocationRequestParams $params)
     {
@@ -35,7 +35,7 @@ class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
         }
 
         if ($partialEvse->hasUid() && $partialEvse->getUid() !== $params->getEvseUid()) {
-            throw new UnsupportedPatchException('UID can not be patched at the moment');
+            throw new OcpiGenericClientError('UID can not be patched');
         }
 
         $this->partialEvse = $partialEvse;

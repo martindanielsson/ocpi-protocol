@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Patch;
 
+use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\PartialLocationFactory;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialLocation;
@@ -28,15 +29,15 @@ class OcpiEmspLocationPatchRequest extends OcpiLocationUpdateRequest
         }
 
         if ($partialLocation->hasCountryCode() && $partialLocation->getCountryCode() !== $params->getCountryId()) {
-            throw new UnsupportedPatchException('Country code can not be patched at the moment');
+            throw new OcpiGenericClientError('Country code can not be patched');
         }
 
         if ($partialLocation->hasPartyId() && $partialLocation->getPartyId() !== $params->getPartyId()) {
-            throw new UnsupportedPatchException('Party ID can not be patched at the moment');
+            throw new OcpiGenericClientError('Party ID can not be patched');
         }
 
         if ($partialLocation->hasId() && $partialLocation->getId() !== $params->getLocationId()) {
-            throw new UnsupportedPatchException('ID can not be patched at the moment');
+            throw new OcpiGenericClientError('ID can not be patched');
         }
 
         $this->partialLocation = $partialLocation;

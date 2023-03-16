@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Sessions\Patch;
 
+use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\PartialSessionFactory;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialSession;
-use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Patch\UnsupportedPatchException;
 use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Sessions\OcpiSessionUpdateRequest;
 use Psr\Http\Message\ServerRequestInterface;
 use UnexpectedValueException;
@@ -28,15 +28,15 @@ class OcpiEmspSessionPatchRequest extends OcpiSessionUpdateRequest
         }
 
         if ($partialSession->hasCountryCode() && $partialSession->getCountryCode() !== $countryCode) {
-            throw new UnsupportedPatchException('Country code can not be patched at the moment');
+            throw new OcpiGenericClientError('Country code can not be patched');
         }
 
         if ($partialSession->hasPartyId() && $partialSession->getPartyId() !== $partyId) {
-            throw new UnsupportedPatchException('Party ID can not be patched at the moment');
+            throw new OcpiGenericClientError('Party ID can not be patched');
         }
 
         if ($partialSession->hasId() && $partialSession->getId() !== $sessionId) {
-            throw new UnsupportedPatchException('ID can not be patched at the moment');
+            throw new OcpiGenericClientError('ID can not be patched');
         }
 
         $this->partialSession = $partialSession;
