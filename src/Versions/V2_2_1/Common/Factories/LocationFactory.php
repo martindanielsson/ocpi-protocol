@@ -41,7 +41,7 @@ class LocationFactory
             $json->party_id,
             $json->state ?? null,
             $json->publish,
-            PublishTokenTypeFactory::fromJson($json->publish_allowed_to)
+            PublishTokenTypeFactory::fromJson($json->publish_allowed_to ?? null)
         );
 
         if (property_exists($json, 'related_locations') && $json->related_locations !== null) {

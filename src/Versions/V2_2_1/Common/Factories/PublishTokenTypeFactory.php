@@ -6,12 +6,12 @@ use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PublishTokenType;
 
 class PublishTokenTypeFactory
 {
-    public static function fromJson(?\stdClass $json): array
+    public static function fromJson(?\stdClass $json): ?array
     {
         $array = [];
 
         if ($json === null) {
-            return $array;
+            return null;
         }
 
         foreach ($json as $values) {
