@@ -24,7 +24,7 @@ class PartialSession extends PartialModel implements JsonSerializable
     private ?DateTime $endDateTime = null;
     private ?float $kwh = null;
     private ?CdrToken $cdrToken = null;
-    private ?AuthenticationMethod $authMethod = null;
+    private ?AuthMethod $authMethod = null;
     private ?string $authorizationReference = null;
     private ?string $locationId = null;
     private ?string $evseUid = null;
@@ -79,7 +79,7 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    protected function _withAuthMethod(?AuthenticationMethod $authMethod): self
+    protected function _withAuthMethod(?AuthMethod $authMethod): self
     {
         $this->authMethod = $authMethod;
         return $this;
@@ -186,7 +186,7 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this->cdrToken;
     }
 
-    public function getAuthMethod(): ?AuthenticationMethod
+    public function getAuthMethod(): ?AuthMethod
     {
         return $this->authMethod;
     }

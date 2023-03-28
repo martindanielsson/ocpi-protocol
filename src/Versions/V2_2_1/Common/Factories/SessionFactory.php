@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthenticationMethod;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthMethod;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Session;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\SessionStatus;
 use DateTime;
@@ -26,7 +26,7 @@ class SessionFactory
             !empty($json->end_date_time) ? new DateTime($json->end_date_time) : null,
             $json->kwh,
             CdrTokenFactory::fromJson($json->cdr_token),
-            new AuthenticationMethod($json->auth_method),
+            new AuthMethod($json->auth_method),
             $json->authorization_reference ?? null,
             $json->location_id,
             $json->evse_uid,

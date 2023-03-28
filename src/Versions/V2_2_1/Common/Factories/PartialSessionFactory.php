@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthenticationMethod;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthMethod;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialSession;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\SessionStatus;
 use DateTime;
@@ -42,7 +42,7 @@ class PartialSessionFactory
             $session->withCdrToken(!empty($json->cdr_token) ? CdrTokenFactory::fromJson($json->cdr_token) : null);
         }
         if (isset($json->auth_method)) {
-            $session->withAuthMethod(!empty($json->auth_method) ? new AuthenticationMethod($json->auth_method) : null);
+            $session->withAuthMethod(!empty($json->auth_method) ? new AuthMethod($json->auth_method) : null);
         }
         if (isset($json->authorization_reference)) {
             $session->withAuthorizationReference($json->authorization_reference);

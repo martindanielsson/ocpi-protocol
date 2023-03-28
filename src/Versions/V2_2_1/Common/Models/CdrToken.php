@@ -7,13 +7,9 @@ use JsonSerializable;
 class CdrToken implements JsonSerializable
 {
     private string $countryCode;
-
     private string $partyId;
-
     private string $uid;
-
     private TokenType $type;
-
     private string $contractId;
 
     public function __construct(
@@ -28,17 +24,6 @@ class CdrToken implements JsonSerializable
         $this->uid = $uid;
         $this->type = $type;
         $this->contractId = $contractId;
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'country_code' => $this->countryCode,
-            'party_id' => $this->partyId,
-            'uid' => $this->uid,
-            'type' => $this->type,
-            'contract_id' => $this->contractId
-        ];
     }
 
     public function getCountryCode(): string
@@ -64,5 +49,16 @@ class CdrToken implements JsonSerializable
     public function getContractId(): string
     {
         return $this->contractId;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId,
+            'uid' => $this->uid,
+            'type' => $this->type,
+            'contract_id' => $this->contractId
+        ];
     }
 }

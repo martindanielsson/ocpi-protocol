@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthenticationMethod;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthMethod;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Cdr;
 use DateTime;
 use stdClass;
@@ -25,7 +25,7 @@ class CdrFactory
             new DateTime($json->end_date_time),
             $json->session_id ?? null,
             CdrTokenFactory::fromJson($json->cdr_token),
-            new AuthenticationMethod($json->auth_method),
+            new AuthMethod($json->auth_method),
             CdrLocationFactory::fromJson($json->cdr_location),
             $json->meter_id ?? null,
             $json->currency,

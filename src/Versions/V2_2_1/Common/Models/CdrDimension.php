@@ -9,7 +9,6 @@ use JsonSerializable;
 class CdrDimension implements JsonSerializable
 {
     private CdrDimensionType $type;
-
     private float $volume;
 
     public function __construct(

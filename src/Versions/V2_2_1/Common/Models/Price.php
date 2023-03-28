@@ -7,7 +7,6 @@ use JsonSerializable;
 class Price implements JsonSerializable
 {
     private float $excludingVat;
-
     private ?float $includingVat;
 
     public function __construct(
@@ -18,14 +17,6 @@ class Price implements JsonSerializable
         $this->includingVat = $includingVat;
     }
 
-    public function jsonSerialize(): array
-    {
-        return [
-            'excl_vat' => $this->excludingVat,
-            'incl_vat' => $this->includingVat ?? null
-        ];
-    }
-
     public function getExcludingVat(): float
     {
         return $this->excludingVat;
@@ -34,5 +25,13 @@ class Price implements JsonSerializable
     public function getIncludingVat(): ?float
     {
         return $this->includingVat;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'excl_vat' => $this->excludingVat,
+            'incl_vat' => $this->includingVat
+        ];
     }
 }
