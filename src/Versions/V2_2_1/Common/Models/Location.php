@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -10,98 +8,73 @@ use JsonSerializable;
 
 class Location implements JsonSerializable
 {
+    private string $countryCode;
+    private string $partyId;
     private string $id;
-
-    private ?ParkingType $locationType;
-
+    private bool $publish;
+    /** @var PublishTokenType[] */
+    private array $publishAllowedTo = [];
     private ?string $name;
-
     private string $address;
-
     private string $city;
-
     private ?string $postalCode;
-
+    private ?string $state;
     private string $country;
-
     private GeoLocation $coordinates;
-
     /** @var AdditionalGeoLocation[] */
     private array $relatedLocations = [];
-
-    /** @var EVSE[] */
+    private ?ParkingType $parkingType;
+    /** @var Evse[] */
     private array $evses = [];
-
     /** @var DisplayText[] */
     private array $directions = [];
-
     private ?BusinessDetails $operator;
-
     private ?BusinessDetails $suboperator;
-
     private ?BusinessDetails $owner;
-
     /** @var Facility[] */
     private array $facilities = [];
-
-    private ?string $timeZone;
-
+    private string $timeZone;
     private ?Hours $openingTimes;
-
     private ?bool $chargingWhenClosed;
-
     /** @var Image[] */
     private array $images = [];
-
     private ?EnergyMix $energyMix;
-
     private DateTime $lastUpdated;
 
-    private string $countryCode;
-
-    private string $partyId;
-
-    private ?string $state;
-
-    private bool $publish;
-
-    /**
-     * @var PublishTokenType[]|null
-     */
-    private ?array $publishAllowedTo;
-
     public function __construct(
-        string           $id,
-        ?ParkingType     $locationType,
-        ?string          $name,
-        string           $address,
-        string           $city,
-        ?string          $postalCode,
-        string           $country,
-        GeoLocation      $coordinates,
+        string $countryCode,
+        string $partyId,
+        string $id,
+        bool $publish,
+        ?string $name,
+        string $address,
+        string $city,
+        ?string $postalCode,
+        ?string $state,
+        string $country,
+        GeoLocation $coordinates,
+        ?ParkingType $parkingType,
         ?BusinessDetails $operator,
         ?BusinessDetails $suboperator,
         ?BusinessDetails $owner,
-        ?string          $timeZone,
+        string $timeZone,
         ?Hours $openingTimes,
         ?bool $chargingWhenClosed,
         ?EnergyMix $energyMix,
-        DateTime $lastUpdated,
-        string $countryCode,
-        string $partyId,
-        ?string $state,
-        bool $publish,
-        ?array $publishAllowedTo
-    )
-    {
+        DateTime $lastUpdated
+    ) {
+        $this->countryCode = $countryCode;
+        $this->partyId = $partyId;
         $this->id = $id;
-        $this->locationType = $locationType;
+        $this->publish = $publish;
         $this->name = $name;
         $this->address = $address;
         $this->city = $city;
         $this->postalCode = $postalCode;
+        $this->state = $state;
         $this->country = $country;
         $this->coordinates = $coordinates;
+        $this->parkingType = $parkingType;
         $this->operator = $operator;
         $this->suboperator = $suboperator;
         $this->owner = $owner;
@@ -110,46 +83,52 @@ class Location implements JsonSerializable
         $this->chargingWhenClosed = $chargingWhenClosed;
         $this->energyMix = $energyMix;
         $this->lastUpdated = $lastUpdated;
-        $this->countryCode = $countryCode;
-        $this->partyId = $partyId;
-        $this->state = $state;
-        $this->publish = $publish;
-        $this->publishAllowedTo = $publishAllowedTo;
+    }
+
+    public function addPublishAllowedTo(PublishTokenType $publishAllowedTo): self
+    {
+        $this->publishAllowedTo[] = $publishAllowedTo;
+        return $this;
     }
 
     public function addRelatedLocation(AdditionalGeoLocation $relatedLocation): self
     {
         $this->relatedLocations[] = $relatedLocation;
-
         return $this;
     }
 
-    public function addEVSE(EVSE $evse): self
+    public function addEvse(Evse $evse): self
     {
         $this->evses[] = $evse;
-
         return $this;
     }
 
     public function addDirection(DisplayText $direction): self
     {
         $this->directions[] = $direction;
-
         return $this;
     }
 
     public function addFacility(Facility $facility): self
     {
         $this->facilities[] = $facility;
-
         return $this;
     }
 
     public function addImage(Image $image): self
     {
         $this->images[] = $image;
-
         return $this;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 
     public function getId(): string
@@ -157,9 +136,14 @@ class Location implements JsonSerializable
         return $this->id;
     }
 
-    public function getLocationType(): ?ParkingType
+    public function getPublish(): bool
     {
-        return $this->locationType;
+        return $this->publish;
+    }
+
+    public function getPublishAllowedTo(): array
+    {
+        return $this->publishAllowedTo;
     }
 
     public function getName(): ?string
@@ -182,6 +166,11 @@ class Location implements JsonSerializable
         return $this->postalCode;
     }
 
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
     public function getCountry(): string
     {
         return $this->country;
@@ -192,25 +181,21 @@ class Location implements JsonSerializable
         return $this->coordinates;
     }
 
-    /**
-     * @return AdditionalGeoLocation[]
-     */
     public function getRelatedLocations(): array
     {
         return $this->relatedLocations;
     }
 
-    /**
-     * @return EVSE[]
-     */
+    public function getParkingType(): ?ParkingType
+    {
+        return $this->parkingType;
+    }
+
     public function getEvses(): array
     {
         return $this->evses;
     }
 
-    /**
-     * @return DisplayText[]
-     */
     public function getDirections(): array
     {
         return $this->directions;
@@ -231,15 +216,12 @@ class Location implements JsonSerializable
         return $this->owner;
     }
 
-    /**
-     * @return Facility[]
-     */
     public function getFacilities(): array
     {
         return $this->facilities;
     }
 
-    public function getTimeZone(): ?string
+    public function getTimeZone(): string
     {
         return $this->timeZone;
     }
@@ -254,9 +236,6 @@ class Location implements JsonSerializable
         return $this->chargingWhenClosed;
     }
 
-    /**
-     * @return Image[]
-     */
     public function getImages(): array
     {
         return $this->images;
@@ -274,83 +253,33 @@ class Location implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
-            'id' => $this->id,
-            'address' => $this->address,
-            'city' => $this->city,
-            'country' => $this->country,
-            'coordinates' => $this->coordinates,
-            'evses' => $this->evses,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+        return [
             'country_code' => $this->countryCode,
             'party_id' => $this->partyId,
-            'publish' => $this->publish
+            'id' => $this->id,
+            'publish' => $this->publish,
+            'publish_allowed_to' => $this->publishAllowedTo,
+            'name' => $this->name,
+            'address' => $this->address,
+            'city' => $this->city,
+            'postal_code' => $this->postalCode,
+            'state' => $this->state,
+            'country' => $this->country,
+            'coordinates' => $this->coordinates,
+            'related_locations' => $this->relatedLocations,
+            'parking_type' => $this->parkingType,
+            'evses' => $this->evses,
+            'directions' => $this->directions,
+            'operator' => $this->operator,
+            'suboperator' => $this->suboperator,
+            'owner' => $this->owner,
+            'facilities' => $this->facilities,
+            'time_zone' => $this->timeZone,
+            'opening_times' => $this->openingTimes,
+            'charging_when_closed' => $this->chargingWhenClosed,
+            'images' => $this->images,
+            'energy_mix' => $this->energyMix,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
-
-        if ($this->publishAllowedTo !== null) {
-            $return['publish_allowed_to'] = $this->publishAllowedTo;
-        }
-
-        if ($this->state !== null) {
-            $return['state'] = $this->state;
-        }
-
-        if ($this->postalCode !== null) {
-            $return['postal_code'] = $this->postalCode;
-        }
-
-        if ($this->locationType !== null) {
-            $return['parking_type'] = $this->locationType;
-        }
-
-        if (count($this->relatedLocations) > 0) {
-            $return['related_locations'] = $this->relatedLocations;
-        }
-
-        if (count($this->directions) > 0) {
-            $return['directions'] = $this->directions;
-        }
-
-        if (count($this->facilities) > 0) {
-            $return['facilities'] = $this->facilities;
-        }
-
-        if (count($this->images) > 0) {
-            $return['images'] = $this->images;
-        }
-
-        if ($this->name !== null) {
-            $return['name'] = $this->name;
-        }
-
-        if ($this->operator !== null) {
-            $return['operator'] = $this->operator;
-        }
-
-        if ($this->suboperator !== null) {
-            $return['suboperator'] = $this->suboperator;
-        }
-
-        if ($this->owner !== null) {
-            $return['owner'] = $this->owner;
-        }
-
-        if ($this->timeZone !== null) {
-            $return['time_zone'] = $this->timeZone;
-        }
-
-        if ($this->openingTimes !== null) {
-            $return['opening_times'] = $this->openingTimes;
-        }
-
-        if ($this->chargingWhenClosed !== null) {
-            $return['charging_when_closed'] = $this->chargingWhenClosed;
-        }
-
-        if ($this->energyMix !== null) {
-            $return['energy_mix'] = $this->energyMix;
-        }
-
-        return $return;
     }
 }

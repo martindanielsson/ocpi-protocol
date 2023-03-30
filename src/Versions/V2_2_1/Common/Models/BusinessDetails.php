@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,13 +7,14 @@ use JsonSerializable;
 class BusinessDetails implements JsonSerializable
 {
     private string $name;
-
     private ?string $website;
-
     private ?Image $logo;
 
-    public function __construct(string $name, ?string $website, ?Image $logo)
-    {
+    public function __construct(
+        string $name,
+        ?string $website,
+        ?Image $logo
+    ) {
         $this->name = $name;
         $this->website = $website;
         $this->logo = $logo;
@@ -38,18 +37,10 @@ class BusinessDetails implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'name' => $this->name,
+            'website' => $this->website,
+            'logo' => $this->logo
         ];
-
-        if ($this->website !== null) {
-            $return['website'] = $this->website;
-        }
-
-        if ($this->logo !== null) {
-            $return['logo'] = $this->logo;
-        }
-
-        return $return;
     }
 }

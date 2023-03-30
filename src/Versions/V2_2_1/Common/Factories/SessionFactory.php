@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthMethod;
@@ -33,7 +31,7 @@ class SessionFactory
             $json->connector_id,
             $json->meter_id ?? null,
             $json->currency,
-            !empty($json->total_cost) ? PriceFactory::fromJson($json->total_cost) : null,
+            PriceFactory::fromJson($json->total_cost ?? null),
             new SessionStatus($json->status),
             new DateTime($json->last_updated)
         );

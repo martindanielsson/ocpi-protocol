@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,33 +7,20 @@ use JsonSerializable;
 class TariffRestrictions implements JsonSerializable
 {
     private ?string $startTime;
-
     private ?string $endTime;
-
     private ?string $startDate;
-
     private ?string $endDate;
-
     private ?float $minKwh;
-
     private ?float $maxKwh;
-
-    private ?float $minPower;
-
-    private ?float $maxPower;
-
-    private ?int $minDuration;
-
-    private ?int $maxDuration;
-
-    /** @var DayOfWeek[] */
-    private array $daysOfWeek = [];
-
-    private ?ReservationRestrictionType $reservation;
-
     private ?float $minCurrent;
-
     private ?float $maxCurrent;
+    private ?float $minPower;
+    private ?float $maxPower;
+    private ?int $minDuration;
+    private ?int $maxDuration;
+    /** @var DayOfWeek[] */
+    private array $dayOfWeek = [];
+    private ?ReservationRestrictionType $reservation;
 
     public function __construct(
         ?string $startTime,
@@ -44,28 +29,33 @@ class TariffRestrictions implements JsonSerializable
         ?string $endDate,
         ?float $minKwh,
         ?float $maxKwh,
+        ?float $minCurrent,
+        ?float $maxCurrent,
         ?float $minPower,
         ?float $maxPower,
         ?int $minDuration,
         ?int $maxDuration,
-        ?ReservationRestrictionType $reservation,
-        ?float $minCurrent,
-        ?float $maxCurrent
-    )
-    {
+        ?ReservationRestrictionType $reservation
+    ) {
         $this->startTime = $startTime;
         $this->endTime = $endTime;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->minKwh = $minKwh;
         $this->maxKwh = $maxKwh;
+        $this->minCurrent = $minCurrent;
+        $this->maxCurrent = $maxCurrent;
         $this->minPower = $minPower;
         $this->maxPower = $maxPower;
         $this->minDuration = $minDuration;
         $this->maxDuration = $maxDuration;
         $this->reservation = $reservation;
-        $this->minCurrent = $minCurrent;
-        $this->maxCurrent = $maxCurrent;
+    }
+
+    public function addDayOfWeek(DayOfWeek $dayOfWeek): self
+    {
+        $this->dayOfWeek[] = $dayOfWeek;
+        return $this;
     }
 
     public function getStartTime(): ?string
@@ -98,6 +88,16 @@ class TariffRestrictions implements JsonSerializable
         return $this->maxKwh;
     }
 
+    public function getMinCurrent(): ?float
+    {
+        return $this->minCurrent;
+    }
+
+    public function getMaxCurrent(): ?float
+    {
+        return $this->maxCurrent;
+    }
+
     public function getMinPower(): ?float
     {
         return $this->minPower;
@@ -118,67 +118,28 @@ class TariffRestrictions implements JsonSerializable
         return $this->maxDuration;
     }
 
-    /**
-     * @return DayOfWeek[]
-     */
-    public function getDaysOfWeek(): array
+    public function getReservation(): ?ReservationRestrictionType
     {
-        return $this->daysOfWeek;
-    }
-
-    public function addDayOfWeek(DayOfWeek $dayOfWeek): self
-    {
-        $this->daysOfWeek[] = $dayOfWeek;
-
-        return $this;
+        return $this->reservation;
     }
 
     public function jsonSerialize(): array
     {
-        $return = [
-            'day_of_week' => $this->daysOfWeek,
+        return [
+            'start_time' => $this->start_time,
+            'end_time' => $this->end_time,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'min_kwh' => $this->min_kwh,
+            'max_kwh' => $this->max_kwh,
+            'min_current' => $this->min_current,
+            'max_current' => $this->max_current,
+            'min_power' => $this->min_power,
+            'max_power' => $this->max_power,
+            'min_duration' => $this->min_duration,
+            'max_duration' => $this->max_duration,
+            'day_of_week' => $this->day_of_week,
+            'reservation' => $this->reservation
         ];
-
-        if ($this->startTime !== null) {
-            $return['start_time'] = $this->startTime;
-        }
-        if ($this->endTime !== null) {
-            $return['end_time'] = $this->endTime;
-        }
-        if ($this->startDate !== null) {
-            $return['start_date'] = $this->startDate;
-        }
-        if ($this->endDate !== null) {
-            $return['end_date'] = $this->endDate;
-        }
-        if ($this->minKwh !== null) {
-            $return['min_kwh'] = $this->minKwh;
-        }
-        if ($this->maxKwh !== null) {
-            $return['max_kwh'] = $this->maxKwh;
-        }
-        if ($this->minPower !== null) {
-            $return['min_power'] = $this->minPower;
-        }
-        if ($this->maxPower !== null) {
-            $return['max_power'] = $this->maxPower;
-        }
-        if ($this->minDuration !== null) {
-            $return['min_duration'] = $this->minDuration;
-        }
-        if ($this->maxDuration !== null) {
-            $return['max_duration'] = $this->maxDuration;
-        }
-        if ($this->reservation !== null) {
-            $return['reservation'] = $this->reservation;
-        }
-        if ($this->minCurrent !== null) {
-            $return['min_current'] = $this->minCurrent;
-        }
-        if ($this->maxCurrent !== null) {
-            $return['max_current'] = $this->maxCurrent;
-        }
-
-        return $return;
     }
 }

@@ -1,59 +1,42 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
 use DateTime;
 use JsonSerializable;
 
-class EVSE implements JsonSerializable
+class Evse implements JsonSerializable
 {
     private string $uid;
-
     private ?string $evseId;
-
-    private EVSEStatus $status;
-
+    private Status $status;
     /** @var StatusSchedule[] */
     private array $statusSchedule = [];
-
-    /** Capability[] */
+    /** @var Capability[] */
     private array $capabilities = [];
-
     /** @var Connector[] */
     private array $connectors = [];
-
     private ?string $floorLevel;
-
     private ?GeoLocation $coordinates;
-
     private ?string $physicalReference;
-
     /** @var DisplayText[] */
     private array $directions = [];
-
     /** @var ParkingRestriction[] */
     private array $parkingRestrictions = [];
-
     /** @var Image[] */
     private array $images = [];
-
     private DateTime $lastUpdated;
 
-    /**
-     * EVSE constructor.
-     * @param string $uid
-     * @param string|null $evseId
-     * @param EVSEStatus $status
-     * @param string|null $floorLevel
-     * @param GeoLocation|null $coordinates
-     * @param string|null $physicalReference
-     * @param DateTime $lastUpdated
-     */
-    public function __construct(string $uid, ?string $evseId, EVSEStatus $status, ?string $floorLevel, ?GeoLocation $coordinates, ?string $physicalReference, DateTime $lastUpdated)
-    {
+    public function __construct(
+        string $uid,
+        ?string $evseId,
+        Status $status,
+        ?string $floorLevel,
+        ?GeoLocation $coordinates,
+        ?string $physicalReference,
+        DateTime $lastUpdated
+    ) {
         $this->uid = $uid;
         $this->evseId = $evseId;
         $this->status = $status;
@@ -63,45 +46,39 @@ class EVSE implements JsonSerializable
         $this->lastUpdated = $lastUpdated;
     }
 
-    public function addStatusSchedule(StatusSchedule $schedule): self
+    public function addStatusSchedule(StatusSchedule $statusSchedule): self
     {
-        $this->statusSchedule[] = $schedule;
-
+        $this->statusSchedule[] = $statusSchedule;
         return $this;
     }
 
     public function addCapability(Capability $capability): self
     {
         $this->capabilities[] = $capability;
-
         return $this;
     }
 
     public function addConnector(Connector $connector): self
     {
         $this->connectors[] = $connector;
-
         return $this;
     }
 
     public function addDirection(DisplayText $direction): self
     {
         $this->directions[] = $direction;
-
         return $this;
     }
 
     public function addParkingRestriction(ParkingRestriction $parkingRestriction): self
     {
         $this->parkingRestrictions[] = $parkingRestriction;
-
         return $this;
     }
 
     public function addImage(Image $image): self
     {
         $this->images[] = $image;
-
         return $this;
     }
 
@@ -115,30 +92,21 @@ class EVSE implements JsonSerializable
         return $this->evseId;
     }
 
-    public function getStatus(): EVSEStatus
+    public function getStatus(): Status
     {
         return $this->status;
     }
 
-    /**
-     * @return StatusSchedule[]
-     */
     public function getStatusSchedule(): array
     {
         return $this->statusSchedule;
     }
 
-    /**
-     * @return Capability[]
-     */
     public function getCapabilities(): array
     {
         return $this->capabilities;
     }
 
-    /**
-     * @return Connector[]
-     */
     public function getConnectors(): array
     {
         return $this->connectors;
@@ -159,25 +127,16 @@ class EVSE implements JsonSerializable
         return $this->physicalReference;
     }
 
-    /**
-     * @return DisplayText[]
-     */
     public function getDirections(): array
     {
         return $this->directions;
     }
 
-    /**
-     * @return ParkingRestriction[]
-     */
     public function getParkingRestrictions(): array
     {
         return $this->parkingRestrictions;
     }
 
-    /**
-     * @return Image[]
-     */
     public function getImages(): array
     {
         return $this->images;
@@ -190,52 +149,20 @@ class EVSE implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'uid' => $this->uid,
+            'evse_id' => $this->evseId,
             'status' => $this->status,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'status_schedule' => $this->statusSchedule,
+            'capabilities' => $this->capabilities,
+            'connectors' => $this->connectors,
+            'floor_level' => $this->floorLevel,
+            'coordinates' => $this->coordinates,
+            'physical_reference' => $this->physicalReference,
+            'directions' => $this->directions,
+            'parking_restrictions' => $this->parkingRestrictions,
+            'images' => $this->images,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
-
-        if (count($this->connectors) > 0) {
-            $return['connectors'] = $this->connectors;
-        }
-
-        if (count($this->statusSchedule) > 0) {
-            $return['status_schedule'] = $this->statusSchedule;
-        }
-
-        if (count($this->capabilities) > 0) {
-            $return['capabilities'] = $this->capabilities;
-        }
-
-        if (count($this->directions) > 0) {
-            $return['directions'] = $this->directions;
-        }
-
-        if (count($this->parkingRestrictions) > 0) {
-            $return['parking_restrictions'] = $this->parkingRestrictions;
-        }
-
-        if (count($this->images) > 0) {
-            $return['images'] = $this->images;
-        }
-
-        if ($this->evseId !== null) {
-            $return['evse_id'] = $this->evseId;
-        }
-
-        if ($this->floorLevel !== null) {
-            $return['floor_level'] = $this->floorLevel;
-        }
-
-        if ($this->coordinates !== null) {
-            $return['coordinates'] = $this->coordinates;
-        }
-
-        if ($this->physicalReference !== null) {
-            $return['physical_reference'] = $this->physicalReference;
-        }
-
-        return $return;
     }
 }

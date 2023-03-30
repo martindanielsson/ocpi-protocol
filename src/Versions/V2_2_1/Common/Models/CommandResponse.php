@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,14 +7,14 @@ use JsonSerializable;
 class CommandResponse implements JsonSerializable
 {
     private CommandResponseType $result;
-
     private int $timeout;
-
     /** @var DisplayText[] */
-    private array $message;
+    private array $message = [];
 
-    public function __construct(CommandResponseType $result, int $timeout)
-    {
+    public function __construct(
+        CommandResponseType $result,
+        int $timeout
+    ) {
         $this->result = $result;
         $this->timeout = $timeout;
     }
@@ -24,7 +22,6 @@ class CommandResponse implements JsonSerializable
     public function addMessage(DisplayText $message): self
     {
         $this->message[] = $message;
-
         return $this;
     }
 
@@ -45,15 +42,10 @@ class CommandResponse implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'result' => $this->result,
-            'timeout' => $this->timeout
+            'timeout' => $this->timeout,
+            'message' => $this->message
         ];
-
-        if (count($this->message) > 0) {
-            $return['message'] = $this->message;
-        }
-
-        return $return;
     }
 }

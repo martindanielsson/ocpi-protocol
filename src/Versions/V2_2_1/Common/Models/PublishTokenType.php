@@ -2,20 +2,23 @@
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-class PublishTokenType implements \JsonSerializable
+use JsonSerializable;
+
+class PublishTokenType implements JsonSerializable
 {
     private ?string $uid;
-
     private ?TokenType $type;
-
     private ?string $visualNumber;
-
     private ?string $issuer;
-
     private ?string $groupId;
 
-    public function __construct(?string $uid, ?TokenType $type, ?string $visualNumber, ?string $issuer, ?string $groupId)
-    {
+    public function __construct(
+        ?string $uid,
+        ?TokenType $type,
+        ?string $visualNumber,
+        ?string $issuer,
+        ?string $groupId
+    ) {
         $this->uid = $uid;
         $this->type = $type;
         $this->visualNumber = $visualNumber;
@@ -23,30 +26,39 @@ class PublishTokenType implements \JsonSerializable
         $this->groupId = $groupId;
     }
 
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
+
+    public function getType(): ?TokenType
+    {
+        return $this->type;
+    }
+
+    public function getVisualNumber(): ?string
+    {
+        return $this->visualNumber;
+    }
+
+    public function getIssuer(): ?string
+    {
+        return $this->issuer;
+    }
+
+    public function getGroupId(): ?string
+    {
+        return $this->groupId;
+    }
+
     public function jsonSerialize(): array
     {
-        $return = [];
-
-        if ($this->uid !== null) {
-            $return['uid'] = $this->uid;
-        }
-
-        if ($this->type !== null) {
-            $return['type'] = $this->type;
-        }
-
-        if ($this->visualNumber !== null) {
-            $return['visual_number'] = $this->visualNumber;
-        }
-
-        if ($this->issuer !== null) {
-            $return['issuer'] = $this->issuer;
-        }
-
-        if ($this->groupId !== null) {
-            $return['group_id'] = $this->groupId;
-        }
-
-        return $return;
+        return [
+            'uid' => $this->uid,
+            'type' => $this->type,
+            'visual_number' => $this->visualNumber,
+            'issuer' => $this->issuer,
+            'group_id' => $this->groupId
+        ];
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -127,9 +125,9 @@ class PartialSession extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    public function withChargingPeriod(ChargingPeriod $period): self
+    public function addChargingPeriod(ChargingPeriod $chargingPeriod): self
     {
-        $this->chargingPeriods[] = $period;
+        $this->chargingPeriods[] = $chargingPeriod;
         return $this;
     }
 

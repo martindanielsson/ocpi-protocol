@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -11,23 +9,9 @@ use JsonSerializable;
 
 /**
  * @method bool hasId()
- * @method bool hasStandard()
- * @method bool hasFormat()
- * @method bool hasPowerType()
- * @method bool hasVoltage()
- * @method bool hasAmperage()
- * @method bool hasTariffId()
- * @method bool hasTermsAndConditions()
- * @method bool hasLastUpdated()
- * @method self withId(string $id)
- * @method self withStandard(ConnectorType $standard)
- * @method self withFormat(ConnectorFormat $format)
- * @method self withPowerType(PowerType $powerType)
- * @method self withVoltage(int $voltage)
- * @method self withAmperage(int $amperage)
- * @method self withTariffId(?string $tariffId)
- * @method self withTermsAndConditions(?string $termsAndConditions)
- * @method self withLastUpdated(DateTime $lastUpdated)
+ * TODO: Put down other methods
+ * @method self withId(?string $id)
+ * TODO: Put down other methods
  */
 class PartialConnector extends PartialModel implements JsonSerializable
 {
@@ -35,51 +19,65 @@ class PartialConnector extends PartialModel implements JsonSerializable
     private ?ConnectorType $standard = null;
     private ?ConnectorFormat $format = null;
     private ?PowerType $powerType = null;
-    private ?int $voltage = null;
-    private ?int $amperage = null;
-    private ?string $tariffId = null;
+    private ?int $maxVoltage = null;
+    private ?int $maxAmperage = null;
+    private ?int $maxElectricPower = null;
+    /** @var string[]|null */
+    private ?array $tariffIds = null;
     private ?string $termsAndConditions = null;
     private ?DateTime $lastUpdated = null;
 
-    protected function _withId(string $id): self
+    protected function _withId(?string $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    protected function _withStandard(ConnectorType $standard): self
+    protected function _withStandard(?ConnectorType $standard): self
     {
         $this->standard = $standard;
         return $this;
     }
 
-    protected function _withFormat(ConnectorFormat $format): self
+    protected function _withFormat(?ConnectorFormat $format): self
     {
         $this->format = $format;
         return $this;
     }
 
-    protected function _withPowerType(PowerType $powerType): self
+    protected function _withPowerType(?PowerType $powerType): self
     {
         $this->powerType = $powerType;
         return $this;
     }
 
-    protected function _withVoltage(int $voltage): self
+    protected function _withMaxVoltage(?int $maxVoltage): self
     {
-        $this->voltage = $voltage;
+        $this->maxVoltage = $maxVoltage;
         return $this;
     }
 
-    protected function _withAmperage(int $amperage): self
+    protected function _withMaxAmperage(?int $maxAmperage): self
     {
-        $this->amperage = $amperage;
+        $this->maxAmperage = $maxAmperage;
         return $this;
     }
 
-    protected function _withTariffId(?string $tariffId): self
+    protected function _withMaxElectricPower(?int $maxElectricPower): self
     {
-        $this->tariffId = $tariffId;
+        $this->maxElectricPower = $maxElectricPower;
+        return $this;
+    }
+
+    protected function _withTariffIds(): self
+    {
+        $this->tariffIds = [];
+        return $this;
+    }
+
+    public function addTariffId(string $tariffId): self
+    {
+        $this->tariffIds[] = $tariffId;
         return $this;
     }
 
@@ -89,7 +87,7 @@ class PartialConnector extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    protected function _withLastUpdated(DateTime $lastUpdated): self
+    protected function _withLastUpdated(?DateTime $lastUpdated): self
     {
         $this->lastUpdated = $lastUpdated;
         return $this;
@@ -105,7 +103,7 @@ class PartialConnector extends PartialModel implements JsonSerializable
         return $this->standard;
     }
 
-    public function getFormat(): ?ConnectorFormat
+    public function getformat(): ?ConnectorFormat
     {
         return $this->format;
     }
@@ -115,19 +113,24 @@ class PartialConnector extends PartialModel implements JsonSerializable
         return $this->powerType;
     }
 
-    public function getVoltage(): ?int
+    public function getMaxVoltage(): ?int
     {
-        return $this->voltage;
+        return $this->maxVoltage;
     }
 
-    public function getAmperage(): ?int
+    public function getMaxAmperage(): ?int
     {
-        return $this->amperage;
+        return $this->maxAmperage;
     }
 
-    public function getTariffId(): ?string
+    public function getMaxElectricPower(): ?int
     {
-        return $this->tariffId;
+        return $this->maxElectricPower;
+    }
+
+    public function getTariffIds(): ?array
+    {
+        return $this->tariffIds;
     }
 
     public function getTermsAndConditions(): ?string
@@ -156,14 +159,17 @@ class PartialConnector extends PartialModel implements JsonSerializable
         if ($this->hasPowerType()) {
             $return['power_type'] = $this->powerType;
         }
-        if ($this->hasVoltage()) {
-            $return['voltage'] = $this->voltage;
+        if ($this->hasMaxVoltage()) {
+            $return['max_voltage'] = $this->maxVoltage;
         }
-        if ($this->hasAmperage()) {
-            $return['amperage'] = $this->amperage;
+        if ($this->hasMaxAmperage()) {
+            $return['max_amperage'] = $this->maxAmperage;
         }
-        if ($this->hasTariffId()) {
-            $return['tariff_id'] = $this->tariffId;
+        if ($this->hasMaxElectricPower()) {
+            $return['max_electric_power'] = $this->maxElectricPower;
+        }
+        if ($this->hasTariffIds()) {
+            $return['tariff_ids'] = $this->tariffIds;
         }
         if ($this->hasTermsAndConditions()) {
             $return['terms_and_conditions'] = $this->termsAndConditions;

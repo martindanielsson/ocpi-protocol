@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use MyCLabs\Enum\Enum;
@@ -12,7 +10,7 @@ use MyCLabs\Enum\Enum;
  * @method static self ALLOWED_OFFLINE()
  * @method static self NEVER()
  */
-class WhiteList extends Enum
+class WhitelistType extends Enum
 {
     public const ALWAYS = 'ALWAYS';
     public const ALLOWED = 'ALLOWED';

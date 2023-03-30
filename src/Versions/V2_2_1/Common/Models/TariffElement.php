@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -10,24 +8,20 @@ class TariffElement implements JsonSerializable
 {
     /** @var PriceComponent[] */
     private array $priceComponents = [];
-
     private ?TariffRestrictions $restrictions;
 
-    public function __construct(?TariffRestrictions $restrictions)
-    {
+    public function __construct(
+        ?TariffRestrictions $restrictions
+    ) {
         $this->restrictions = $restrictions;
     }
 
-    public function addPriceComponent(PriceComponent $component): self
+    public function addPriceComponent(PriceComponent $priceComponent): self
     {
-        $this->priceComponents[] = $component;
-
+        $this->priceComponents[] = $priceComponent;
         return $this;
     }
 
-    /**
-     * @return PriceComponent[]
-     */
     public function getPriceComponents(): array
     {
         return $this->priceComponents;
@@ -40,14 +34,9 @@ class TariffElement implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'price_components' => $this->priceComponents,
+            'restrictions' => $this->restrictions
         ];
-
-        if ($this->restrictions !== null) {
-            $return['restrictions'] = $this->restrictions;
-        }
-
-        return $return;
     }
 }

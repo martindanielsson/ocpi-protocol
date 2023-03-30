@@ -6,8 +6,8 @@ namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\Patch;
 
 use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\PartialEVSEFactory;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialEVSE;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\PartialEvseFactory;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialEvse;
 use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\BaseEvseUpdateRequest;
 use Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\LocationRequestParams;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,7 +15,7 @@ use UnexpectedValueException;
 
 class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
 {
-    private PartialEVSE $partialEvse;
+    private PartialEvse $partialEvse;
 
     /**
      * OcpiEmspEvsePatchRequest constructor.
@@ -28,10 +28,10 @@ class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
         parent::__construct($request, $params);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/Evses/evsePatchRequest.schema.json', $this->jsonBody);
 
-        $partialEvse = PartialEVSEFactory::fromJson($this->jsonBody);
+        $partialEvse = PartialEvseFactory::fromJson($this->jsonBody);
 
         if ($partialEvse === null) {
-            throw new UnexpectedValueException('PartialConnector cannot be null');
+            throw new UnexpectedValueException('PartialEvse cannot be null');
         }
 
         if ($partialEvse->hasUid() && $partialEvse->getUid() !== $params->getEvseUid()) {
@@ -41,7 +41,7 @@ class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
         $this->partialEvse = $partialEvse;
     }
 
-    public function getPartialEvse(): PartialEVSE
+    public function getPartialEvse(): PartialEvse
     {
         return $this->partialEvse;
     }

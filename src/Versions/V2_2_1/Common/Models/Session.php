@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -68,9 +66,10 @@ class Session implements JsonSerializable
         $this->lastUpdated = $lastUpdated;
     }
 
-    public function addChargingPeriod(ChargingPeriod $chargingPeriod): void
+    public function addChargingPeriod(ChargingPeriod $chargingPeriod): self
     {
         $this->chargingPeriods[] = $chargingPeriod;
+        return $this;
     }
 
     public function getCountryCode(): string
@@ -98,7 +97,7 @@ class Session implements JsonSerializable
         return $this->endDateTime;
     }
 
-    public function getkwh(): float
+    public function getKwh(): float
     {
         return $this->kwh;
     }
