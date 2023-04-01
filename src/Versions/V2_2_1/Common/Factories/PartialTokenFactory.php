@@ -17,51 +17,51 @@ class PartialTokenFactory
             return null;
         }
 
-        $partialToken = new PartialToken();
+        $token = new PartialToken();
 
         if (isset($json->country_code)) {
-            $partialToken->withCountryCode($json->country_code);
+            $token->withCountryCode($json->country_code);
         }
         if (isset($json->party_id)) {
-            $partialToken->withPartyId($json->party_id);
+            $token->withPartyId($json->party_id);
         }
         if (isset($json->uid)) {
-            $partialToken->withUid($json->uid);
+            $token->withUid($json->uid);
         }
         if (isset($json->type)) {
-            $partialToken->withType(new TokenType($json->type));
+            $token->withType(new TokenType($json->type));
         }
         if (isset($json->contract_id)) {
-            $partialToken->withContractId($json->contract_id);
+            $token->withContractId($json->contract_id);
         }
         if (isset($json->visual_number)) {
-            $partialToken->withVisualNumber($json->visual_number);
+            $token->withVisualNumber($json->visual_number);
         }
         if (isset($json->issuer)) {
-            $partialToken->withIssuer($json->issuer);
+            $token->withIssuer($json->issuer);
         }
         if (isset($json->group_id)) {
-            $partialToken->withGroupId($json->group_id);
+            $token->withGroupId($json->group_id);
         }
         if (isset($json->valid)) {
-            $partialToken->withValid($json->valid);
+            $token->withValid($json->valid);
         }
         if (isset($json->whitelist)) {
-            $partialToken->withWhitelist(new WhitelistType($json->whitelist));
+            $token->withWhitelist(new WhitelistType($json->whitelist));
         }
         if (isset($json->language)) {
-            $partialToken->withLanguage($json->language);
+            $token->withLanguage($json->language);
         }
         if (isset($json->default_profile_type)) {
-            $partialToken->withDefaultProfileType(new ProfileType($json->default_profile_type));
+            $token->withDefaultProfileType(new ProfileType($json->default_profile_type));
         }
         if (isset($json->energy_contract)) {
-            $partialToken->withEnergyContract(EnergyContractFactory::fromJson($json->energy_contract));
+            $token->withEnergyContract(EnergyContractFactory::fromJson($json->energy_contract));
         }
         if (isset($json->language)) {
-            $partialToken->withLastUpdated(new DateTime($json->last_updated));
+            $token->withLastUpdated(new DateTime($json->last_updated));
         }
 
-        return $partialToken;
+        return $token;
     }
 }
