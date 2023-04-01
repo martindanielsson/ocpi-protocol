@@ -2,7 +2,7 @@
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-use JsonSerializable
+use JsonSerializable;
 
 class CredentialsRole implements JsonSerializable
 {

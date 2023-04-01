@@ -19,7 +19,7 @@ class ChargingPeriodFactory
             $json->tariff_id ?? null
         );
 
-        foreach ($json->dimensions as $dimension) {
+        foreach ($json->dimensions ?? [] as $dimension) {
             $chargingPeriod->addDimension(CdrDimensionFactory::fromJson($dimension));
         }
 

@@ -28,7 +28,7 @@ class OcpiEmspLocationPatchRequest extends OcpiLocationUpdateRequest
             throw new UnexpectedValueException('PartialLocation cannot be null');
         }
 
-        if ($partialLocation->hasCountryCode() && $partialLocation->getCountryCode() !== $params->getCountryId()) {
+        if ($partialLocation->hasCountryCode() && $partialLocation->getCountryCode() !== $params->getCountryCode()) {
             throw new OcpiGenericClientError('Country code can not be patched');
         }
 

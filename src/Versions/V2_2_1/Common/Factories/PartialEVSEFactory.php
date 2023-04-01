@@ -1,89 +1,85 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Capability;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\EVSEStatus;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Status;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ParkingRestriction;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialEVSE;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialEvse;
 use DateTime;
 use stdClass;
 
-class PartialEVSEFactory
+class PartialEvseFactory
 {
-    public static function fromJson(?stdClass $json): ?PartialEVSE
+    public static function fromJson(?stdClass $json): ?PartialEvse
     {
         if ($json === null) {
             return null;
         }
 
-        $evse = new PartialEVSE();
+        $evse = new PartialEvse();
 
-        if (property_exists($json, 'uid')) {
+        if (isset($json->uid)) {
             $evse->withUid($json->uid);
         }
-        if (property_exists($json, 'evse_id')) {
+        if (isset($json->evse_id)) {
             $evse->withEvseId($json->evse_id);
         }
-        if (property_exists($json, 'status')) {
-            $evse->withStatus(new EVSEStatus($json->status));
+        if (isset($json->status)) {
+            $evse->withStatus(new Status($json->status));
         }
-        if (property_exists($json, 'floor_level')) {
-            $evse->withFloorLevel(FloorLevelFactory::fromString($json->floor_level));
+        if (isset($json->floor_level)) {
+            $evse->withFloorLevel($json->floor_level);
         }
-        if (property_exists($json, 'coordinates')) {
+        if (isset($json->coordinates)) {
             $evse->withCoordinates(GeoLocationFactory::fromJson($json->coordinates));
         }
-
-        if (property_exists($json, "physical_reference")) {
-            $evse->withPhysicalReference(PhysicalReferenceFactory::fromString($json->physical_reference));
+        if (isset($json->physical_reference)) {
+            $evse->withPhysicalReference($json->physical_reference);
         }
-
-        if (property_exists($json, 'last_updated')) {
+        if (isset($json->last_updated)) {
             $evse->withLastUpdated(new DateTime($json->last_updated));
         }
 
-        if (property_exists($json, 'status_schedule')) {
-            $evse->withStatusSchedules();
-            foreach ($json->status_schedule ?? [] as $jsonStatusSchedule) {
-                $evse->withStatusSchedule(StatusScheduleFactory::fromJson($jsonStatusSchedule));
+        if (isset($json->status_schedule)) {
+            $evse->withStatusSchedule();
+            foreach ($json->status_schedule ?? [] as $statusSchedule) {
+                $evse->addStatusSchedule(StatusScheduleFactory::fromJson($statusSchedule));
             }
         }
 
-        if (property_exists($json, 'capabilities')) {
+        if (isset($json->capabilities)) {
             $evse->withCapabilities();
             foreach ($json->capabilities ?? [] as $capability) {
-                $evse->withCapability(new Capability($capability));
+                $evse->addCapability(new Capability($capability));
             }
         }
 
-        if (property_exists($json, 'connectors')) {
+        if (isset($json->connectors)) {
             $evse->withConnectors();
-            foreach ($json->connectors as $connector) {
-                $evse->withConnector(ConnectorFactory::fromJson($connector));
+            foreach ($json->connectors ?? [] as $connector) {
+                $evse->addConnector(ConnectorFactory::fromJson($connector));
             }
         }
 
-        if (property_exists($json, 'directions')) {
+        if (isset($json->directions)) {
             $evse->withDirections();
             foreach ($json->directions ?? [] as $direction) {
-                $evse->withDirection(DisplayTextFactory::fromJson($direction));
+                $evse->addDirection(DisplayTextFactory::fromJson($direction));
             }
         }
 
-        if (property_exists($json, 'parking_restrictions')) {
+        if (isset($json->parking_restrictions)) {
             $evse->withParkingRestrictions();
-            foreach ($json->parking_restrictions ?? [] as $restriction) {
-                $evse->withParkingRestriction(new ParkingRestriction($restriction));
+            foreach ($json->parking_restrictions ?? [] as $parkingRestriction) {
+                $evse->addParkingRestriction(new ParkingRestriction($parkingRestriction));
             }
         }
 
-        if (property_exists($json, 'images')) {
+        if (isset($json->images)) {
             $evse->withImages();
             foreach ($json->images ?? [] as $image) {
-                $evse->withImage(ImageFactory::fromJson($image));
+                $evse->addImage(ImageFactory::fromJson($image));
             }
         }
 

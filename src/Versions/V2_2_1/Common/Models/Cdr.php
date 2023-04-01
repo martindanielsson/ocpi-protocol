@@ -36,9 +36,9 @@ class Cdr implements JsonSerializable
     private ?Price $totalReservationCost;
     private ?string $remark;
     private ?string $invoiceReferenceId;
-    private ?boolean $credit;
+    private ?bool $credit;
     private ?string $creditReferenceId;
-    private ?boolean $homeChargingCompensation;
+    private ?bool $homeChargingCompensation;
     private DateTime $lastUpdated;
 
     public function __construct(
@@ -66,9 +66,9 @@ class Cdr implements JsonSerializable
         ?Price $totalReservationCost,
         ?string $remark,
         ?string $invoiceReferenceId,
-        ?boolean $credit,
+        ?bool $credit,
         ?string $creditReferenceId,
-        ?boolean $homeChargingCompensation,
+        ?bool $homeChargingCompensation,
         DateTime $lastUpdated
     ) {
         $this->countryCode = $countryCode;
@@ -243,7 +243,7 @@ class Cdr implements JsonSerializable
         return $this->invoiceReferenceId;
     }
 
-    public function getCredit(): ?boolean
+    public function getCredit(): ?bool
     {
         return $this->credit;
     }
@@ -253,7 +253,7 @@ class Cdr implements JsonSerializable
         return $this->creditReferenceId;
     }
 
-    public function getHomeChargingCompensation(): ?boolean
+    public function getHomeChargingCompensation(): ?bool
     {
         return $this->homeChargingCompensation;
     }

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
@@ -9,15 +8,15 @@ use stdClass;
 
 class EnergySourceFactory
 {
-    public static function fromJson(?stdClass $source): ?EnergySource
+    public static function fromJson(?stdClass $json): ?EnergySource
     {
-        if($source === null ) {
+        if ($json === null) {
             return null;
         }
 
         return new EnergySource(
-            new EnergySourceCategory($source->source),
-            $source->percentage
+            new EnergySourceCategory($json->source),
+            $json->percentage
         );
     }
 }

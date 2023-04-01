@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\DayOfWeek;
@@ -24,21 +22,17 @@ class TariffRestrictionsFactory
             $json->end_date ?? null,
             $json->min_kwh ?? null,
             $json->max_kwh ?? null,
+            $json->min_current ?? null,
+            $json->max_current ?? null,
             $json->min_power ?? null,
             $json->max_power ?? null,
             $json->min_duration ?? null,
             $json->max_duration ?? null,
-            $json->reservation ? new ReservationRestrictionType($json->reservation) : null,
-            $json->min_current ?? null,
-            $json->max_current ?? null
+            !empty($json->reservation) ? new ReservationRestrictionType($json->reservation) : null
         );
 
-        if (property_exists($json, 'day_of_week')) {
-            foreach ($json->day_of_week as $jsonDayOfWeek) {
-                $tariffRestrictions->addDayOfWeek(
-                    new DayOfWeek($jsonDayOfWeek)
-                );
-            }
+        foreach ($json->day_of_week ?? [] as $dayOfWeek) {
+            $tariffRestrictions->addDayOfWeek(new DayOfWeek($dayOfWeek));
         }
 
         return $tariffRestrictions;

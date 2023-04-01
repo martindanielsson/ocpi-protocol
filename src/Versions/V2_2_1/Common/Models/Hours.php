@@ -2,7 +2,6 @@
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-use InvalidArgumentException;
 use JsonSerializable;
 
 class Hours implements JsonSerializable
@@ -23,10 +22,6 @@ class Hours implements JsonSerializable
 
     public function addRegularHours(RegularHours $regularHours): void
     {
-        if ($this->twentyfourseven) {
-            throw new InvalidArgumentException('You can not add a RegularHours when twentyfourseven is set to true');
-        }
-
         $this->regularHours[] = $regularHours;
     }
 

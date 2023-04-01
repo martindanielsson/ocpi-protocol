@@ -7,19 +7,16 @@ use stdClass;
 
 class SignedValueFactory
 {
-    public static function fromJson(?stdClass $json): array
+    public static function fromJson(?stdClass $json): ?SignedValue
     {
-        $signedValues = [];
-
-        foreach ($json as $values) {
-            $signedValues[] = self::fromJsonToSignedValue($values);
+        if ($json === null) {
+            return null;
         }
 
-        return $signedValues;
-    }
-
-    public static function fromJsonToSignedValue(?stdClass $json): SignedValue
-    {
-        return new SignedValue($json->nature, $json->plain_data, $json->signed_data);
+        return new SignedValue(
+            $json->nature,
+            $json->plain_data,
+            $json->signed_data
+        );
     }
 }

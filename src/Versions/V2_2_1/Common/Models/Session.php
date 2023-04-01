@@ -222,73 +222,92 @@ class Session implements JsonSerializable
     public function diff(Session $other): ?PartialSession
     {
         $diff = null;
+        if ($this->countryCode !== $other->countryCode) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withCountryCode($other->countryCode);
+        }
+        if ($this->id !== $other->partyId) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withPartyId($other->partyId);
+        }
         if ($this->id !== $other->id) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withId($other->id);
         }
-        if ($this->startDate->getTimestamp() !== $other->startDate->getTimestamp()) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withStartDate($other->startDate);
+        if ($this->startDateTime->getTimestamp() !== $other->startDateTime->getTimestamp()) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withStartDateTime($other->startDateTime);
         }
-        if ($this->endDate === null && $other->endDate !== null) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withEndDate($other->endDate);
+        if ($this->endDateTime === null && $other->endDateTime !== null) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEndDateTime($other->endDateTime);
         }
-        if ($this->endDate !== null && $other->endDate === null) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withEndDate($other->endDate);
+        if ($this->endDateTime !== null && $other->endDateTime === null) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEndDateTime($other->endDateTime);
         }
         if (
-            $this->endDate !== null && $other->endDate !== null &&
-            $this->endDate->getTimestamp() !== $other->endDate->getTimestamp()
+            $this->endDateTime !== null && $other->endDateTime !== null &&
+            $this->endDateTime->getTimestamp() !== $other->endDateTime->getTimestamp()
         ) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withEndDate($other->endDate);
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEndDateTime($other->endDateTime);
         }
         if ($this->kwh !== $other->kwh) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withKwh($other->kwh);
         }
         if ($this->cdrToken !== $other->cdrToken) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withAuthId($other->cdrToken);
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withCdrToken($other->cdrToken);
         }
         if (!$this->authMethod->equals($other->authMethod)) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withAuthMethod($other->authMethod);
         }
-        //TODO: replace by location "equals" method call
-        if ($this->location != $other->location) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withLocation($other->location);
+        if ($this->authorizationReference !== $other->authorizationReference) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withAuthorizationReference($other->authorizationReference);
+        }    
+        if ($this->locationId != $other->locationId) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withLocationId($other->locationId);
+        }
+        if ($this->evseUid != $other->evseUid) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEvseId($other->evseUid);
+        }
+        if ($this->connectorId != $other->connectorId) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withConnectorId($other->connectorId);
         }
         if ($this->meterId !== $other->meterId) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withMeterId($other->meterId);
         }
         if ($this->currency !== $other->currency) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withCurrency($other->currency);
         }
         if ($this->totalCost !== $other->totalCost) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withTotalCost($other->totalCost);
         }
         if (!$this->status->equals($other->status)) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withStatus($other->status);
         }
         if ($this->lastUpdated->getTimestamp() !== $other->lastUpdated->getTimestamp()) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withLastUpdated($other->lastUpdated);
         }
         $chargingPeriodsDiff = self::chargingPeriodsDiff($this, $other);
         if ($chargingPeriodsDiff !== null) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             //There is a difference between to, so anyway we need to init charging periods array
             $diff = $diff->withChargingPeriods();
             foreach ($chargingPeriodsDiff as $chargingPeriod) {
-                $diff = $diff->withChargingPeriod($chargingPeriod);
+                $diff = $diff->addChargingPeriod($chargingPeriod);
             }
         }
 

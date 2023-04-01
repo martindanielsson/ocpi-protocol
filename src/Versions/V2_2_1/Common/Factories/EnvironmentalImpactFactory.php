@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
@@ -11,7 +10,7 @@ class EnvironmentalImpactFactory
 {
     public static function fromJson(?stdClass $json): ?EnvironmentalImpact
     {
-        if( $json === null) {
+        if ($json === null) {
             return null;
         }
 

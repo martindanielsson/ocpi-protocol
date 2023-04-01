@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AuthMethod;
@@ -30,7 +28,7 @@ class PartialSessionFactory
             $session->withId($json->id);
         }
         if (isset($json->start_date_time)) {
-            $session->withStartDateTime(!empty($json->start_date_time) ? new DateTime($json->start_date_time) : null);
+            $session->withStartDateTime(new DateTime($json->start_date_time));
         }
         if (isset($json->end_date_time)) {
             $session->withEndDateTime(!empty($json->end_date_time) ? new DateTime($json->end_date_time) : null);
@@ -39,10 +37,10 @@ class PartialSessionFactory
             $session->withKwh($json->kwh);
         }
         if (isset($json->cdr_token)) {
-            $session->withCdrToken(!empty($json->cdr_token) ? CdrTokenFactory::fromJson($json->cdr_token) : null);
+            $session->withCdrToken(CdrTokenFactory::fromJson($json->cdr_token));
         }
         if (isset($json->auth_method)) {
-            $session->withAuthMethod(!empty($json->auth_method) ? new AuthMethod($json->auth_method) : null);
+            $session->withAuthMethod(new AuthMethod($json->auth_method));
         }
         if (isset($json->authorization_reference)) {
             $session->withAuthorizationReference($json->authorization_reference);
@@ -63,19 +61,19 @@ class PartialSessionFactory
             $session->withCurrency($json->currency);
         }
         if (isset($json->total_cost)) {
-            $session->withTotalCost(!empty($json->total_cost) ? PriceFactory::fromJson($json->total_cost) : null);
+            $session->withTotalCost(PriceFactory::fromJson($json->total_cost));
         }
         if (isset($json->status)) {
-            $session->withStatus(!empty($json->status) ? new SessionStatus($json->status) : null);
+            $session->withStatus(new SessionStatus($json->status));
         }
         if (isset($json->last_updated)) {
-            $session->withLastUpdated(!empty($json->last_updated) ? new DateTime($json->last_updated) : null);
+            $session->withLastUpdated(new DateTime($json->last_updated));
         }
 
         if (isset($json->charging_periods)) {
             $session->withChargingPeriods();
             foreach ($json->charging_periods ?? [] as $chargingPeriod) {
-                $session->withChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));
+                $session->addChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));
             }
         }
 

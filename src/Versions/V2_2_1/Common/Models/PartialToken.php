@@ -3,6 +3,7 @@
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
+use Chargemap\OCPI\Common\Utils\PartialModel;
 use DateTime;
 use JsonSerializable;
 
@@ -12,7 +13,7 @@ use JsonSerializable;
  * @method self withId(?string $id)
  * TODO: Put down other methods
  */
-class PartialToken implements JsonSerializable
+class PartialToken extends PartialModel implements JsonSerializable
 {
     private ?string $countryCode = null;
     private ?string $partyId = null;

@@ -13,6 +13,9 @@ class EnergyContractFactory
             return null;
         }
 
-        return new EnergyContract($json->supplier_name, $json->contract_id);
+        return new EnergyContract(
+            $json->supplier_name,
+            $json->contract_id ?? null
+        );
     }
 }

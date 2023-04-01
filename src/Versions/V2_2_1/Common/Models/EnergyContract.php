@@ -31,8 +31,8 @@ class EnergyContract implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'supplier_name' => $this->supplier_name,
-            'contract_id' => $this->contract_id
+            'supplier_name' => $this->supplierName,
+            'contract_id' => $this->contractId
         ];
     }
 }

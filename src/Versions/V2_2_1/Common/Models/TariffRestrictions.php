@@ -126,19 +126,19 @@ class TariffRestrictions implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
-            'min_kwh' => $this->min_kwh,
-            'max_kwh' => $this->max_kwh,
-            'min_current' => $this->min_current,
-            'max_current' => $this->max_current,
-            'min_power' => $this->min_power,
-            'max_power' => $this->max_power,
-            'min_duration' => $this->min_duration,
-            'max_duration' => $this->max_duration,
-            'day_of_week' => $this->day_of_week,
+            'start_time' => $this->startTime,
+            'end_time' => $this->endTime,
+            'start_date' => $this->startDate,
+            'end_date' => $this->endDate,
+            'min_kwh' => $this->minKwh,
+            'max_kwh' => $this->maxKwh,
+            'min_current' => $this->minCurrent,
+            'max_current' => $this->maxCurrent,
+            'min_power' => $this->minPower,
+            'max_power' => $this->maxPower,
+            'min_duration' => $this->minDuration,
+            'max_duration' => $this->maxDuration,
+            'day_of_week' => $this->dayOfWeek,
             'reservation' => $this->reservation
         ];
     }

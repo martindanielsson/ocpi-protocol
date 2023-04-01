@@ -36,10 +36,8 @@ class SessionFactory
             new DateTime($json->last_updated)
         );
 
-        if (!empty($json->charging_periods)) {
-            foreach ($json->charging_periods as $chargingPeriod) {
-                $session->addChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));
-            }
+        foreach ($json->charging_periods ?? [] as $chargingPeriod) {
+            $session->addChargingPeriod(ChargingPeriodFactory::fromJson($chargingPeriod));
         }
 
         return $session;

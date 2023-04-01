@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CommandResult;
@@ -20,10 +18,8 @@ class CommandResultFactory
             new CommandResultType($json->result)
         );
 
-        if (property_exists($json, 'message') && $json->message !== null) {
-            foreach ($json->message as $jsonMessage) {
-                $commandResult->addMessage(DisplayTextFactory::fromJson($jsonMessage));
-            }
+        foreach ($json->message ?? [] as $message) {
+            $commandResult->addMessage(DisplayTextFactory::fromJson($message));
         }
 
         return $commandResult;
