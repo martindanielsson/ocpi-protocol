@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Client\Commands\Post;
 
-use Chargemap\OCPI\Common\Client\Modules\Commands\Post\PostCommandsRequest as BaseRequest;
+use Chargemap\OCPI\Common\Client\Modules\Commands\Post\PostCommandRequest as BaseRequest;
 use Chargemap\OCPI\Common\Models\BaseCommand;
 use Chargemap\OCPI\Versions\V2_2_1\Client\VersionTrait;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CommandType;

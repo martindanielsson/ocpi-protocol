@@ -14,7 +14,7 @@ class PostCommandResponse extends BaseResponse
 {
     private CommandResponse $commandResponse;
 
-    private function __construct(CommandResponse $commandResponse)
+    public function __construct(CommandResponse $commandResponse)
     {
         $this->commandResponse = $commandResponse;
     }

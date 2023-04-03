@@ -17,12 +17,6 @@ class OcpiEmspEvsePatchRequest extends BaseEvseUpdateRequest
 {
     private PartialEvse $partialEvse;
 
-    /**
-     * OcpiEmspEvsePatchRequest constructor.
-     * @param ServerRequestInterface $request
-     * @param LocationRequestParams $params
-     * @throws OcpiGenericClientError
-     */
     public function __construct(ServerRequestInterface $request, LocationRequestParams $params)
     {
         parent::__construct($request, $params);
