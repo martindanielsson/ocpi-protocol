@@ -39,7 +39,7 @@ class PostCommandRequest extends BaseRequest
         }
 
         return $serverRequestFactory->createServerRequest('POST',
-            '/' . $this->command)
+            '/' . $this->commandType)
             ->withHeader('Content-Type', 'application/json')
             ->withBody($streamFactory->createStream(json_encode($this->command)));
     }
