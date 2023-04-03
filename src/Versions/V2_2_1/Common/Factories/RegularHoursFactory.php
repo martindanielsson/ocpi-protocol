@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
@@ -9,16 +8,16 @@ use stdClass;
 
 class RegularHoursFactory
 {
-    public static function fromJson(?stdClass $jsonRegularHours): ?RegularHours
+    public static function fromJson(?stdClass $json): ?RegularHours
     {
-        if( $jsonRegularHours === null ) {
+        if ($json === null) {
             return null;
         }
 
         return new RegularHours(
-            new Weekday($jsonRegularHours->weekday),
-            $jsonRegularHours->period_begin,
-            $jsonRegularHours->period_end
+            new Weekday($json->weekday),
+            $json->period_begin,
+            $json->period_end
         );
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\BusinessDetails;
@@ -15,9 +13,10 @@ class BusinessDetailsFactory
             return null;
         }
 
-        return new BusinessDetails($json->name,
-            property_exists($json, 'website') ? $json->website : null,
-            property_exists($json, 'logo') ? ImageFactory::fromJson($json->logo) : null
+        return new BusinessDetails(
+            $json->name,
+            $json->website ?? null,
+            ImageFactory::fromJson($json->logo ?? null)
         );
     }
 }

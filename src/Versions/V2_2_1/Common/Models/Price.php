@@ -2,39 +2,36 @@
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-class Price implements \JsonSerializable
+use JsonSerializable;
+
+class Price implements JsonSerializable
 {
-    private float $excludeVat;
+    private float $excludingVat;
+    private ?float $includingVat;
 
-    private ?float $includeVat;
+    public function __construct(
+        float $excludingVat,
+        ?float $includingVat
+    ) {
+        $this->excludingVat = $excludingVat;
+        $this->includingVat = $includingVat;
+    }
 
-    public function __construct(float $excludeVat, ?float $includeVat)
+    public function getExcludingVat(): float
     {
-        $this->excludeVat = $excludeVat;
-        $this->includeVat = $includeVat;
+        return $this->excludingVat;
+    }
+
+    public function getIncludingVat(): ?float
+    {
+        return $this->includingVat;
     }
 
     public function jsonSerialize(): array
     {
         return [
-            'excl_vat' => $this->excludeVat,
-            'incl_vat' => $this->includeVat,
+            'excl_vat' => $this->excludingVat,
+            'incl_vat' => $this->includingVat
         ];
-    }
-
-    /**
-     * @return float
-     */
-    public function getExcludeVat(): float
-    {
-        return $this->excludeVat;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getIncludeVat(): ?float
-    {
-        return $this->includeVat;
     }
 }

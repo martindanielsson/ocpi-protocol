@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Credentials;
@@ -15,10 +13,15 @@ class CredentialsFactory
             return null;
         }
 
-        return new Credentials(
+        $credentials = new Credentials(
             $json->token,
-            $json->url,
-            $json->roles
+            $json->url
         );
+
+        foreach ($json->roles ?? [] as $role) {
+            $credentials->addRole(CredentialsRoleFactory::fromJson($role));
+        }
+
+        return $credentials;
     }
 }

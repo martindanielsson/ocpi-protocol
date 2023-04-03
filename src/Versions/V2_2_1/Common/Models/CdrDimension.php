@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,11 +7,12 @@ use JsonSerializable;
 class CdrDimension implements JsonSerializable
 {
     private CdrDimensionType $type;
-
     private float $volume;
 
-    public function __construct(CdrDimensionType $type, float $volume)
-    {
+    public function __construct(
+        CdrDimensionType $type,
+        float $volume
+    ) {
         $this->type = $type;
         $this->volume = $volume;
     }

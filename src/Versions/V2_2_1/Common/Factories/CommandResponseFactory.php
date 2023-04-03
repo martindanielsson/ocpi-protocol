@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\CommandResponse;
@@ -21,10 +19,8 @@ class CommandResponseFactory
             $json->timeout
         );
 
-        if (property_exists($json, 'message') && $json->message !== null) {
-            foreach ($json->message as $jsonMessage) {
-                $commandResponse->addMessage(DisplayTextFactory::fromJson($jsonMessage));
-            }
+        foreach ($json->message ?? [] as $message) {
+            $commandResponse->addMessage(DisplayTextFactory::fromJson($message));
         }
 
         return $commandResponse;

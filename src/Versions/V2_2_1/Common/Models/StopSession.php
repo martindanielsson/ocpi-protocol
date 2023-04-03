@@ -8,26 +8,21 @@ use JsonSerializable;
 class StopSession extends BaseCommand implements JsonSerializable
 {
     private string $responseUrl;
-
     private string $sessionId;
 
-    public function __construct(string $responseUrl, string $sessionId)
-    {
+    public function __construct(
+        string $responseUrl,
+        string $sessionId
+    ) {
         $this->responseUrl = $responseUrl;
         $this->sessionId = $sessionId;
     }
 
-    /**
-     * @return string
-     */
     public function getResponseUrl(): string
     {
         return $this->responseUrl;
     }
 
-    /**
-     * @return string
-     */
     public function getSessionId(): string
     {
         return $this->sessionId;

@@ -42,6 +42,7 @@ trait SessionRequestTrait
         if (empty($sessionId) || mb_strlen($sessionId) > 36) {
             throw new OcpiGenericClientError('Session ID should contain less than 36 characters.');
         }
+
         $this->countryCode = $countryCode;
         $this->partyId = $partyId;
         $this->sessionId = $sessionId;

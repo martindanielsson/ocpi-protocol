@@ -1,77 +1,55 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
-use InvalidArgumentException;
 use JsonSerializable;
 
 class Hours implements JsonSerializable
 {
+    private bool $twentyfourseven;
     /** @var RegularHours[] */
     private array $regularHours = [];
-
-    private bool $twentyFourSeven;
-
     /** @var ExceptionalPeriod[] */
     private array $exceptionalOpenings = [];
-
     /** @var ExceptionalPeriod[] */
     private array $exceptionalClosings = [];
 
-    public function __construct(bool $twentyFourSeven)
-    {
-        $this->twentyFourSeven = $twentyFourSeven;
+    public function __construct(
+        bool $twentyfourseven
+    ) {
+        $this->twentyfourseven = $twentyfourseven;
     }
 
-    public function addHours(RegularHours $hours): self
+    public function addRegularHours(RegularHours $regularHours): void
     {
-        if ($this->twentyFourSeven) {
-            throw new InvalidArgumentException('You can not add a RegularHours when twentyfourseven is set to true');
-        }
-
-        $this->regularHours[] = $hours;
-
-        return $this;
+        $this->regularHours[] = $regularHours;
     }
 
-    public function addExceptionalOpening(ExceptionalPeriod $exceptionalPeriod): self
+    public function addExceptionalOpening(ExceptionalPeriod $exceptionalOpening): void
     {
-        $this->exceptionalOpenings[] = $exceptionalPeriod;
-        return $this;
+        $this->exceptionalOpenings[] = $exceptionalOpening;
     }
 
-    public function addExceptionalClosing(ExceptionalPeriod $exceptionalPeriod): self
+    public function addExceptionalClosing(ExceptionalPeriod $exceptionalClosing): void
     {
-        $this->exceptionalClosings[] = $exceptionalPeriod;
-        return $this;
+        $this->exceptionalClosings[] = $exceptionalClosing;
     }
 
-    /**
-     * @return RegularHours[]
-     */
+    public function getTwentyfourseven(): bool
+    {
+        return $this->twentyfourseven;
+    }
+
     public function getRegularHours(): array
     {
         return $this->regularHours;
     }
 
-    public function isTwentyFourSeven(): bool
-    {
-        return $this->twentyFourSeven;
-    }
-
-    /**
-     * @return ExceptionalPeriod[]
-     */
     public function getExceptionalOpenings(): array
     {
         return $this->exceptionalOpenings;
     }
 
-    /**
-     * @return ExceptionalPeriod[]
-     */
     public function getExceptionalClosings(): array
     {
         return $this->exceptionalClosings;
@@ -79,23 +57,11 @@ class Hours implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
+            'twentyfourseven' => $this->twentyfourseven,
+            'regular_hours' => $this->regularHours,
+            'exceptional_openings' => $this->exceptionalOpenings,
+            'exceptional_closings' => $this->exceptionalClosings
         ];
-
-        if (count($this->exceptionalOpenings) > 0) {
-            $return['exceptional_openings'] = $this->exceptionalOpenings;
-        }
-
-        if (count($this->exceptionalClosings) > 0) {
-            $return['exceptional_closings'] = $this->exceptionalClosings;
-        }
-
-        if ($this->twentyFourSeven) {
-            $return['twentyfourseven'] = $this->twentyFourSeven;
-        } else {
-            $return['regular_hours'] = $this->regularHours;
-        }
-
-        return $return;
     }
 }

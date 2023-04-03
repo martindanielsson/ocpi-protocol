@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -10,64 +8,61 @@ use JsonSerializable;
 
 class Token implements JsonSerializable
 {
+    private string $countryCode;
+    private string $partyId;
     private string $uid;
-
     private TokenType $type;
-
     private string $contractId;
-
     private ?string $visualNumber;
-
     private string $issuer;
-
+    private ?string $groupId;
     private bool $valid;
-
-    private WhiteList $whiteList;
-
+    private WhitelistType $whitelist;
     private ?string $language;
-
+    private ?ProfileType $defaultProfileType;
+    private ?EnergyContract $energyContract;
     private DateTime $lastUpdated;
 
-    private string $countryCode;
-
-    private string $partyId;
-
-    private ?string $groupId;
-
-    private ?ProfileType $defaultProfileType;
-
-    private ?EnergyContract $energyContract;
-
     public function __construct(
-        string    $uid,
+        string $countryCode,
+        string $partyId,
+        string $uid,
         TokenType $type,
-        string    $contractId,
-        ?string   $visualNumber,
-        string    $issuer,
-        bool      $valid,
-        WhiteList $whiteList,
-        ?string   $language,
-        DateTime  $lastUpdated,
-        string    $countryCode,
-        string    $partyId,
-        ?string   $groupId,
+        string $contractId,
+        ?string $visualNumber,
+        string $issuer,
+        ?string $groupId,
+        bool $valid,
+        WhitelistType $whitelist,
+        ?string $language,
         ?ProfileType $defaultProfileType,
-        ?EnergyContract $energyContract
+        ?EnergyContract $energyContract,
+        DateTime $lastUpdated
     ) {
+        $this->countryCode = $countryCode;
+        $this->partyId = $partyId;
         $this->uid = $uid;
         $this->type = $type;
         $this->contractId = $contractId;
         $this->visualNumber = $visualNumber;
         $this->issuer = $issuer;
-        $this->valid = $valid;
-        $this->whiteList = $whiteList;
-        $this->language = $language;
-        $this->lastUpdated = $lastUpdated;
-        $this->countryCode = $countryCode;
-        $this->partyId = $partyId;
         $this->groupId = $groupId;
+        $this->valid = $valid;
+        $this->whitelist = $whitelist;
+        $this->language = $language;
         $this->defaultProfileType = $defaultProfileType;
         $this->energyContract = $energyContract;
+        $this->lastUpdated = $lastUpdated;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 
     public function getUid(): string
@@ -95,19 +90,34 @@ class Token implements JsonSerializable
         return $this->issuer;
     }
 
-    public function isValid(): bool
+    public function getGroupId(): ?string
+    {
+        return $this->groupId;
+    }
+
+    public function getValid(): bool
     {
         return $this->valid;
     }
 
-    public function getWhiteList(): WhiteList
+    public function getWhitelist(): WhitelistType
     {
-        return $this->whiteList;
+        return $this->whitelist;
     }
 
     public function getLanguage(): ?string
     {
         return $this->language;
+    }
+
+    public function getDefaultProfileType(): ?ProfileType
+    {
+        return $this->defaultProfileType;
+    }
+
+    public function getEnergyContract(): ?EnergyContract
+    {
+        return $this->energyContract;
     }
 
     public function getLastUpdated(): DateTime
@@ -117,54 +127,21 @@ class Token implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId,
             'uid' => $this->uid,
             'type' => $this->type,
-            'auth_id' => $this->contractId,
+            'contract_id' => $this->contractId,
+            'visual_number' => $this->visualNumber,
             'issuer' => $this->issuer,
+            'group_id' => $this->groupId,
             'valid' => $this->valid,
-            'whitelist' => $this->whiteList,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'country_code' => $this->countryCode,
-            'party_id' => $this->partyId
+            'whitelist' => $this->whitelist,
+            'language' => $this->language,
+            'default_profile_type' => $this->defaultProfileType,
+            'energy_contract' => $this->energyContract,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
-
-        if ($this->energyContract !== null) {
-            $return['energy_contract'] = $this->energyContract;
-        }
-
-        if ($this->defaultProfileType !== null) {
-            $return['default_profile_type'] = $this->defaultProfileType;
-        }
-
-        if ($this->groupId !== null) {
-            $return['group_id'] = $this->groupId;
-        }
-
-        if ($this->visualNumber !== null) {
-            $return['visual_number'] = $this->visualNumber;
-        }
-
-        if ($this->language !== null) {
-            $return['language'] = $this->language;
-        }
-
-        return $return;
-    }
-
-    /**
-     * @return ProfileType|null
-     */
-    public function getDefaultProfileType(): ?ProfileType
-    {
-        return $this->defaultProfileType;
-    }
-
-    /**
-     * @return EnergyContract|null
-     */
-    public function getEnergyContract(): ?EnergyContract
-    {
-        return $this->energyContract;
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,18 +7,19 @@ use JsonSerializable;
 class LocationReferences implements JsonSerializable
 {
     private string $locationId;
-
     /** @var string[] */
     private array $evseUids = [];
 
-    public function __construct(string $locationId)
-    {
+    public function __construct(
+        string $locationId
+    ) {
         $this->locationId = $locationId;
     }
 
-    public function addEvseUid(string $evseUid): void
+    public function addEvseUid(string $evseUid): self
     {
         $this->evseUids[] = $evseUid;
+        return $this;
     }
 
     public function getLocationId(): string
@@ -37,7 +36,7 @@ class LocationReferences implements JsonSerializable
     {
         return [
             'location_id' => $this->locationId,
-            'evse_uids' => $this->evseUids,
+            'evse_uids' => $this->evseUids
         ];
     }
 }

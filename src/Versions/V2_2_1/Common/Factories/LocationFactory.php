@@ -1,12 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\AdditionalGeoLocation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Facility;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\GeoLocation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Location;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ParkingType;
 use DateTime;
@@ -21,14 +17,18 @@ class LocationFactory
         }
 
         $location = new Location(
+            $json->country_code,
+            $json->party_id,
             $json->id,
-            new ParkingType($json->parking_type),
+            $json->publish,
             $json->name ?? null,
             $json->address,
             $json->city,
             $json->postal_code ?? null,
+            $json->state ?? null,
             $json->country,
             GeoLocationFactory::fromJson($json->coordinates),
+            !empty($json->parking_type) ? new ParkingType($json->parking_type) : null,
             BusinessDetailsFactory::fromJson($json->operator ?? null),
             BusinessDetailsFactory::fromJson($json->suboperator ?? null),
             BusinessDetailsFactory::fromJson($json->owner ?? null),
@@ -36,42 +36,31 @@ class LocationFactory
             HoursFactory::fromJson($json->opening_times ?? null),
             $json->charging_when_closed ?? null,
             EnergyMixFactory::fromJson($json->energy_mix ?? null),
-            new DateTime($json->last_updated),
-            $json->country_code,
-            $json->party_id,
-            $json->state ?? null,
-            $json->publish,
-            PublishTokenTypeFactory::fromJson($json->publish_allowed_to ?? null)
+            new DateTime($json->last_updated)
         );
 
-        if (property_exists($json, 'related_locations') && $json->related_locations !== null) {
-            foreach ($json->related_locations as $jsonRelatedLocation) {
-                $location->addRelatedLocation(AdditionalGeoLocationFactory::fromJson($jsonRelatedLocation));
-            }
+        foreach ($json->publish_allowed_to ?? [] as $publishAllowedTo) {
+            $location->addPublishAllowedTo(PublishTokenTypeFactory::fromJson($publishAllowedTo));
         }
 
-        if (property_exists($json, 'evses') && $json->evses !== null) {
-            foreach ($json->evses as $jsonEvse) {
-                $location->addEVSE(EVSEFactory::fromJson($jsonEvse));
-            }
+        foreach ($json->related_locations ?? [] as $relatedLocation) {
+            $location->addRelatedLocation(AdditionalGeoLocationFactory::fromJson($relatedLocation));
         }
 
-        if (property_exists($json, 'directions') && $json->directions !== null) {
-            foreach ($json->directions as $jsonDirection) {
-                $location->addDirection(DisplayTextFactory::fromJson($jsonDirection));
-            }
+        foreach ($json->evses ?? [] as $evse) {
+            $location->addEvse(EvseFactory::fromJson($evse));
         }
 
-        if (property_exists($json, 'facilities') && $json->facilities !== null) {
-            foreach ($json->facilities as $jsonFacility) {
-                $location->addFacility(new Facility($jsonFacility));
-            }
+        foreach ($json->directions ?? [] as $direction) {
+            $location->addDirection(DisplayTextFactory::fromJson($direction));
         }
 
-        if (property_exists($json, 'images') && $json->images !== null) {
-            foreach ($json->images as $jsonImage) {
-                $location->addImage(ImageFactory::fromJson($jsonImage));
-            }
+        foreach ($json->facilities ?? [] as $facility) {
+            $location->addFacility(new Facility($facility));
+        }
+
+        foreach ($json->images ?? [] as $image) {
+            $location->addImage(ImageFactory::fromJson($image));
         }
 
         return $location;

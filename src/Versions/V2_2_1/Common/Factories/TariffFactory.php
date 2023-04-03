@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Tariff;
@@ -11,25 +9,6 @@ use stdClass;
 
 class TariffFactory
 {
-    /**
-     * @param stdClass[]|null $json
-     * @return Tariff[]
-     */
-    public static function arrayFromJsonArray(?array $json): ?array
-    {
-        if ($json === null) {
-            return null;
-        }
-
-        $tariffs = [];
-
-        foreach ($json as $jsonTariff) {
-            $tariffs[] = self::fromJson($jsonTariff);
-        }
-
-        return $tariffs;
-    }
-
     public static function fromJson(?stdClass $json): ?Tariff
     {
         if ($json === null) {
@@ -37,26 +16,26 @@ class TariffFactory
         }
 
         $tariff = new Tariff(
-            $json->id,
-            $json->currency,
-            $json->tariff_alt_url ?? null,
-            EnergyMixFactory::fromJson($json->energy_mix ?? null),
-            new DateTime($json->last_updated),
             $json->country_code,
             $json->party_id,
-            $json->min_price ? PriceFactory::fromJson($json->min_price) : null,
-            $json->max_price ? PriceFactory::fromJson($json->max_price) : null,
-            $json->type ? new TariffType($json->type) : null
+            $json->id,
+            $json->currency,
+            !empty($json->type) ? new TariffType($json->type) : null,
+            $json->tariff_alt_url ?? null,
+            PriceFactory::fromJson($json->min_price),
+            PriceFactory::fromJson($json->max_price),
+            !empty($json->start_date_time) ? new DateTime($json->start_date_time) : null,
+            !empty($json->end_date_time) ? new DateTime($json->end_date_time) : null,
+            EnergyMixFactory::fromJson($json->energy_mix),
+            new DateTime($json->last_updated)
         );
 
-        if (property_exists($json, 'tariff_alt_text')) {
-            foreach (DisplayTextFactory::arrayFromJsonArray($json->tariff_alt_text) as $displayText) {
-                $tariff->addTariffAltText($displayText);
-            }
+        foreach ($json->tariff_alt_text ?? [] as $tariffAltText) {
+            $tariff->addTariffAltText(DisplayTextFactory::fromJson($tariffAltText));
         }
 
-        foreach ($json->elements as $jsonTariffElement) {
-            $tariff->addTariffElement(TariffElementFactory::fromJson($jsonTariffElement));
+        foreach ($json->elements ?? [] as $element) {
+            $tariff->addElement(TariffElementFactory::fromJson($element));
         }
 
         return $tariff;

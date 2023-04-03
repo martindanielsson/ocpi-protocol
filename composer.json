@@ -19,7 +19,8 @@
         "phpunit/phpunit": "^9.2",
         "php-http/guzzle6-adapter": "^2.0",
         "http-interop/http-factory-guzzle": "^1.0",
-        "guzzlehttp/psr7": "^1.6"
+        "guzzlehttp/psr7": "^1.6",
+        "phpstan/phpstan": "^1.10"
     },
     "suggest": {
         "php-http/guzzle6-adapter": "HTTP Client",

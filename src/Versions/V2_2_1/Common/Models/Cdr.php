@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -11,140 +9,118 @@ use JsonSerializable;
 class Cdr implements JsonSerializable
 {
     private string $countryCode;
-
     private string $partyId;
-
     private string $id;
-
     private DateTime $startDateTime;
-
-    private DateTime $stopDateTime;
-
+    private DateTime $endDateTime;
     private ?string $sessionId;
-
     private CdrToken $cdrToken;
-
-    private AuthenticationMethod $authMethod;
-
+    private AuthMethod $authMethod;
+    private ?string $authorizationReference;
     private CdrLocation $cdrLocation;
-
     private ?string $meterId;
-
     private string $currency;
-
     /** @var Tariff[] */
     private array $tariffs = [];
-
     /** @var ChargingPeriod[] */
     private array $chargingPeriods = [];
-
+    private ?SignedData $signedData;
     private Price $totalCost;
-
+    private ?Price $totalFixedCost;
     private float $totalEnergy;
-
+    private ?Price $totalEnergyCost;
     private float $totalTime;
-
+    private ?Price $totalTimeCost;
     private ?float $totalParkingTime;
-
+    private ?Price $totalParkingCost;
+    private ?Price $totalReservationCost;
     private ?string $remark;
-
+    private ?string $invoiceReferenceId;
+    private ?bool $credit;
+    private ?string $creditReferenceId;
+    private ?bool $homeChargingCompensation;
     private DateTime $lastUpdated;
 
-    private ?bool $credit;
-
-    private ?string $creditReferenceId;
-
-    private ?Price $totalFixedCost;
-
-    private ?Price $totalEnergyCost;
-
-    private ?Price $totalTimeCost;
-
-    private ?Price $totalParkingCost;
-
-    private ?Price $totalReservationCost;
-
-    private ?string $authorizationReference;
-
-    private ?SignedData $signedData;
-
-    private ?string $invoiceReferenceId;
-
-    private ?string $homeChargingCompensation;
-
     public function __construct(
-        string               $countryCode,
-        string               $partyId,
-        string               $id,
-        DateTime             $startDateTime,
-        DateTime             $stopDateTime,
-        ?string              $sessionId,
-        CdrToken             $cdrToken,
-        AuthenticationMethod $authMethod,
-        CdrLocation          $cdrLocation,
-        ?string              $meterId,
-        string               $currency,
-        Price                $totalCost,
-        float                $totalEnergy,
-        float                $totalTime,
-        ?float               $totalParkingTime,
-        ?string              $remark,
-        DateTime             $lastUpdated,
-        ?bool                $credit,
-        ?string              $creditReferenceId,
-        ?Price               $totalFixedCost,
-        ?Price               $totalEnergyCost,
-        ?Price               $totalTimeCost,
-        ?Price               $totalParkingCost,
-        ?Price               $totalReservationCost,
-        ?string              $authorizationReference,
-        ?SignedData          $signedData,
-        ?string              $invoiceReferenceId,
-        ?string              $homeChargingCompensation
-    )
-    {
+        string $countryCode,
+        string $partyId,
+        string $id,
+        DateTime $startDateTime,
+        DateTime $endDateTime,
+        ?string $sessionId,
+        CdrToken $cdrToken,
+        AuthMethod $authMethod,
+        ?string $authorizationReference,
+        CdrLocation $cdrLocation,
+        ?string $meterId,
+        string $currency,
+        ?SignedData $signedData,
+        Price $totalCost,
+        ?Price $totalFixedCost,
+        float $totalEnergy,
+        ?Price $totalEnergyCost,
+        float $totalTime,
+        ?Price $totalTimeCost,
+        ?float $totalParkingTime,
+        ?Price $totalParkingCost,
+        ?Price $totalReservationCost,
+        ?string $remark,
+        ?string $invoiceReferenceId,
+        ?bool $credit,
+        ?string $creditReferenceId,
+        ?bool $homeChargingCompensation,
+        DateTime $lastUpdated
+    ) {
         $this->countryCode = $countryCode;
         $this->partyId = $partyId;
         $this->id = $id;
         $this->startDateTime = $startDateTime;
-        $this->stopDateTime = $stopDateTime;
+        $this->endDateTime = $endDateTime;
         $this->sessionId = $sessionId;
         $this->cdrToken = $cdrToken;
         $this->authMethod = $authMethod;
+        $this->authorizationReference = $authorizationReference;
         $this->cdrLocation = $cdrLocation;
         $this->meterId = $meterId;
         $this->currency = $currency;
+        $this->signedData = $signedData;
         $this->totalCost = $totalCost;
-        $this->totalEnergy = $totalEnergy;
-        $this->totalTime = $totalTime;
-        $this->totalParkingTime = $totalParkingTime;
-        $this->remark = $remark;
-        $this->lastUpdated = $lastUpdated;
-        $this->credit = $credit;
-        $this->creditReferenceId = $creditReferenceId;
         $this->totalFixedCost = $totalFixedCost;
+        $this->totalEnergy = $totalEnergy;
         $this->totalEnergyCost = $totalEnergyCost;
+        $this->totalTime = $totalTime;
         $this->totalTimeCost = $totalTimeCost;
+        $this->totalParkingTime = $totalParkingTime;
         $this->totalParkingCost = $totalParkingCost;
         $this->totalReservationCost = $totalReservationCost;
-        $this->authorizationReference = $authorizationReference;
-        $this->signedData = $signedData;
+        $this->remark = $remark;
         $this->invoiceReferenceId = $invoiceReferenceId;
+        $this->credit = $credit;
+        $this->creditReferenceId = $creditReferenceId;
         $this->homeChargingCompensation = $homeChargingCompensation;
+        $this->lastUpdated = $lastUpdated;
     }
 
     public function addTariff(Tariff $tariff): self
     {
         $this->tariffs[] = $tariff;
-
         return $this;
     }
 
-    public function addChargingPeriod(ChargingPeriod $period): self
+    public function addChargingPeriod(ChargingPeriod $chargingPeriod): self
     {
-        $this->chargingPeriods[] = $period;
-
+        $this->chargingPeriods[] = $chargingPeriod;
         return $this;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 
     public function getId(): string
@@ -157,9 +133,14 @@ class Cdr implements JsonSerializable
         return $this->startDateTime;
     }
 
-    public function getStopDateTime(): DateTime
+    public function getEndDateTime(): DateTime
     {
-        return $this->stopDateTime;
+        return $this->endDateTime;
+    }
+
+    public function getSessionId(): ?string
+    {
+        return $this->sessionId;
     }
 
     public function getCdrToken(): CdrToken
@@ -167,9 +148,14 @@ class Cdr implements JsonSerializable
         return $this->cdrToken;
     }
 
-    public function getAuthMethod(): AuthenticationMethod
+    public function getAuthMethod(): AuthMethod
     {
         return $this->authMethod;
+    }
+
+    public function getAuthorizationReference(): ?string
+    {
+        return $this->authorizationReference;
     }
 
     public function getCdrLocation(): CdrLocation
@@ -187,20 +173,19 @@ class Cdr implements JsonSerializable
         return $this->currency;
     }
 
-    /**
-     * @return Tariff[]
-     */
     public function getTariffs(): array
     {
         return $this->tariffs;
     }
 
-    /**
-     * @return ChargingPeriod[]
-     */
     public function getChargingPeriods(): array
     {
         return $this->chargingPeriods;
+    }
+
+    public function getSignedData(): ?SignedData
+    {
+        return $this->signedData;
     }
 
     public function getTotalCost(): Price
@@ -208,9 +193,19 @@ class Cdr implements JsonSerializable
         return $this->totalCost;
     }
 
+    public function getTotalFixedCost(): ?Price
+    {
+        return $this->totalFixedCost;
+    }
+
     public function getTotalEnergy(): float
     {
         return $this->totalEnergy;
+    }
+
+    public function getTotalEnergyCost(): ?Price
+    {
+        return $this->totalEnergyCost;
     }
 
     public function getTotalTime(): float
@@ -218,9 +213,24 @@ class Cdr implements JsonSerializable
         return $this->totalTime;
     }
 
+    public function getTotalTimeCost(): ?Price
+    {
+        return $this->totalTimeCost;
+    }
+
     public function getTotalParkingTime(): ?float
     {
         return $this->totalParkingTime;
+    }
+
+    public function getTotalParkingCost(): ?Price
+    {
+        return $this->totalParkingCost;
+    }
+
+    public function getTotalReservationCost(): ?Price
+    {
+        return $this->totalReservationCost;
     }
 
     public function getRemark(): ?string
@@ -228,116 +238,12 @@ class Cdr implements JsonSerializable
         return $this->remark;
     }
 
-    public function getLastUpdated(): DateTime
+    public function getInvoiceReferenceId(): ?string
     {
-        return $this->lastUpdated;
+        return $this->invoiceReferenceId;
     }
 
-    public function jsonSerialize(): array
-    {
-        $return = [
-            'country_code' => $this->countryCode,
-            'party_id' => $this->partyId,
-            'id' => $this->id,
-            'start_date_time' => DateTimeFormatter::format($this->startDateTime),
-            'end_date_time' => DateTimeFormatter::format($this->stopDateTime),
-            'cdr_token' => $this->cdrToken,
-            'auth_method' => $this->authMethod,
-            'cdr_location' => $this->cdrLocation,
-            'currency' => $this->currency,
-            'charging_periods' => $this->chargingPeriods,
-            'total_cost' => $this->totalCost,
-            'total_energy' => $this->totalEnergy,
-            'total_time' => $this->totalTime,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-        ];
-
-        if ($this->sessionId) {
-            $return['session_id'] = $this->sessionId;
-        }
-
-        if (count($this->tariffs) > 0) {
-            $return['tariffs'] = $this->tariffs;
-        }
-
-        if ($this->credit) {
-            $return['credit'] = $this->credit;
-            $return['credit_reference_id'] = $this->creditReferenceId;
-        }
-
-        if ($this->meterId !== null) {
-            $return['meter_id'] = $this->meterId;
-        }
-
-        if ($this->totalParkingTime !== null) {
-            $return['total_parking_time'] = $this->totalParkingTime;
-        }
-
-        if ($this->remark !== null) {
-            $return['remark'] = $this->remark;
-        }
-
-        if ($this->totalFixedCost !== null) {
-            $return['total_fixed_cost'] = $this->totalFixedCost;
-        }
-
-        if ($this->totalEnergyCost !== null) {
-            $return['total_energy_cost'] = $this->totalEnergyCost;
-        }
-
-        if ($this->totalTimeCost !== null) {
-            $return['total_time_cost'] = $this->totalTimeCost;
-        }
-
-        if ($this->totalParkingCost !== null) {
-            $return['total_parking_cost'] = $this->totalParkingCost;
-        }
-
-        if ($this->totalReservationCost !== null) {
-            $return['total_reservation_cost'] = $this->totalReservationCost;
-        }
-
-        if ($this->authorizationReference !== null) {
-            $return['authorization_reference'] = $this->authorizationReference;
-        }
-
-        if ($this->signedData !== null) {
-            $return['signed_data'] = $this->signedData;
-        }
-
-        if ($this->invoiceReferenceId !== null) {
-            $return['invoice_reference_id'] = $this->invoiceReferenceId;
-        }
-
-        if ($this->homeChargingCompensation !== null) {
-            $return['home_charging_compensation'] = $this->homeChargingCompensation;
-        }
-
-        return $return;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountryCode(): string
-    {
-        return $this->countryCode;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPartyId(): string
-    {
-        return $this->partyId;
-    }
-
-    public function getSessionId(): ?string
-    {
-        return $this->sessionId;
-    }
-
-    public function isCredit(): ?bool
+    public function getCredit(): ?bool
     {
         return $this->credit;
     }
@@ -347,72 +253,49 @@ class Cdr implements JsonSerializable
         return $this->creditReferenceId;
     }
 
-    public function getTotalFixedCost(): ?Price
-    {
-        return $this->totalFixedCost;
-    }
-
-    /**
-     * @return Price|null
-     */
-    public function getTotalEnergyCost(): ?Price
-    {
-        return $this->totalEnergyCost;
-    }
-
-    /**
-     * @return Price|null
-     */
-    public function getTotalTimeCost(): ?Price
-    {
-        return $this->totalTimeCost;
-    }
-
-    /**
-     * @return Price|null
-     */
-    public function getTotalParkingCost(): ?Price
-    {
-        return $this->totalParkingCost;
-    }
-
-    /**
-     * @return Price|null
-     */
-    public function getTotalReservationCost(): ?Price
-    {
-        return $this->totalReservationCost;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAuthorizationReference(): ?string
-    {
-        return $this->authorizationReference;
-    }
-
-    /**
-     * @return SignedData|null
-     */
-    public function getSignedData(): ?SignedData
-    {
-        return $this->signedData;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getInvoiceReferenceId(): ?string
-    {
-        return $this->invoiceReferenceId;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getHomeChargingCompensation(): ?string
+    public function getHomeChargingCompensation(): ?bool
     {
         return $this->homeChargingCompensation;
+    }
+
+    public function getLastUpdated(): DateTime
+    {
+        return $this->lastUpdated;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId,
+            'id' => $this->id,
+            'start_date_time' => DateTimeFormatter::format($this->startDateTime),
+            'end_date_time' => DateTimeFormatter::format($this->endDateTime),
+            'session_id' => $this->sessionId,
+            'cdr_token' => $this->cdrToken,
+            'auth_method' => $this->authMethod,
+            'authorization_reference' => $this->authorizationReference,
+            'cdr_location' => $this->cdrLocation,
+            'meter_id' => $this->meterId,
+            'currency' => $this->currency,
+            'tariffs' => $this->tariffs,
+            'charging_periods' => $this->chargingPeriods,
+            'signed_data' => $this->signedData,
+            'total_cost' => $this->totalCost,
+            'total_fixed_cost' => $this->totalFixedCost,
+            'total_energy' => $this->totalEnergy,
+            'total_energy_cost' => $this->totalEnergyCost,
+            'total_time' => $this->totalTime,
+            'total_time_cost' => $this->totalTimeCost,
+            'total_parking_time' => $this->totalParkingTime,
+            'total_parking_cost' => $this->totalParkingCost,
+            'total_reservation_cost' => $this->totalReservationCost,
+            'remark' => $this->remark,
+            'invoice_reference_id' => $this->invoiceReferenceId,
+            'credit' => $this->credit,
+            'credit_reference_id' => $this->creditReferenceId,
+            'home_charging_compensation' => $this->homeChargingCompensation,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
+        ];
     }
 }

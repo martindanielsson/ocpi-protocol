@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,28 +7,20 @@ use JsonSerializable;
 class Image implements JsonSerializable
 {
     private string $url;
-
     private ?string $thumbnail;
-
     private ImageCategory $category;
-
     private string $type;
-
     private ?int $width;
-
     private ?int $height;
 
-    /**
-     * Image constructor.
-     * @param string $url
-     * @param string|null $thumbnail
-     * @param ImageCategory $category
-     * @param string $type
-     * @param int|null $width
-     * @param int|null $height
-     */
-    public function __construct(string $url, ?string $thumbnail, ImageCategory $category, string $type, ?int $width, ?int $height)
-    {
+    public function __construct(
+        string $url,
+        ?string $thumbnail,
+        ImageCategory $category,
+        string $type,
+        ?int $width,
+        ?int $height
+    ) {
         $this->url = $url;
         $this->thumbnail = $thumbnail;
         $this->category = $category;
@@ -71,24 +61,13 @@ class Image implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'url' => $this->url,
+            'thumbnail' => $this->thumbnail,
             'category' => $this->category,
             'type' => $this->type,
+            'width' => $this->width,
+            'height' => $this->height
         ];
-
-        if ($this->thumbnail !== null) {
-            $return['thumbnail'] = $this->thumbnail;
-        }
-
-        if ($this->width !== null) {
-            $return['width'] = $this->width;
-        }
-
-        if ($this->height !== null) {
-            $return['height'] = $this->height;
-        }
-
-        return $return;
     }
 }

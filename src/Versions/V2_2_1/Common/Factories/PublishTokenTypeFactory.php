@@ -3,26 +3,23 @@
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PublishTokenType;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\TokenType;
+use stdClass;
 
 class PublishTokenTypeFactory
 {
-    public static function fromJson(?\stdClass $json): ?array
+    public static function fromJson(?stdClass $json): ?PublishTokenType
     {
-        $array = [];
-
         if ($json === null) {
             return null;
         }
 
-        foreach ($json as $values) {
-            $array[] = self::build($values);
-        }
-
-        return $array;
-    }
-
-    public static function build(?\stdClass $json): PublishTokenType
-    {
-        return new PublishTokenType($json->uid, $json->type, $json->visual_number, $json->issuer, $json->group_id);
+        return new PublishTokenType(
+            $json->uid ?? null,
+            !empty($json->type) ? new TokenType($json->type) : null,
+            $json->visual_number ?? null,
+            $json->issuer ?? null,
+            $json->group_id ?? null
+        );
     }
 }

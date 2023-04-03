@@ -8,19 +8,12 @@ use stdClass;
 
 class CredentialsRoleFactory
 {
-    public static function fromJson(?stdClass $json): array
+    public static function fromJson(?stdClass $json): ?CredentialsRole
     {
-        $roles = [];
-
-        foreach ($json as $role) {
-            $roles[] = self::buildRole($role);
+        if ($json === null) {
+            return null;
         }
 
-        return $roles;
-    }
-
-    private static function buildRole(stdClass $json): CredentialsRole
-    {
         return new CredentialsRole(
             new Role($json->role),
             BusinessDetailsFactory::fromJson($json->business_details),
