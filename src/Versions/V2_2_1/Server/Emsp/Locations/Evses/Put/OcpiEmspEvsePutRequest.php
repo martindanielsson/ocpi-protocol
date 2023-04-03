@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Evses\Put;
 
+use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\EvseFactory;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Evse;
@@ -20,10 +21,17 @@ class OcpiEmspEvsePutRequest extends BaseEvseUpdateRequest
     {
         parent::__construct($request, $params);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/Evses/evsePutRequest.schema.json', $this->jsonBody);
+
         $evse = EvseFactory::fromJson($this->jsonBody);
+
         if ($evse === null) {
             throw new UnexpectedValueException('Evse cannot be null');
         }
+
+        if ($evse->getUid() !== $params->getEvseUid()) {
+            throw new OcpiGenericClientError('UID can not differ');
+        }
+
         $this->evse = $evse;
     }
 
