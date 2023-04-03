@@ -28,7 +28,7 @@ class OcpiEmspSessionPutRequest extends OcpiSessionUpdateRequest
         }
 
         if ($session->getId() !== $sessionId) {
-            throw new OcpiGenericClientError('ID can not be patched');
+            throw new OcpiGenericClientError('ID can not differ');
         }
 
         $this->session = $session;
