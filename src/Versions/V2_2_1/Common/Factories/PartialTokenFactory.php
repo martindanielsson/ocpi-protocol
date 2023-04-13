@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialToken;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\ProfileType;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\TokenType;
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\WhiteList;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\WhitelistType;
 use DateTime;
 use stdClass;
 
@@ -18,17 +17,50 @@ class PartialTokenFactory
             return null;
         }
 
-        $token = new PartialToken(
-            $json->uid ?? null,
-            property_exists($json, 'type') ? new TokenType($json->type) : null,
-            $json->auth_id ?? null,
-            $json->visual_number ?? null,
-            $json->issuer ?? null,
-            $json->valid ?? null,
-            property_exists($json, 'whitelist') ? new WhiteList($json->whitelist) : null,
-            $json->language ?? null,
-            property_exists($json, 'last_updated') ? new DateTime($json->last_updated) : null
-        );
+        $token = new PartialToken();
+
+        if (isset($json->country_code)) {
+            $token->withCountryCode($json->country_code);
+        }
+        if (isset($json->party_id)) {
+            $token->withPartyId($json->party_id);
+        }
+        if (isset($json->uid)) {
+            $token->withUid($json->uid);
+        }
+        if (isset($json->type)) {
+            $token->withType(new TokenType($json->type));
+        }
+        if (isset($json->contract_id)) {
+            $token->withContractId($json->contract_id);
+        }
+        if (isset($json->visual_number)) {
+            $token->withVisualNumber($json->visual_number);
+        }
+        if (isset($json->issuer)) {
+            $token->withIssuer($json->issuer);
+        }
+        if (isset($json->group_id)) {
+            $token->withGroupId($json->group_id);
+        }
+        if (isset($json->valid)) {
+            $token->withValid($json->valid);
+        }
+        if (isset($json->whitelist)) {
+            $token->withWhitelist(new WhitelistType($json->whitelist));
+        }
+        if (isset($json->language)) {
+            $token->withLanguage($json->language);
+        }
+        if (isset($json->default_profile_type)) {
+            $token->withDefaultProfileType(new ProfileType($json->default_profile_type));
+        }
+        if (isset($json->energy_contract)) {
+            $token->withEnergyContract(EnergyContractFactory::fromJson($json->energy_contract));
+        }
+        if (isset($json->language)) {
+            $token->withLastUpdated(new DateTime($json->last_updated));
+        }
 
         return $token;
     }

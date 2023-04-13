@@ -1,9 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
-
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
 use DateTime;
@@ -12,50 +9,43 @@ use JsonSerializable;
 class Connector implements JsonSerializable
 {
     private string $id;
-
     private ConnectorType $standard;
-
     private ConnectorFormat $format;
-
     private PowerType $powerType;
-
-    private int $voltage;
-
-    private int $amperage;
-
-    private ?array $tariffIds;
-
+    private int $maxVoltage;
+    private int $maxAmperage;
+    private ?int $maxElectricPower;
+    /** @var string[] */
+    private array $tariffIds = [];
     private ?string $termsAndConditions;
-
     private DateTime $lastUpdated;
 
-    private ?int $maxElectricPower;
-
-    /**
-     * Connector constructor.
-     * @param string $id
-     * @param ConnectorType $standard
-     * @param ConnectorFormat $format
-     * @param PowerType $powerType
-     * @param int $voltage
-     * @param int $amperage
-     * @param array|null $tariffIds
-     * @param string|null $termsAndConditions
-     * @param DateTime $lastUpdated
-     * @param int|null $maxElectricPower
-     */
-    public function __construct(string $id, ConnectorType $standard, ConnectorFormat $format, PowerType $powerType, int $voltage, int $amperage, ?array $tariffIds, ?string $termsAndConditions, DateTime $lastUpdated, ?int $maxElectricPower)
-    {
+    public function __construct(
+        string $id,
+        ConnectorType $standard,
+        ConnectorFormat $format,
+        PowerType $powerType,
+        int $maxVoltage,
+        int $maxAmperage,
+        ?int $maxElectricPower,
+        ?string $termsAndConditions,
+        DateTime $lastUpdated
+    ) {
         $this->id = $id;
         $this->standard = $standard;
         $this->format = $format;
         $this->powerType = $powerType;
-        $this->voltage = $voltage;
-        $this->amperage = $amperage;
-        $this->tariffIds = $tariffIds;
+        $this->maxVoltage = $maxVoltage;
+        $this->maxAmperage = $maxAmperage;
+        $this->maxElectricPower = $maxElectricPower;
         $this->termsAndConditions = $termsAndConditions;
         $this->lastUpdated = $lastUpdated;
-        $this->maxElectricPower = $maxElectricPower;
+    }
+
+    public function addTariffId(string $tariffId): self
+    {
+        $this->tariffIds[] = $tariffId;
+        return $this;
     }
 
     public function getId(): string
@@ -68,7 +58,7 @@ class Connector implements JsonSerializable
         return $this->standard;
     }
 
-    public function getFormat(): ConnectorFormat
+    public function getformat(): ConnectorFormat
     {
         return $this->format;
     }
@@ -78,17 +68,22 @@ class Connector implements JsonSerializable
         return $this->powerType;
     }
 
-    public function getVoltage(): int
+    public function getMaxVoltage(): int
     {
-        return $this->voltage;
+        return $this->maxVoltage;
     }
 
-    public function getAmperage(): int
+    public function getMaxAmperage(): int
     {
-        return $this->amperage;
+        return $this->maxAmperage;
     }
 
-    public function getTariffIds(): ?array
+    public function getMaxElectricPower(): ?int
+    {
+        return $this->maxElectricPower;
+    }
+
+    public function getTariffIds(): array
     {
         return $this->tariffIds;
     }
@@ -105,33 +100,17 @@ class Connector implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'id' => $this->id,
             'standard' => $this->standard,
             'format' => $this->format,
             'power_type' => $this->powerType,
-            'voltage' => $this->voltage,
-            'amperage' => $this->amperage,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+            'max_voltage' => $this->maxVoltage,
+            'max_amperage' => $this->maxAmperage,
+            'max_electric_power' => $this->maxElectricPower,
+            'tariff_ids' => $this->tariffIds,
+            'terms_and_conditions' => $this->termsAndConditions,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
-
-        if ($this->tariffIds !== null) {
-            $return['tariff_ids'] = $this->tariffIds;
-        }
-
-        if ($this->termsAndConditions !== null) {
-            $return['terms_and_conditions'] = $this->termsAndConditions;
-        }
-
-        if ($this->maxElectricPower !== null) {
-            $return['max_electric_power'] = $this->maxElectricPower;
-        }
-
-        return $return;
-    }
-
-    public function getMaxElectricPower(): ?int
-    {
-        return $this->maxElectricPower;
     }
 }

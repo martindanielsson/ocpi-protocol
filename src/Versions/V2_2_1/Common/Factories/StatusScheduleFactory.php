@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
-use Chargemap\OCPI\Versions\V2_2_1\Common\Models\EVSEStatus;
+use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Status;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\StatusSchedule;
 use DateTime;
 use stdClass;
@@ -19,8 +17,8 @@ class StatusScheduleFactory
 
         return new StatusSchedule(
             new DateTime($json->period_begin),
-            property_exists($json, 'period_end') ? new DateTime($json->period_end) : null,
-            new EVSEStatus($json->status)
+            !empty($json->period_end) ? new DateTime($json->period_end) : null,
+            new Status($json->status)
         );
     }
 }

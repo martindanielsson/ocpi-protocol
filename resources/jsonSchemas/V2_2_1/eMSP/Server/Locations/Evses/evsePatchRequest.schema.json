@@ -3,7 +3,9 @@
     "oneOf": [
         {
             "$ref": "../../../../Common/Locations/evse.schema.json",
-            "minProperties": 1,
+            "required": [
+                "last_updated"
+            ],
             "additionalProperties": false
         }
     ]

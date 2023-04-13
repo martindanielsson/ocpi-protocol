@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Factories;
 
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\Image;
@@ -18,11 +16,11 @@ class ImageFactory
 
         return new Image(
             $json->url,
-            property_exists($json, 'thumbnail') ? $json->thumbnail : null,
+            $json->thumbnail ?? null,
             new ImageCategory($json->category),
             $json->type,
-            property_exists($json, 'width') ? $json->width : null,
-            property_exists($json, 'height') ? $json->height : null
+            $json->width ?? null,
+            $json->height ?? null
         );
     }
 }

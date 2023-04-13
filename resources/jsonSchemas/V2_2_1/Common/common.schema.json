@@ -385,7 +385,7 @@
             "type": "object",
             "properties": {
                 "start_date_time": {
-                    "type": "string"
+                    "$ref": "common.schema.json#/definitions/timestamp"
                 },
                 "dimensions": {
                     "type": "array",

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,13 +7,14 @@ use JsonSerializable;
 class RegularHours implements JsonSerializable
 {
     private Weekday $weekday;
-
     private string $periodBegin;
-
     private string $periodEnd;
 
-    public function __construct(Weekday $weekday, string $periodBegin, string $periodEnd)
-    {
+    public function __construct(
+        Weekday $weekday,
+        string $periodBegin,
+        string $periodEnd
+    ) {
         $this->weekday = $weekday;
         $this->periodBegin = $periodBegin;
         $this->periodEnd = $periodEnd;
@@ -41,7 +40,7 @@ class RegularHours implements JsonSerializable
         return [
             'weekday' => $this->weekday,
             'period_begin' => $this->periodBegin,
-            'period_end' => $this->periodEnd,
+            'period_end' => $this->periodEnd
         ];
     }
 }

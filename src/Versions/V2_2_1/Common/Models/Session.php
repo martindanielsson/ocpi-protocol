@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -10,12 +8,18 @@ use JsonSerializable;
 
 class Session implements JsonSerializable
 {
+    private string $countryCode;
+    private string $partyId;
     private string $id;
-    private DateTime $startDate;
-    private ?DateTime $endDate;
+    private DateTime $startDateTime;
+    private ?DateTime $endDateTime;
     private float $kwh;
     private CdrToken $cdrToken;
-    private AuthenticationMethod $authMethod;
+    private AuthMethod $authMethod;
+    private ?string $authorizationReference;
+    private string $locationId;
+    private string $evseUid;
+    private string $connectorId;
     private ?string $meterId;
     private string $currency;
     /** @var ChargingPeriod[] */
@@ -23,60 +27,59 @@ class Session implements JsonSerializable
     private ?Price $totalCost;
     private SessionStatus $status;
     private DateTime $lastUpdated;
-    private string $countryCode;
-    private string $partyId;
-    private DateTime $startDateTime;
-    private ?DateTime $endDateTime;
-    private string $locationId;
-    private string $evseUid;
-    private string $connectorId;
-    private string $authorizationReference;
 
     public function __construct(
-        string               $id,
-        DateTime             $startDate,
-        ?DateTime            $endDate,
-        float                $kwh,
-        CdrToken             $cdrToken,
-        AuthenticationMethod $authMethod,
-        ?string              $meterId,
-        string               $currency,
-        ?Price               $totalCost,
-        SessionStatus        $status,
-        DateTime             $lastUpdated,
-        string               $countryCode,
-        string               $partyId,
-        DateTime             $startDateTime,
-        ?DateTime            $endDateTime,
-        string               $locationId,
-        string               $evseUid,
-        string               $connectorId,
-        string               $authorizationReference
+        string $countryCode,
+        string $partyId,
+        string $id,
+        DateTime $startDateTime,
+        ?DateTime $endDateTime,
+        float $kwh,
+        CdrToken $cdrToken,
+        AuthMethod $authMethod,
+        ?string $authorizationReference,
+        string $locationId,
+        string $evseUid,
+        string $connectorId,
+        ?string $meterId,
+        string $currency,
+        ?Price $totalCost,
+        SessionStatus $status,
+        DateTime $lastUpdated
     ) {
+        $this->countryCode = $countryCode;
+        $this->partyId = $partyId;
         $this->id = $id;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
+        $this->startDateTime = $startDateTime;
+        $this->endDateTime = $endDateTime;
         $this->kwh = $kwh;
         $this->cdrToken = $cdrToken;
         $this->authMethod = $authMethod;
+        $this->authorizationReference = $authorizationReference;
+        $this->locationId = $locationId;
+        $this->evseUid = $evseUid;
+        $this->connectorId = $connectorId;
         $this->meterId = $meterId;
         $this->currency = $currency;
         $this->totalCost = $totalCost;
         $this->status = $status;
         $this->lastUpdated = $lastUpdated;
-        $this->countryCode = $countryCode;
-        $this->partyId = $partyId;
-        $this->startDateTime = $startDateTime;
-        $this->endDateTime = $endDateTime;
-        $this->locationId = $locationId;
-        $this->evseUid = $evseUid;
-        $this->connectorId = $connectorId;
-        $this->authorizationReference = $authorizationReference;
     }
 
-    public function addChargingPeriod(ChargingPeriod $period): void
+    public function addChargingPeriod(ChargingPeriod $chargingPeriod): self
     {
-        $this->chargingPeriods[] = $period;
+        $this->chargingPeriods[] = $chargingPeriod;
+        return $this;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 
     public function getId(): string
@@ -84,14 +87,14 @@ class Session implements JsonSerializable
         return $this->id;
     }
 
-    public function getStartDate(): DateTime
+    public function getStartDateTime(): DateTime
     {
-        return $this->startDate;
+        return $this->startDateTime;
     }
 
-    public function getEndDate(): ?DateTime
+    public function getEndDateTime(): ?DateTime
     {
-        return $this->endDate;
+        return $this->endDateTime;
     }
 
     public function getKwh(): float
@@ -104,19 +107,39 @@ class Session implements JsonSerializable
         return $this->cdrToken;
     }
 
-    public function getAuthMethod(): AuthenticationMethod
+    public function getAuthMethod(): AuthMethod
     {
         return $this->authMethod;
     }
 
-    public function getCurrency(): string
+    public function getAuthorizationReference(): ?string
     {
-        return $this->currency;
+        return $this->authorizationReference;
+    }
+
+    public function getLocationId(): string
+    {
+        return $this->locationId;
+    }
+
+    public function getEvseUid(): string
+    {
+        return $this->evseUid;
+    }
+
+    public function getConnectorId(): string
+    {
+        return $this->connectorId;
     }
 
     public function getMeterId(): ?string
     {
         return $this->meterId;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
     }
 
     public function getChargingPeriods(): array
@@ -139,99 +162,152 @@ class Session implements JsonSerializable
         return $this->lastUpdated;
     }
 
+    public function jsonSerialize(): array
+    {
+        return [
+            'country_code' => $this->countryCode,
+            'party_id' => $this->partyId,
+            'id' => $this->id,
+            'start_date_time' => DateTimeFormatter::format($this->startDateTime),
+            'end_date_time' => DateTimeFormatter::format($this->endDateTime),
+            'kwh' => $this->kwh,
+            'cdr_token' => $this->cdrToken,
+            'auth_method' => $this->authMethod,
+            'authorization_reference' => $this->authorizationReference,
+            'location_id' => $this->locationId,
+            'evse_uid' => $this->evseUid,
+            'connector_id' => $this->connectorId,
+            'meter_id' => $this->meterId,
+            'currency' => $this->currency,
+            'charging_periods' => $this->chargingPeriods,
+            'total_cost' => $this->totalCost,
+            'status' => $this->status,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
+        ];
+    }
+
     public function merge(PartialSession $partialSession): self
     {
         $new = new Session(
+            $partialSession->hasCountryCode() ? $partialSession->getCountryCode() : $this->countryCode,
+            $partialSession->hasPartyId() ? $partialSession->getPartyId() : $this->partyId,
             $partialSession->hasId() ? $partialSession->getId() : $this->id,
-            $partialSession->hasStartDate() ? $partialSession->getStartDate() : $this->startDate,
-            $partialSession->hasEndDate() ? $partialSession->getEndDate() : $this->endDate,
+            $partialSession->hasStartDateTime() ? $partialSession->getStartDateTime() : $this->startDateTime,
+            $partialSession->hasEndDateTime() ? $partialSession->getEndDateTime() : $this->endDateTime,
             $partialSession->hasKwh() ? $partialSession->getKwh() : $this->kwh,
             $partialSession->hasCdrToken() ? $partialSession->getCdrToken() : $this->cdrToken,
             $partialSession->hasAuthMethod() ? $partialSession->getAuthMethod() : $this->authMethod,
-            $partialSession->hasLocation() ? $partialSession->getLocation() : $this->location,
+            $partialSession->hasAuthorizationReference() ? $partialSession->getAuthorizationReference() : $this->authorizationReference,
+            $partialSession->hasLocationId() ? $partialSession->getLocationId() : $this->locationId,
+            $partialSession->hasEvseUid() ? $partialSession->getEvseUid() : $this->evseUid,
+            $partialSession->hasConnectorId() ? $partialSession->getConnectorId() : $this->connectorId,
             $partialSession->hasMeterId() ? $partialSession->getMeterId() : $this->meterId,
             $partialSession->hasCurrency() ? $partialSession->getCurrency() : $this->currency,
             $partialSession->hasTotalCost() ? $partialSession->getTotalCost() : $this->totalCost,
             $partialSession->hasStatus() ? $partialSession->getStatus() : $this->status,
             $partialSession->hasLastUpdated() ? $partialSession->getLastUpdated() : $this->lastUpdated
         );
+
         $chargingPeriods = $partialSession->hasChargingPeriods() ? $partialSession->getChargingPeriods() : $this->chargingPeriods;
         foreach ($chargingPeriods as $chargingPeriod) {
             $new->addChargingPeriod($chargingPeriod);
         }
+
         return $new;
     }
 
+    /**
+     * TODO: Update method
+     */
     public function diff(Session $other): ?PartialSession
     {
         $diff = null;
+        if ($this->countryCode !== $other->countryCode) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withCountryCode($other->countryCode);
+        }
+        if ($this->id !== $other->partyId) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withPartyId($other->partyId);
+        }
         if ($this->id !== $other->id) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withId($other->id);
         }
-        if ($this->startDate->getTimestamp() !== $other->startDate->getTimestamp()) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withStartDate($other->startDate);
+        if ($this->startDateTime->getTimestamp() !== $other->startDateTime->getTimestamp()) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withStartDateTime($other->startDateTime);
         }
-        if ($this->endDate === null && $other->endDate !== null) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withEndDate($other->endDate);
+        if ($this->endDateTime === null && $other->endDateTime !== null) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEndDateTime($other->endDateTime);
         }
-        if ($this->endDate !== null && $other->endDate === null) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withEndDate($other->endDate);
+        if ($this->endDateTime !== null && $other->endDateTime === null) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEndDateTime($other->endDateTime);
         }
         if (
-            $this->endDate !== null && $other->endDate !== null &&
-            $this->endDate->getTimestamp() !== $other->endDate->getTimestamp()
+            $this->endDateTime !== null && $other->endDateTime !== null &&
+            $this->endDateTime->getTimestamp() !== $other->endDateTime->getTimestamp()
         ) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withEndDate($other->endDate);
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEndDateTime($other->endDateTime);
         }
         if ($this->kwh !== $other->kwh) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withKwh($other->kwh);
         }
         if ($this->cdrToken !== $other->cdrToken) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withAuthId($other->cdrToken);
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withCdrToken($other->cdrToken);
         }
         if (!$this->authMethod->equals($other->authMethod)) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withAuthMethod($other->authMethod);
         }
-        //TODO: replace by location "equals" method call
-        if ($this->location != $other->location) {
-            $diff = $diff ?? new PartialSession();
-            $diff = $diff->withLocation($other->location);
+        if ($this->authorizationReference !== $other->authorizationReference) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withAuthorizationReference($other->authorizationReference);
+        }    
+        if ($this->locationId != $other->locationId) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withLocationId($other->locationId);
+        }
+        if ($this->evseUid != $other->evseUid) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withEvseId($other->evseUid);
+        }
+        if ($this->connectorId != $other->connectorId) {
+            $diff = $diff ?: new PartialSession();
+            $diff = $diff->withConnectorId($other->connectorId);
         }
         if ($this->meterId !== $other->meterId) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withMeterId($other->meterId);
         }
         if ($this->currency !== $other->currency) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withCurrency($other->currency);
         }
         if ($this->totalCost !== $other->totalCost) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withTotalCost($other->totalCost);
         }
         if (!$this->status->equals($other->status)) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withStatus($other->status);
         }
         if ($this->lastUpdated->getTimestamp() !== $other->lastUpdated->getTimestamp()) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             $diff = $diff->withLastUpdated($other->lastUpdated);
         }
         $chargingPeriodsDiff = self::chargingPeriodsDiff($this, $other);
         if ($chargingPeriodsDiff !== null) {
-            $diff = $diff ?? new PartialSession();
+            $diff = $diff ?: new PartialSession();
             //There is a difference between to, so anyway we need to init charging periods array
             $diff = $diff->withChargingPeriods();
             foreach ($chargingPeriodsDiff as $chargingPeriod) {
-                $diff = $diff->withChargingPeriod($chargingPeriod);
+                $diff = $diff->addChargingPeriod($chargingPeriod);
             }
         }
 
@@ -278,46 +354,5 @@ class Session implements JsonSerializable
         }
 
         return $diff;
-    }
-
-    public function jsonSerialize(): array
-    {
-        $return = [
-            'id' => $this->id,
-            'start_datetime' => DateTimeFormatter::format($this->startDate),
-            'kwh' => $this->kwh,
-            'auth_id' => $this->cdrToken,
-            'auth_method' => $this->authMethod,
-            'location' => $this->location,
-            'currency' => $this->currency,
-            'charging_periods' => $this->chargingPeriods,
-            'status' => $this->status,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
-            'country_code' => $this->countryCode,
-            'party_id' => $this->partyId,
-            'start_date_time' => $this->startDateTime,
-            'location_id' => $this->locationId,
-            'evse_uid' => $this->evseUid,
-            'connector_id' => $this->connectorId,
-            'authorization_reference' => $this->authorizationReference
-        ];
-
-        if ($this->endDateTime !== null) {
-            $return['end_date_time'] = $this->endDateTime;
-        }
-
-        if ($this->meterId !== null) {
-            $return['meter_id'] = $this->meterId;
-        }
-
-        if ($this->totalCost !== null) {
-            $return['total_cost'] = $this->totalCost;
-        }
-
-        if ($this->endDate !== null) {
-            $return['end_datetime'] = DateTimeFormatter::format($this->endDate);
-        }
-
-        return $return;
     }
 }

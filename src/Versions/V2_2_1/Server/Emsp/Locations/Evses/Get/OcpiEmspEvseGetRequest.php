@@ -18,7 +18,7 @@ class OcpiEmspEvseGetRequest extends OcpiEmspLocationGetRequest
         parent::__construct($request, $params);
         $evseUid = $params->getEvseUid();
         if ($evseUid === null) {
-            throw new InvalidArgumentException('EVSE UID should be provided.');
+            throw new InvalidArgumentException('Evse UID should be provided.');
         }
         $this->evseUid = $evseUid;
     }

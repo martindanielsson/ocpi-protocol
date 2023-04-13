@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -10,65 +8,34 @@ use JsonSerializable;
 
 class ChargingPeriod implements JsonSerializable
 {
-    private DateTime $startDate;
-
+    private DateTime $startDateTime;
+    /** @var CdrDimension[] */
+    private array $dimensions = [];
     private ?string $tariffId;
 
-    /** @var CdrDimension[] */
-    private array $cdrDimensions = [];
-
-    public function __construct(DateTime $startDate, ?string $tariffId)
-    {
-        $this->startDate = $startDate;
+    public function __construct(
+        DateTime $startDateTime,
+        ?string $tariffId
+    ) {
+        $this->startDateTime = $startDateTime;
         $this->tariffId = $tariffId;
     }
 
     public function addDimension(CdrDimension $dimension): void
     {
-        $previousIndex = $this->searchCdrDimension($dimension->getType());
+        $previousIndex = $this->searchDimension($dimension->getType());
 
         if ($previousIndex !== null) {
-            $this->cdrDimensions[$previousIndex] = $dimension;
+            $this->dimensions[$previousIndex] = $dimension;
         } else {
-            $this->cdrDimensions[] = $dimension;
+            $this->dimensions[] = $dimension;
         }
     }
 
-    public function getStartDate(): DateTime
+    private function searchDimension(CdrDimensionType $dimensionType): ?int
     {
-        return $this->startDate;
-    }
-
-    /** @return CdrDimension[] */
-    public function getCdrDimensions(): array
-    {
-        return $this->cdrDimensions;
-    }
-
-    public function getCdrDimension(CdrDimensionType $dimensionType): ?CdrDimension
-    {
-        $index = $this->searchCdrDimension($dimensionType);
-
-        if ($index === null) {
-            return null;
-        }
-
-        return $this->cdrDimensions[$index];
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'start_date_time' => DateTimeFormatter::format($this->startDate),
-            'dimensions' => $this->cdrDimensions,
-            'tariff_id' => $this->tariffId,
-        ];
-    }
-
-    private function searchCdrDimension(CdrDimensionType $dimensionType): ?int
-    {
-        foreach ($this->cdrDimensions as $index => $cdrDimension) {
-            if ($cdrDimension->getType()->equals($dimensionType)) {
+        foreach ($this->dimensions as $index => $dimension) {
+            if ($dimension->getType()->equals($dimensionType)) {
                 return $index;
             }
         }
@@ -76,11 +43,38 @@ class ChargingPeriod implements JsonSerializable
         return null;
     }
 
-    /**
-     * @return string|null
-     */
+    public function getStartDateTime(): DateTime
+    {
+        return $this->startDateTime;
+    }
+
+    public function getDimensions(): array
+    {
+        return $this->dimensions;
+    }
+
+    public function getDimension(CdrDimensionType $dimensionType): ?CdrDimension
+    {
+        $index = $this->searchDimension($dimensionType);
+
+        if ($index === null) {
+            return null;
+        }
+
+        return $this->dimensions[$index];
+    }
+
     public function getTariffId(): ?string
     {
         return $this->tariffId;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'start_date_time' => DateTimeFormatter::format($this->startDateTime),
+            'dimensions' => $this->dimensions,
+            'tariff_id' => $this->tariffId
+        ];
     }
 }

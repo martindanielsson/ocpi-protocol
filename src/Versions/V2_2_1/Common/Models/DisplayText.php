@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,11 +7,12 @@ use JsonSerializable;
 class DisplayText implements JsonSerializable
 {
     private string $language;
-
     private string $text;
 
-    public function __construct(string $language, string $text)
-    {
+    public function __construct(
+        string $language,
+        string $text
+    ) {
         $this->language = $language;
         $this->text = $text;
     }

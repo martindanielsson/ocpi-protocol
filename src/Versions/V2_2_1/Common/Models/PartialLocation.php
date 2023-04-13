@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -11,61 +9,29 @@ use JsonSerializable;
 
 /**
  * @method bool hasId()
- * @method bool hasLocationType()
- * @method bool hasName()
- * @method bool hasAddress()
- * @method bool hasCity()
- * @method bool hasPostalCode()
- * @method bool hasCountry()
- * @method bool hasCoordinates()
- * @method bool hasRelatedLocations()
- * @method bool hasEvses()
- * @method bool hasDirections()
- * @method bool hasOperator()
- * @method bool hasSuboperator()
- * @method bool hasOwner()
- * @method bool hasFacilities()
- * @method bool hasTimeZone()
- * @method bool hasOpeningTimes()
- * @method bool hasChargingWhenClosed()
- * @method bool hasImages()
- * @method bool hasEnergyMix()
- * @method bool hasLastUpdated()
+ * TODO: Put down other methods
  * @method self withId(?string $id)
- * @method self withLocationType(?ParkingType $locationType)
- * @method self withName(?string $name)
- * @method self withAddress(?string $address)
- * @method self withCity(?string $city)
- * @method self withPostalCode(?string $postalCode)
- * @method self withCountry(?string $country)
- * @method self withCoordinates(?GeoLocation $coordinates)
- * @method self withRelatedLocations()
- * @method self withEvses()
- * @method self withDirections()
- * @method self withOperator(?BusinessDetails $operator)
- * @method self withSuboperator(?BusinessDetails $suboperator)
- * @method self withOwner(?BusinessDetails $owner)
- * @method self withFacilities()
- * @method self withTimeZone(?string $timeZone)
- * @method self withOpeningTimes(?Hours $openingTimes)
- * @method self withChargingWhenClosed(?bool $chargingWhenClosed)
- * @method self withImages()
- * @method self withEnergyMix(?EnergyMix $energyMix)
- * @method self withLastUpdated(?DateTime $lastUpdated)
+ * TODO: Put down other methods
  */
 class PartialLocation extends PartialModel implements JsonSerializable
 {
+    private ?string $countryCode = null;
+    private ?string $partyId = null;
     private ?string $id = null;
-    private ?ParkingType $locationType = null;
+    private ?bool $publish = null;
+    /** @var PublishTokenType[]|null */
+    private ?array $publishAllowedTo = null;
     private ?string $name = null;
     private ?string $address = null;
     private ?string $city = null;
     private ?string $postalCode = null;
+    private ?string $state = null;
     private ?string $country = null;
     private ?GeoLocation $coordinates = null;
     /** @var AdditionalGeoLocation[]|null */
     private ?array $relatedLocations = null;
-    /** @var EVSE[]|null */
+    private ?ParkingType $parkingType = null;
+    /** @var Evse[]|null */
     private ?array $evses = null;
     /** @var DisplayText[]|null */
     private ?array $directions = null;
@@ -82,15 +48,39 @@ class PartialLocation extends PartialModel implements JsonSerializable
     private ?EnergyMix $energyMix = null;
     private ?DateTime $lastUpdated = null;
 
+    protected function _withCountryCode(?string $countryCode): self
+    {
+        $this->countryCode = $countryCode;
+        return $this;
+    }
+
+    protected function _withPartyId(?string $partyId): self
+    {
+        $this->partyId = $partyId;
+        return $this;
+    }
+
     protected function _withId(?string $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    protected function _withLocationType(?ParkingType $locationType): self
+    protected function _withPublish(?bool $publish): self
     {
-        $this->locationType = $locationType;
+        $this->publish = $publish;
+        return $this;
+    }
+
+    protected function _withPublishAllowedTo(): self
+    {
+        $this->publishAllowedTo = [];
+        return $this;
+    }
+
+    public function addPublishAllowedTo(PublishTokenType $publishAllowedTo): self
+    {
+        $this->publishAllowedTo[] = $publishAllowedTo;
         return $this;
     }
 
@@ -118,6 +108,12 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
+    protected function _withState(?string $state): self
+    {
+        $this->state = $state;
+        return $this;
+    }
+
     protected function _withCountry(?string $country): self
     {
         $this->country = $country;
@@ -136,9 +132,15 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    public function withRelatedLocation(AdditionalGeoLocation $relatedLocation): self
+    public function addRelatedLocation(AdditionalGeoLocation $relatedLocation): self
     {
         $this->relatedLocations[] = $relatedLocation;
+        return $this;
+    }
+
+    protected function _withParkingType(?ParkingType $parkingType): self
+    {
+        $this->parkingType = $parkingType;
         return $this;
     }
 
@@ -148,7 +150,7 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    public function withEvse(EVSE $evse): self
+    public function addEvse(Evse $evse): self
     {
         $this->evses[] = $evse;
         return $this;
@@ -160,7 +162,7 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    public function withDirection(DisplayText $direction): self
+    public function addDirection(DisplayText $direction): self
     {
         $this->directions[] = $direction;
         return $this;
@@ -190,7 +192,7 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    public function withFacility(Facility $facility): self
+    public function addFacility(Facility $facility): self
     {
         $this->facilities[] = $facility;
         return $this;
@@ -220,7 +222,7 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
-    public function withImage(Image $image): self
+    public function addImage(Image $image): self
     {
         $this->images[] = $image;
         return $this;
@@ -238,14 +240,29 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this;
     }
 
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): ?string
+    {
+        return $this->partyId;
+    }
+
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getLocationType(): ?ParkingType
+    public function getPublish(): ?bool
     {
-        return $this->locationType;
+        return $this->publish;
+    }
+
+    public function getPublishAllowedTo(): ?array
+    {
+        return $this->publishAllowedTo;
     }
 
     public function getName(): ?string
@@ -268,6 +285,11 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this->postalCode;
     }
 
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
     public function getCountry(): ?string
     {
         return $this->country;
@@ -278,25 +300,21 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this->coordinates;
     }
 
-    /**
-     * @return AdditionalGeoLocation[]|null
-     */
     public function getRelatedLocations(): ?array
     {
         return $this->relatedLocations;
     }
 
-    /**
-     * @return EVSE[]|null
-     */
+    public function getParkingType(): ?ParkingType
+    {
+        return $this->parkingType;
+    }
+
     public function getEvses(): ?array
     {
         return $this->evses;
     }
 
-    /**
-     * @return DisplayText[]|null
-     */
     public function getDirections(): ?array
     {
         return $this->directions;
@@ -317,9 +335,6 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this->owner;
     }
 
-    /**
-     * @return Facility[]|null
-     */
     public function getFacilities(): ?array
     {
         return $this->facilities;
@@ -340,9 +355,6 @@ class PartialLocation extends PartialModel implements JsonSerializable
         return $this->chargingWhenClosed;
     }
 
-    /**
-     * @return Image[]|null
-     */
     public function getImages(): ?array
     {
         return $this->images;
@@ -362,11 +374,23 @@ class PartialLocation extends PartialModel implements JsonSerializable
     {
         $return = [];
 
+        if ($this->hasCountryCode()) {
+            $return['country_code'] = $this->countryCode;
+        }
+        if ($this->hasPartyId()) {
+            $return['party_id'] = $this->partyId;
+        }
         if ($this->hasId()) {
             $return['id'] = $this->id;
         }
-        if ($this->hasLocationType()) {
-            $return['type'] = $this->locationType;
+        if ($this->hasPublish()) {
+            $return['publish'] = $this->publish;
+        }
+        if ($this->hasPublishAllowedTo()) {
+            $return['publish_allowed_to'] = $this->publishAllowedTo;
+        }
+        if ($this->hasName()) {
+            $return['name'] = $this->name;
         }
         if ($this->hasAddress()) {
             $return['address'] = $this->address;
@@ -377,6 +401,9 @@ class PartialLocation extends PartialModel implements JsonSerializable
         if ($this->hasPostalCode()) {
             $return['postal_code'] = $this->postalCode;
         }
+        if ($this->hasState()) {
+            $return['state'] = $this->state;
+        }
         if ($this->hasCountry()) {
             $return['country'] = $this->country;
         }
@@ -386,23 +413,14 @@ class PartialLocation extends PartialModel implements JsonSerializable
         if ($this->hasRelatedLocations()) {
             $return['related_locations'] = $this->relatedLocations;
         }
+        if ($this->hasParkingType()) {
+            $return['parking_type'] = $this->parkingType;
+        }
         if ($this->hasEvses()) {
             $return['evses'] = $this->evses;
         }
         if ($this->hasDirections()) {
             $return['directions'] = $this->directions;
-        }
-        if ($this->hasFacilities()) {
-            $return['facilities'] = $this->facilities;
-        }
-        if ($this->hasImages()) {
-            $return['images'] = $this->images;
-        }
-        if ($this->hasLastUpdated()) {
-            $return['last_updated'] = DateTimeFormatter::format($this->lastUpdated);
-        }
-        if ($this->hasName()) {
-            $return['name'] = $this->name;
         }
         if ($this->hasOperator()) {
             $return['operator'] = $this->operator;
@@ -413,6 +431,9 @@ class PartialLocation extends PartialModel implements JsonSerializable
         if ($this->hasOwner()) {
             $return['owner'] = $this->owner;
         }
+        if ($this->hasFacilities()) {
+            $return['facilities'] = $this->facilities;
+        }
         if ($this->hasTimeZone()) {
             $return['time_zone'] = $this->timeZone;
         }
@@ -422,12 +443,16 @@ class PartialLocation extends PartialModel implements JsonSerializable
         if ($this->hasChargingWhenClosed()) {
             $return['charging_when_closed'] = $this->chargingWhenClosed;
         }
+        if ($this->hasImages()) {
+            $return['images'] = $this->images;
+        }
         if ($this->hasEnergyMix()) {
             $return['energy_mix'] = $this->energyMix;
+        }
+        if ($this->hasLastUpdated()) {
+            $return['last_updated'] = DateTimeFormatter::format($this->lastUpdated);
         }
 
         return $return;
     }
 }
-
-

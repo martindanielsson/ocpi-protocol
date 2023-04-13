@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chargemap\OCPI\Versions\V2_2_1\Server\Emsp\Locations\Patch;
 
+use Chargemap\OCPI\Common\Server\Errors\OcpiGenericClientError;
 use Chargemap\OCPI\Common\Utils\PayloadValidation;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Factories\PartialLocationFactory;
 use Chargemap\OCPI\Versions\V2_2_1\Common\Models\PartialLocation;
@@ -20,13 +21,23 @@ class OcpiEmspLocationPatchRequest extends OcpiLocationUpdateRequest
     {
         parent::__construct($request, $params);
         PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/locationPatchRequest.schema.json', $this->jsonBody);
+
         $partialLocation = PartialLocationFactory::fromJson($this->jsonBody);
+
         if ($partialLocation === null) {
             throw new UnexpectedValueException('PartialLocation cannot be null');
         }
 
-        if($partialLocation->hasId() && $partialLocation->getId() !== $params->getLocationId()) {
-            throw new UnsupportedPatchException( 'Property id can not be patched at the moment' );
+        if ($partialLocation->hasCountryCode() && $partialLocation->getCountryCode() !== $params->getCountryCode()) {
+            throw new OcpiGenericClientError('Country code can not be patched');
+        }
+
+        if ($partialLocation->hasPartyId() && $partialLocation->getPartyId() !== $params->getPartyId()) {
+            throw new OcpiGenericClientError('Party ID can not be patched');
+        }
+
+        if ($partialLocation->hasId() && $partialLocation->getId() !== $params->getLocationId()) {
+            throw new OcpiGenericClientError('ID can not be patched');
         }
 
         $this->partialLocation = $partialLocation;

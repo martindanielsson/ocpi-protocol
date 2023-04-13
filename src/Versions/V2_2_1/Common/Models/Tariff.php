@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use Chargemap\OCPI\Common\Utils\DateTimeFormatter;
@@ -10,68 +8,71 @@ use JsonSerializable;
 
 class Tariff implements JsonSerializable
 {
+    private string $countryCode;
+    private string $partyId;
     private string $id;
-
     private string $currency;
-
+    private ?TariffType $type;
     /** @var DisplayText[] */
     private array $tariffAltText = [];
-
     private ?string $tariffAltUrl;
-
+    private ?Price $minPrice;
+    private ?Price $maxPrice;
     /** @var TariffElement[] */
     private array $elements = [];
-
+    private ?DateTime $startDateTime;
+    private ?DateTime $endDateTime;
     private ?EnergyMix $energyMix;
-
     private DateTime $lastUpdated;
 
-    private string $countryCode;
-
-    private string $partyId;
-
-    private ?Price $minPrice;
-
-    private ?Price $maxPrice;
-
-    private ?TariffType $type;
-
     public function __construct(
-        string $id,
-        string $currency,
-        ?string $tariffAltUrl,
-        ?EnergyMix $energyMix,
-        DateTime $lastUpdated,
         string $countryCode,
         string $partyId,
+        string $id,
+        string $currency,
+        ?TariffType $type,
+        ?string $tariffAltUrl,
         ?Price $minPrice,
         ?Price $maxPrice,
-        ?TariffType $type
+        ?DateTime $startDateTime,
+        ?DateTime $endDateTime,
+        ?EnergyMix $energyMix,
+        DateTime $lastUpdated
     ) {
-        $this->id = $id;
-        $this->currency = $currency;
-        $this->tariffAltUrl = $tariffAltUrl;
-        $this->energyMix = $energyMix;
-        $this->lastUpdated = $lastUpdated;
         $this->countryCode = $countryCode;
         $this->partyId = $partyId;
+        $this->id = $id;
+        $this->currency = $currency;
+        $this->type = $type;
+        $this->tariffAltUrl = $tariffAltUrl;
         $this->minPrice = $minPrice;
         $this->maxPrice = $maxPrice;
-        $this->type = $type;
+        $this->startDateTime = $startDateTime;
+        $this->endDateTime = $endDateTime;
+        $this->energyMix = $energyMix;
+        $this->lastUpdated = $lastUpdated;
     }
 
-    public function addTariffAltText(DisplayText $text): self
+    public function addTariffAltText(DisplayText $tariffAltText): self
     {
-        $this->tariffAltText[] = $text;
-
+        $this->tariffAltText[] = $tariffAltText;
         return $this;
     }
 
-    public function addTariffElement(TariffElement $element): self
+    public function addElement(TariffElement $element): self
     {
         $this->elements[] = $element;
-
         return $this;
+    }
+
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    public function getPartyId(): string
+    {
+        return $this->partyId;
     }
 
     public function getId(): string
@@ -84,9 +85,11 @@ class Tariff implements JsonSerializable
         return $this->currency;
     }
 
-    /**
-     * @return DisplayText[]
-     */
+    public function getType(): ?TariffType
+    {
+        return $this->type;
+    }
+
     public function getTariffAltText(): array
     {
         return $this->tariffAltText;
@@ -97,12 +100,29 @@ class Tariff implements JsonSerializable
         return $this->tariffAltUrl;
     }
 
-    /**
-     * @return TariffElement[]
-     */
+    public function getMinPrice(): ?Price
+    {
+        return $this->minPrice;
+    }
+
+    public function getMaxPrice(): ?Price
+    {
+        return $this->maxPrice;
+    }
+
     public function getElements(): array
     {
         return $this->elements;
+    }
+
+    public function getStartDateTime(): ?DateTime
+    {
+        return $this->startDateTime;
+    }
+
+    public function getEndDateTime(): ?DateTime
+    {
+        return $this->endDateTime;
     }
 
     public function getEnergyMix(): ?EnergyMix
@@ -117,39 +137,21 @@ class Tariff implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
-            'id' => $this->id,
-            'currency' => $this->currency,
-            'elements' => $this->elements,
-            'last_updated' => DateTimeFormatter::format($this->lastUpdated),
+        return [
             'country_code' => $this->countryCode,
             'party_id' => $this->partyId,
+            'id' => $this->id,
+            'currency' => $this->currency,
+            'type' => $this->type,
+            'tariff_alt_text' => $this->tariffAltText,
+            'tariff_alt_url' => $this->tariffAltUrl,
+            'min_price' => $this->minPrice,
+            'max_price' => $this->maxPrice,
+            'elements' => $this->elements,
+            'start_date_time' => DateTimeFormatter::format($this->startDateTime),
+            'end_date_time' => DateTimeFormatter::format($this->endDateTime),
+            'energy_mix' => $this->energyMix,
+            'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
-
-        if ($this->minPrice !== null) {
-            $return['min_price'] = $this->minPrice;
-        }
-
-        if ($this->maxPrice !== null) {
-            $return['maxPrice'] = $this->maxPrice;
-        }
-
-        if ($this->type !== null) {
-            $return['type'] = $this->type;
-        }
-
-        if (count($this->tariffAltText) > 0) {
-            $return['tariff_alt_text'] = $this->tariffAltText;
-        }
-
-        if ($this->tariffAltUrl !== null) {
-            $return['tariff_alt_url'] = $this->tariffAltUrl;
-        }
-
-        if ($this->energyMix !== null) {
-            $return['energy_mix'] = $this->energyMix;
-        }
-
-        return $return;
     }
 }

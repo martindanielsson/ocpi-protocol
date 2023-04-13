@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Chargemap\OCPI\Versions\V2_2_1\Common\Models;
 
 use JsonSerializable;
@@ -9,11 +7,12 @@ use JsonSerializable;
 class AdditionalGeoLocation implements JsonSerializable
 {
     private GeoLocation $geoLocation;
-
     private ?DisplayText $name;
 
-    public function __construct(GeoLocation $geoLocation, ?DisplayText $name)
-    {
+    public function __construct(
+        GeoLocation $geoLocation,
+        ?DisplayText $name
+    ) {
         $this->geoLocation = $geoLocation;
         $this->name = $name;
     }
@@ -30,15 +29,10 @@ class AdditionalGeoLocation implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        $return = [
+        return [
             'latitude' => $this->geoLocation->getLatitude(),
             'longitude' => $this->geoLocation->getLongitude(),
+            'name' => $this->name
         ];
-
-        if ($this->name !== null) {
-            $return['name'] = $this->name;
-        }
-
-        return $return;
     }
 }
