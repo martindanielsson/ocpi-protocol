@@ -29,7 +29,7 @@ class PostCommandResponse extends BaseResponse
      */
     public static function from(ResponseInterface $response): PostCommandResponse
     {
-        $json = self::toJson($response, 'V2_2_1/eMSP/Client/Commands/commandPostResponse.schema.json');
+        $json = self::toJson($response, 'V2_2/eMSP/Client/Commands/commandPostResponse.schema.json');
 
         $commandResponse = CommandResponseFactory::fromJson($json->data);
 

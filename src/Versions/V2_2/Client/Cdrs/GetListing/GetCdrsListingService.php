@@ -9,8 +9,8 @@ use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 class GetCdrsListingService extends AbstractFeatures
 {
     /**
-     * @param \Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingRequest $request
-     * @return \Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingResponse
+     * @param \Chargemap\OCPI\Versions\V2_2\Client\Cdrs\GetListing\GetCdrsListingRequest $request
+     * @return \Chargemap\OCPI\Versions\V2_2\Client\Cdrs\GetListing\GetCdrsListingResponse
      * @throws \Chargemap\OCPI\Common\Client\OcpiEndpointNotFoundException
      * @throws \Chargemap\OCPI\Common\Client\OcpiUnauthorizedException
      * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError

@@ -20,7 +20,7 @@ class OcpiEmspLocationPutRequest extends OcpiLocationUpdateRequest
     public function __construct(ServerRequestInterface $request, LocationRequestParams $params)
     {
         parent::__construct($request, $params);
-        PayloadValidation::coerce('V2_2_1/eMSP/Server/Locations/locationPutRequest.schema.json', $this->jsonBody);
+        PayloadValidation::coerce('V2_2/eMSP/Server/Locations/locationPutRequest.schema.json', $this->jsonBody);
 
         $location = LocationFactory::fromJson($this->jsonBody);
 

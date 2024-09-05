@@ -22,7 +22,7 @@ class OcpiEmspCommandPostRequest extends OcpiUpdateRequest
     {
         parent::__construct($request);
         $this->dispatchParams($commandType, $commandId);
-        PayloadValidation::coerce('V2_2_1/eMSP/Server/Commands/commandPostRequest.schema.json', $this->jsonBody);
+        PayloadValidation::coerce('V2_2/eMSP/Server/Commands/commandPostRequest.schema.json', $this->jsonBody);
         $commandResult = CommandResultFactory::fromJson($this->jsonBody);
         if ($commandResult === null) {
             throw new UnexpectedValueException('Command result cannot be null');
