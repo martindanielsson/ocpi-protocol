@@ -1,0 +1,52 @@
+{
+    "title": "V2.2\\Tokens\\AuthorizationInfo",
+    "type": "object",
+    "properties": {
+        "allowed": {
+            "type": "string",
+            "enum": [
+                "ALLOWED",
+                "BLOCKED",
+                "EXPIRED",
+                "NO_CREDIT",
+                "NOT_ALLOWED"
+            ]
+        },
+        "token": {
+            "$ref": "token.schema.json"
+        },
+        "location": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../common.schema.json#/definitions/location_references"
+                }
+            ]
+        },
+        "authorization_reference": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "info": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../common.schema.json#/definitions/display_text"
+                }
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "allowed",
+        "token"
+    ]
+}

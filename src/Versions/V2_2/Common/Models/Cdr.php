@@ -38,7 +38,6 @@ class Cdr implements JsonSerializable
     private ?string $invoiceReferenceId;
     private ?bool $credit;
     private ?string $creditReferenceId;
-    private ?bool $homeChargingCompensation;
     private DateTime $lastUpdated;
 
     public function __construct(
@@ -68,7 +67,6 @@ class Cdr implements JsonSerializable
         ?string $invoiceReferenceId,
         ?bool $credit,
         ?string $creditReferenceId,
-        ?bool $homeChargingCompensation,
         DateTime $lastUpdated
     ) {
         $this->countryCode = $countryCode;
@@ -97,7 +95,6 @@ class Cdr implements JsonSerializable
         $this->invoiceReferenceId = $invoiceReferenceId;
         $this->credit = $credit;
         $this->creditReferenceId = $creditReferenceId;
-        $this->homeChargingCompensation = $homeChargingCompensation;
         $this->lastUpdated = $lastUpdated;
     }
 
@@ -253,11 +250,6 @@ class Cdr implements JsonSerializable
         return $this->creditReferenceId;
     }
 
-    public function getHomeChargingCompensation(): ?bool
-    {
-        return $this->homeChargingCompensation;
-    }
-
     public function getLastUpdated(): DateTime
     {
         return $this->lastUpdated;
@@ -294,7 +286,6 @@ class Cdr implements JsonSerializable
             'invoice_reference_id' => $this->invoiceReferenceId,
             'credit' => $this->credit,
             'credit_reference_id' => $this->creditReferenceId,
-            'home_charging_compensation' => $this->homeChargingCompensation,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
     }

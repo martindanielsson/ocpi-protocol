@@ -15,8 +15,6 @@ class CdrTokenFactory
         }
 
         return new CdrToken(
-            $json->country_code,
-            $json->party_id,
             $json->uid,
             new TokenType($json->type),
             $json->contract_id

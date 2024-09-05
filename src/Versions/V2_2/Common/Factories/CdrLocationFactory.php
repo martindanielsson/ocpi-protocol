@@ -21,7 +21,7 @@ class CdrLocationFactory
             $json->name ?? null,
             $json->address,
             $json->city,
-            $json->postal_code ?? null,
+            $json->postal_code,
             $json->state ?? null,
             $json->country,
             GeoLocationFactory::fromJson($json->coordinates),

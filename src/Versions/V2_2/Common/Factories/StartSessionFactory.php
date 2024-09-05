@@ -18,7 +18,6 @@ class StartSessionFactory
             TokenFactory::fromJson($json->token),
             $json->location_id,
             $json->evse_uid ?? null,
-            $json->connector_id ?? null,
             $json->authorization_reference ?? null
         );
     }

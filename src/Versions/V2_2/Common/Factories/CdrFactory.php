@@ -42,7 +42,6 @@ class CdrFactory
             $json->invoice_reference_id ?? null,
             $json->credit ?? null,
             $json->credit_reference_id ?? null,
-            $json->home_charging_compensation ?? null,
             new DateTime($json->last_updated)
         );
 

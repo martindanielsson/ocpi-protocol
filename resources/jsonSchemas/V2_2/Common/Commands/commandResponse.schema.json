@@ -1,0 +1,33 @@
+{
+    "title": "V2.2\\Commands\\CommandResponse",
+    "type": "object",
+    "properties": {
+        "result": {
+            "type": "string",
+            "enum": [
+                "NOT_SUPPORTED",
+                "REJECTED",
+                "send",
+                "ACCEPTED",
+                "UNKNOWN_SESSION"
+            ]
+        },
+        "timeout": {
+            "type": "integer"
+        },
+        "message": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../common.schema.json#/definitions/display_text"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "result",
+        "timeout"
+    ]
+}

@@ -15,7 +15,6 @@ use MyCLabs\Enum\Enum;
  * @method static self REMOTE_START_STOP_CAPABLE()
  * @method static self RESERVABLE()
  * @method static self RFID_READER()
- * @method static self START_SESSION_CONNECTOR_REQUIRED()
  * @method static self TOKEN_GROUP_CAPABLE()
  * @method static self UNLOCK_CAPABLE()
  */
@@ -31,7 +30,6 @@ class Capability extends Enum
     public const REMOTE_START_STOP_CAPABLE = 'REMOTE_START_STOP_CAPABLE';
     public const RESERVABLE = 'RESERVABLE';
     public const RFID_READER = 'RFID_READER';
-    public const START_SESSION_CONNECTOR_REQUIRED = 'START_SESSION_CONNECTOR_REQUIRED';
     public const TOKEN_GROUP_CAPABLE = 'TOKEN_GROUP_CAPABLE';
     public const UNLOCK_CAPABLE = 'UNLOCK_CAPABLE';
 }

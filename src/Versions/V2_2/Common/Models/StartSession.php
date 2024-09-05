@@ -11,7 +11,6 @@ class StartSession extends BaseCommand implements JsonSerializable
     private Token $token;
     private string $locationId;
     private ?string $evseUid;
-    private ?string $connectorId;
     private ?string $authorizationReference;
 
     public function __construct(
@@ -19,14 +18,12 @@ class StartSession extends BaseCommand implements JsonSerializable
         Token $token,
         string $locationId,
         ?string $evseUid,
-        ?string $connectorId,
         ?string $authorizationReference
     ) {
         $this->responseUrl = $responseUrl;
         $this->token = $token;
         $this->locationId = $locationId;
         $this->evseUid = $evseUid;
-        $this->connectorId = $connectorId;
         $this->authorizationReference = $authorizationReference;
     }
 
@@ -50,11 +47,6 @@ class StartSession extends BaseCommand implements JsonSerializable
         return $this->evseUid;
     }
 
-    public function getConnectorId(): ?string
-    {
-        return $this->connectorId;
-    }
-
     public function getAuthorizationReference(): ?string
     {
         return $this->authorizationReference;
@@ -67,7 +59,6 @@ class StartSession extends BaseCommand implements JsonSerializable
             'token' => $this->token,
             'location_id' => $this->locationId,
             'evse_uid' => $this->evseUid,
-            'connector_id' => $this->connectorId,
             'authorization_reference' => $this->authorizationReference
         ];
     }

@@ -10,7 +10,7 @@ class CdrLocation implements JsonSerializable
     private ?string $name;
     private string $address;
     private string $city;
-    private ?string $postalCode;
+    private string $postalCode;
     private ?string $state;
     private string $country;
     private GeoLocation $coordinates;
@@ -26,7 +26,7 @@ class CdrLocation implements JsonSerializable
         ?string $name,
         string $address,
         string $city,
-        ?string $postalCode,
+        string $postalCode,
         ?string $state,
         string $country,
         GeoLocation $coordinates,
@@ -73,7 +73,7 @@ class CdrLocation implements JsonSerializable
         return $this->city;
     }
 
-    public function getPostalCode(): ?string
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }

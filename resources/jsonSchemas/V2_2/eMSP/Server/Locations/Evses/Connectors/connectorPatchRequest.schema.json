@@ -1,0 +1,12 @@
+{
+    "title": "V2.2\\Emsp\\Server\\Locations\\Evses\\Connectors\\Patch",
+    "oneOf": [
+        {
+            "$ref": "../../../../../Common/Locations/connector.schema.json",
+            "required": [
+                "last_updated"
+            ],
+            "additionalProperties": false
+        }
+    ]
+}

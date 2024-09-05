@@ -1,0 +1,12 @@
+{
+    "title": "V2.2\\Emsp\\Server\\Locations\\Evses\\Patch",
+    "oneOf": [
+        {
+            "$ref": "../../../../Common/Locations/evse.schema.json",
+            "required": [
+                "last_updated"
+            ],
+            "additionalProperties": false
+        }
+    ]
+}

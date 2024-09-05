@@ -1,0 +1,24 @@
+{
+    "title": "V2.2\\Emsp\\Server\\Tokens\\Post",
+    "properties": {
+        "data": {
+            "$ref": "../../../Common/Tokens/authorizationInfo.schema.json",
+            "additionalProperties": false
+        },
+        "status_code": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+        },
+        "status_message": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_message"
+        },
+        "timestamp": {
+            "$ref": "../../../Common/common.schema.json#/definitions/timestamp"
+        }
+    },
+    "required": [
+        "data",
+        "status_code",
+        "timestamp"
+    ],
+    "additionalProperties": false
+}

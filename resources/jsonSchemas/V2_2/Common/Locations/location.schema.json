@@ -1,0 +1,356 @@
+{
+    "title": "V2.2\\Locations\\Location",
+    "type": "object",
+    "properties": {
+        "country_code": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+        },
+        "party_id": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 36
+        },
+        "publish": {
+            "type": "boolean"
+        },
+        "publish_allowed_to": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "#/definitions/publish_token_type"
+            }
+        },
+        "name": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 255
+        },
+        "address": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 45
+        },
+        "city": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 45
+        },
+        "postal_code": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 10
+        },
+        "state": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "minLength": 1,
+            "maxLength": 20
+        },
+        "country": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "coordinates": {
+            "$ref": "../common.schema.json#/definitions/geo_location"
+        },
+        "related_locations": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/additional_geo_location"
+            }
+        },
+        "parking_type": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "enum": [
+                "ON_STREET",
+                "PARKING_GARAGE",
+                "UNDERGROUND_GARAGE",
+                "PARKING_LOT",
+                "ON_DRIVEWAY",
+                "ALONG_MOTORWAY"
+            ]
+        },
+        "evses": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "evse.schema.json"
+            }
+        },
+        "directions": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../common.schema.json#/definitions/display_text"
+            }
+        },
+        "operator": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../common.schema.json#/definitions/business_details"
+                }
+            ]
+        },
+        "suboperator": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../common.schema.json#/definitions/business_details"
+                }
+            ]
+        },
+        "owner": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../common.schema.json#/definitions/business_details"
+                }
+            ]
+        },
+        "facilities": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "string",
+                "enum": [
+                    "HOTEL",
+                    "RESTAURANT",
+                    "CAFE",
+                    "MALL",
+                    "SUPERMARKET",
+                    "SPORT",
+                    "RECREATION_AREA",
+                    "NATURE",
+                    "MUSEUM",
+                    "BIKE_SHARING",
+                    "BUS_STOP",
+                    "TAXI_STAND",
+                    "TRAM_STOP",
+                    "METRO_STATION",
+                    "TRAIN_STATION",
+                    "AIRPORT",
+                    "PARKING_LOT",
+                    "CARPOOL_PARKING",
+                    "FUEL_STATION",
+                    "WIFI"
+                ]
+            }
+        },
+        "time_zone": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+        },
+        "opening_times": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "#/definitions/hours"
+                }
+            ]
+        },
+        "charging_when_closed": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "images": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../common.schema.json#/definitions/image"
+            }
+        },
+        "energy_mix": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../common.schema.json#/definitions/energy_mix"
+                }
+            ]
+        },
+        "last_updated": {
+            "$ref": "../common.schema.json#/definitions/timestamp"
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "publish_token_type": {
+            "type": "object",
+            "properties": {
+                "uid": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 36
+                },
+                "type": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "../common.schema.json#/definitions/token_type"
+                        }
+                    ]
+                },
+                "visual_number": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "issuer": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "group_id": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "minLength": 1,
+                    "maxLength": 36
+                }
+            }
+        },
+        "hours": {
+            "type": "object",
+            "properties": {
+                "twentyfourseven": {
+                    "type": "boolean"
+                },
+                "regular_hours": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "$ref": "#/definitions/regular_hours"
+                    }
+                },
+                "exceptional_openings": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "$ref": "#/definitions/exceptional_period"
+                    }
+                },
+                "exceptional_closings": {
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "items": {
+                        "$ref": "#/definitions/exceptional_period"
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "regular_hours": {
+            "type": "object",
+            "properties": {
+                "weekday": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 7
+                },
+                "period_begin": {
+                    "type": "string",
+                    "pattern": "([0-1][0-9]|2[0-3]):[0-5][0-9]"
+                },
+                "period_end": {
+                    "type": "string",
+                    "pattern": "([0-1][0-9]|2[0-3]):[0-5][0-9]"
+                }
+            },
+            "additionalProperties": false
+        },
+        "exceptional_period": {
+            "type": "object",
+            "properties": {
+                "period_begin": {
+                    "$ref": "../common.schema.json#/definitions/timestamp"
+                },
+                "period_end": {
+                    "$ref": "../common.schema.json#/definitions/timestamp"
+                }
+            },
+            "required": [
+                "period_begin",
+                "period_end"
+            ],
+            "additionalProperties": false
+        },
+        "additional_geo_location": {
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "$ref": "../common.schema.json#/definitions/latitude"
+                },
+                "longitude": {
+                    "$ref": "../common.schema.json#/definitions/longitude"
+                },
+                "name": {
+                    "$ref": "../common.schema.json#/definitions/display_text"
+                }
+            }
+        }
+    }
+}

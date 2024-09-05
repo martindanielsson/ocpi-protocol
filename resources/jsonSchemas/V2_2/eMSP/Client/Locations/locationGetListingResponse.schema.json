@@ -1,0 +1,40 @@
+{
+    "title": "V2.2\\Emsp\\Client\\Locations\\GetListing",
+    "properties": {
+        "data": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../../../Common/Locations/location.schema.json",
+                "required": [
+                    "country_code",
+                    "party_id",
+                    "id",
+                    "publish",
+                    "address",
+                    "city",
+                    "country",
+                    "coordinates",
+                    "time_zone",
+                    "last_updated"
+                ]
+            }
+        },
+        "status_code": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+        },
+        "status_message": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_message"
+        },
+        "timestamp": {
+            "$ref": "../../../Common/common.schema.json#/definitions/timestamp"
+        }
+    },
+    "required": [
+        "status_code",
+        "timestamp"
+    ],
+    "additionalProperties": false
+}
