@@ -2,7 +2,7 @@
     "title": "V2.2.1\\Emsp\\Client\\Commands\\Post",
     "properties": {
         "data": {
-            "$ref": "../../../Common/Commands/commandResponse.schema.json",
+            "$ref": "../../../Common/Commands/commandResponse.schema.json"
         },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"
