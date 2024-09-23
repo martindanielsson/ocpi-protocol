@@ -103,7 +103,7 @@ class PartialConnector extends PartialModel implements JsonSerializable
         return $this->standard;
     }
 
-    public function getformat(): ?ConnectorFormat
+    public function getFormat(): ?ConnectorFormat
     {
         return $this->format;
     }
