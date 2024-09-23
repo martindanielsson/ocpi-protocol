@@ -282,4 +282,82 @@ class Location implements JsonSerializable
             'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
     }
+
+    public function merge(PartialLocation $partialLocation): self
+    {
+        $new = new Location(
+            $partialLocation->hasCountryCode() ? $partialLocation->getCountryCode() : $this->countryCode,
+            $partialLocation->hasPartyId() ? $partialLocation->getPartyId() : $this->partyId,
+            $partialLocation->hasId() ? $partialLocation->getId() : $this->id,
+            $partialLocation->hasPublish() ? $partialLocation->getPublish() : $this->publish,
+            $partialLocation->hasName() ? $partialLocation->getName() : $this->name,
+            $partialLocation->hasAddress() ? $partialLocation->getAddress() : $this->address,
+            $partialLocation->hasCity() ? $partialLocation->getCity() : $this->city,
+            $partialLocation->hasPostalCode() ? $partialLocation->getPostalCode() : $this->postalCode,
+            $partialLocation->hasState() ? $partialLocation->getState() : $this->state,
+            $partialLocation->hasCountry() ? $partialLocation->getCountry() : $this->country,
+            $partialLocation->hasCoordinates() ? $partialLocation->getCoordinates() : null,
+            $partialLocation->hasParkingType() ? $partialLocation->getParkingType() : $this->parkingType,
+            $partialLocation->hasOperator() ? $partialLocation->getOperator() : $this->operator,
+            $partialLocation->hasSuboperator() ? $partialLocation->getSuboperator() : $this->suboperator,
+            $partialLocation->hasOwner() ? $partialLocation->getOwner() : $this->owner,
+            $partialLocation->hasTimeZone() ? $partialLocation->getTimeZone() : $this->timeZone,
+            $partialLocation->hasOpeningTimes() ? $partialLocation->getOpeningTimes() : null,
+            $partialLocation->hasChargingWhenClosed() ? $partialLocation->getChargingWhenClosed() : null,
+            $partialLocation->hasEnergyMix() ? $partialLocation->getEnergyMix() : null,
+            $partialLocation->hasLastUpdated() ? $partialLocation->getLastUpdated() : null,
+        );
+
+        $publishAllowedTo = $partialLocation->hasPublishAllowedTo()
+            ? $partialLocation->getPublishAllowedTo() : $this->publishAllowedTo;
+
+        if ($publishAllowedTo) {
+            foreach ($publishAllowedTo as $allowedTo) {
+                $new->addPublishAllowedTo($allowedTo);
+            }
+        }
+
+        $relatedLocations = $partialLocation->hasRelatedLocations()
+            ? $partialLocation->getRelatedLocations() : $this->relatedLocations;
+
+        if ($relatedLocations) {
+            foreach ($relatedLocations as $relatedLocation) {
+                $new->addRelatedLocation($relatedLocation);
+            }
+        }
+
+        $evses = $partialLocation->hasEvses() ? $partialLocation->getEvses() : $this->evses;
+
+        if ($evses) {
+            foreach ($evses as $evse) {
+                $new->addEvse($evse);
+            }
+        }
+
+        $directions = $partialLocation->hasDirections() ? $partialLocation->getDirections() : $this->directions;
+
+        if ($directions) {
+            foreach ($directions as $direction) {
+                $new->addDirection($direction);
+            }
+        }
+
+        $facilities = $partialLocation->hasFacilities() ? $partialLocation->getFacilities() : $this->facilities;
+
+        if ($facilities) {
+            foreach ($facilities as $facility) {
+                $new->addFacility($facility);
+            }
+        }
+
+        $images = $partialLocation->hasImages() ? $partialLocation->getImages() : $this->images;
+
+        if ($images) {
+            foreach ($images as $image) {
+                $new->addImage($image);
+            }
+        }
+
+        return $new;
+    }
 }
