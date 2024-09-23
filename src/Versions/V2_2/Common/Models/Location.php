@@ -296,16 +296,18 @@ class Location implements JsonSerializable
             $partialLocation->hasPostalCode() ? $partialLocation->getPostalCode() : $this->postalCode,
             $partialLocation->hasState() ? $partialLocation->getState() : $this->state,
             $partialLocation->hasCountry() ? $partialLocation->getCountry() : $this->country,
-            $partialLocation->hasCoordinates() ? $partialLocation->getCoordinates() : null,
+            $partialLocation->hasCoordinates() ? $partialLocation->getCoordinates() : $this->coordinates,
             $partialLocation->hasParkingType() ? $partialLocation->getParkingType() : $this->parkingType,
             $partialLocation->hasOperator() ? $partialLocation->getOperator() : $this->operator,
             $partialLocation->hasSuboperator() ? $partialLocation->getSuboperator() : $this->suboperator,
             $partialLocation->hasOwner() ? $partialLocation->getOwner() : $this->owner,
             $partialLocation->hasTimeZone() ? $partialLocation->getTimeZone() : $this->timeZone,
-            $partialLocation->hasOpeningTimes() ? $partialLocation->getOpeningTimes() : null,
-            $partialLocation->hasChargingWhenClosed() ? $partialLocation->getChargingWhenClosed() : null,
-            $partialLocation->hasEnergyMix() ? $partialLocation->getEnergyMix() : null,
-            $partialLocation->hasLastUpdated() ? $partialLocation->getLastUpdated() : null,
+            $partialLocation->hasOpeningTimes()
+                ? $partialLocation->getOpeningTimes() : $this->openingTimes,
+            $partialLocation->hasChargingWhenClosed()
+                ? $partialLocation->getChargingWhenClosed() : $this->chargingWhenClosed,
+            $partialLocation->hasEnergyMix() ? $partialLocation->getEnergyMix() : $this->energyMix,
+            $partialLocation->hasLastUpdated() ? $partialLocation->getLastUpdated() : $this->lastUpdated,
         );
 
         $publishAllowedTo = $partialLocation->hasPublishAllowedTo()
