@@ -165,4 +165,68 @@ class Evse implements JsonSerializable
             'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
     }
+
+    public function merge(PartialEvse $partialEvse): self
+    {
+        $new = new Evse(
+            $partialEvse->hasUid() ? $partialEvse->getUid() : $this->uid,
+            $partialEvse->hasEvseId() ? $partialEvse->getEvseId() : $this->evseId,
+            $partialEvse->hasStatus() ? $partialEvse->getStatus() : $this->status,
+            $partialEvse->hasFloorLevel() ? $partialEvse->getFloorLevel() : $this->floorLevel,
+            $partialEvse->hasCoordinates() ? $partialEvse->getCoordinates() : $this->coordinates,
+            $partialEvse->hasPhysicalReference() ? $partialEvse->getPhysicalReference() : $this->physicalReference,
+            $partialEvse->hasLastUpdated() ? $partialEvse->getLastUpdated() : $this->lastUpdated,
+        );
+
+        $statusSchedule = $partialEvse->hasStatusSchedule() ? $partialEvse->getStatusSchedule() : $this->statusSchedule;
+
+        if ($statusSchedule) {
+            foreach ($statusSchedule as $schedule) {
+                $new->addStatusSchedule($schedule);
+            }
+        }
+
+        $capabilities = $partialEvse->hasCapabilities() ? $partialEvse->getCapabilities() : $this->capabilities;
+
+        if ($capabilities) {
+            foreach ($capabilities as $capability) {
+                $new->addCapability($capability);
+            }
+        }
+
+        $connectors = $partialEvse->hasConnectors() ? $partialEvse->getConnectors() : $this->connectors;
+
+        if ($connectors) {
+            foreach ($connectors as $connector) {
+                $new->addConnector($connector);
+            }
+        }
+
+        $directions = $partialEvse->hasDirections() ? $partialEvse->getDirections() : $this->directions;
+
+        if ($directions) {
+            foreach ($directions as $direction) {
+                $new->addDirection($direction);
+            }
+        }
+
+        $parkingRestrictions = $partialEvse->hasParkingRestrictions() ?
+            $partialEvse->getParkingRestrictions() : $this->parkingRestrictions;
+
+        if ($parkingRestrictions) {
+            foreach ($parkingRestrictions as $parkingRestriction) {
+                $new->addParkingRestriction($parkingRestriction);
+            }
+        }
+
+        $images = $partialEvse->hasImages() ? $partialEvse->getImages() : $this->images;
+
+        if ($images) {
+            foreach ($images as $image) {
+                $new->addImage($image);
+            }
+        }
+
+        return $new;
+    }
 }
