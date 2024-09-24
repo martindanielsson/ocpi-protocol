@@ -14,7 +14,7 @@ class TariffElementFactory
         }
 
         $tariffElement = new TariffElement(
-            TariffRestrictionsFactory::fromJson($json->restrictions)
+            TariffRestrictionsFactory::fromJson($json->restrictions ?? null)
         );
 
         foreach ($json->price_components ?? [] as $priceComponent) {
