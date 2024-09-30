@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Common\Client\Modules\Locations\GetListing;
+namespace Chargemap\OCPI\Common\Client\Modules\Sessions\GetListing;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 use Chargemap\OCPI\Common\Client\ServiceFactory;
 
-class GetLocationsListingService extends AbstractFeatures
+class GetSessionsListingService extends AbstractFeatures
 {
     /**
-     * @param GetLocationsListingRequest $request
-     * @return GetLocationsListingResponse
+     * @param GetSessionsListingRequest $request
+     * @return GetSessionsListingResponse
      * @throws \Chargemap\OCPI\Common\Client\OcpiEndpointNotFoundException
      * @throws \Chargemap\OCPI\Common\Client\OcpiServiceNotFoundException
      * @throws \Chargemap\OCPI\Common\Client\OcpiUnauthorizedException
      * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function handle(GetLocationsListingRequest $request): GetLocationsListingResponse
+    public function handle(GetSessionsListingRequest $request): GetSessionsListingResponse
     {
         $service = ServiceFactory::from($request, $this->ocpiConfiguration);
 

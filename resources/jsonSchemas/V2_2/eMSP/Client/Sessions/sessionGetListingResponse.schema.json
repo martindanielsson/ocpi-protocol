@@ -1,0 +1,43 @@
+{
+    "title": "V2.2\\Emsp\\Client\\Sessions\\GetListing",
+    "properties": {
+        "data": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../../../Common/Sessions/session.schema.json",
+                "required": [
+                    "country_code",
+                    "party_id",
+                    "id",
+                    "start_date_time",
+                    "kwh",
+                    "cdr_token",
+                    "auth_method",
+                    "location_id",
+                    "evse_uid",
+                    "connector_id",
+                    "currency",
+                    "status",
+                    "last_updated"
+                ]
+            }
+        },
+        "status_code": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+        },
+        "status_message": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_message"
+        },
+        "timestamp": {
+            "$ref": "../../../Common/common.schema.json#/definitions/timestamp"
+        }
+    },
+    "required": [
+        "status_code",
+        "timestamp"
+    ],
+    "additionalProperties": false
+}
