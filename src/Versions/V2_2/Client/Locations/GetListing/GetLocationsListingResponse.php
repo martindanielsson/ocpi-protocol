@@ -36,10 +36,7 @@ class GetLocationsListingResponse extends BaseResponse
 
         $return = new self();
         foreach ($json->data ?? [] as $item) {
-            if (PayloadValidation::isValidJson('V2_2/eMSP/Client/Locations/location.schema.json', $item)) {
-                $return->locations[] = LocationFactory::fromJson($item);
-            }
-            //TODO throw validator errors at the end of the function
+            $return->locations[] = LocationFactory::fromJson($item);
         }
 
         $nextRequest = null;
