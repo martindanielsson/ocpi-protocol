@@ -20,6 +20,8 @@ class V2_2 extends AbstractFeatures
 
     private Commands $commands;
 
+    private Sessions $sessions;
+
     public function credentials(): Credentials
     {
         if (!isset($this->credentials)) {
@@ -72,5 +74,14 @@ class V2_2 extends AbstractFeatures
         }
 
         return $this->commands;
+    }
+
+    public function sessions(): Sessions
+    {
+        if(!isset($this->sessions)) {
+            $this->sessions = new Sessions($this->ocpiConfiguration);
+        }
+
+        return $this->sessions;
     }
 }
