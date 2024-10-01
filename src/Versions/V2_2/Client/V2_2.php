@@ -22,6 +22,8 @@ class V2_2 extends AbstractFeatures
 
     private Sessions $sessions;
 
+    private Tariffs $tariffs;
+
     public function credentials(): Credentials
     {
         if (!isset($this->credentials)) {
@@ -83,5 +85,14 @@ class V2_2 extends AbstractFeatures
         }
 
         return $this->sessions;
+    }
+
+    public function tariffs(): Tariffs
+    {
+        if(!isset($this->tariffs)) {
+            $this->tariffs = new Tariffs($this->ocpiConfiguration);
+        }
+
+        return $this->tariffs;
     }
 }

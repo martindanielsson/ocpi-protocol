@@ -26,6 +26,8 @@ use Chargemap\OCPI\Versions\V2_2\Client\Locations\GetListing\GetLocationsListing
 use Chargemap\OCPI\Versions\V2_2\Client\Locations\GetListing\GetLocationsListingService as V2_2_GetLocationsListingService;
 use Chargemap\OCPI\Versions\V2_2\Client\Sessions\GetListing\GetSessionsListingRequest as V2_2_GetSessionsListingRequest;
 use Chargemap\OCPI\Versions\V2_2\Client\Sessions\GetListing\GetSessionsListingService as V2_2_GetSessionsListingService;
+use Chargemap\OCPI\Versions\V2_2\Client\Tariffs\GetListing\GetTariffsListingRequest as V2_2_GetTariffsListingRequest;
+use Chargemap\OCPI\Versions\V2_2\Client\Tariffs\GetListing\GetTariffsListingService as V2_2_GetTariffsListingService;
 use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Get\GetTokenRequest as V2_2_GetTokenRequest;
 use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Get\GetTokenService as V2_2_GetTokenService;
 use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Patch\PatchTokenRequest as V2_2_PatchTokenRequest;
@@ -71,6 +73,9 @@ final class ServiceFactory
                 }
                 if (get_class($request) === V2_2_GetSessionsListingRequest::class) {
                     return new V2_2_GetSessionsListingService($configuration);
+                }
+                if (get_class($request) === V2_2_GetTariffsListingRequest::class) {
+                    return new V2_2_GetTariffsListingService($configuration);
                 }
                 if (get_class($request) === V2_2_GetTokenRequest::class) {
                     return new V2_2_GetTokenService($configuration);
