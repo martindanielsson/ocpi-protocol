@@ -276,8 +276,7 @@
                     ]
                 },
                 "price": {
-                    "type": "number",
-                    "minimum": 0
+                    "type": "number"
                 },
                 "vat": {
                     "type": [
