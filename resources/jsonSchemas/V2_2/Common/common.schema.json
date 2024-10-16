@@ -260,7 +260,7 @@
                 "text": {
                     "type": "string",
                     "minLength": 1,
-                    "maxLength": 512
+                    "maxLength": 2048
                 }
             },
             "required": [
