@@ -22,11 +22,11 @@ class TariffFactory
             $json->currency,
             !empty($json->type) ? new TariffType($json->type) : null,
             $json->tariff_alt_url ?? null,
-            PriceFactory::fromJson($json->min_price),
-            PriceFactory::fromJson($json->max_price),
+            PriceFactory::fromJson($json->min_price ?? null),
+            PriceFactory::fromJson($json->max_price ?? null),
             !empty($json->start_date_time) ? new DateTime($json->start_date_time) : null,
             !empty($json->end_date_time) ? new DateTime($json->end_date_time) : null,
-            EnergyMixFactory::fromJson($json->energy_mix),
+            EnergyMixFactory::fromJson($json->energy_mix ?? null),
             new DateTime($json->last_updated)
         );
 
