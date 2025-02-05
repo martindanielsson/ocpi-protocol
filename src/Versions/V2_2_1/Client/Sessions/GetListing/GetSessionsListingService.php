@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_2\Client\Tariffs\GetListing;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\GetListing;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 
-class GetTariffsListingService extends AbstractFeatures
+class GetSessionsListingService extends AbstractFeatures
 {
     /**
-     * @param GetTariffsListingRequest $request
-     * @return GetTariffsListingResponse
+     * @param GetSessionsListingRequest $request
+     * @return GetSessionsListingResponse
      * @throws \Chargemap\OCPI\Common\Client\OcpiEndpointNotFoundException
      * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError
      * @throws \Psr\Http\Client\ClientExceptionInterface
      * @throws \Chargemap\OCPI\Common\Client\OcpiUnauthorizedException
      */
-    public function handle(GetTariffsListingRequest $request): GetTariffsListingResponse
+    public function handle(GetSessionsListingRequest $request): GetSessionsListingResponse
     {
         $responseInterface = $this->sendRequest($request);
-        return GetTariffsListingResponse::from($request, $responseInterface);
+        return GetSessionsListingResponse::from($request, $responseInterface);
     }
 }

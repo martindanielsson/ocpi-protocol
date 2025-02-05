@@ -1,0 +1,36 @@
+{
+    "title": "V2.2.1\\Emsp\\Client\\Tariffs\\GetListing",
+    "properties": {
+        "data": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "$ref": "../../../Common/tariff.schema.json",
+                "required": [
+                    "country_code",
+                    "party_id",
+                    "id",
+                    "currency",
+                    "elements",
+                    "last_updated"
+                ]
+            }
+        },
+        "status_code": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+        },
+        "status_message": {
+            "$ref": "../../../Common/common.schema.json#/definitions/status_message"
+        },
+        "timestamp": {
+            "$ref": "../../../Common/common.schema.json#/definitions/timestamp"
+        }
+    },
+    "required": [
+        "status_code",
+        "timestamp"
+    ],
+    "additionalProperties": false
+}

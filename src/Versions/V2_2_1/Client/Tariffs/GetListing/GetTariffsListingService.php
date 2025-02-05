@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_2\Client\Tariffs\GetListing;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Tariffs\GetListing;
 
 use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 

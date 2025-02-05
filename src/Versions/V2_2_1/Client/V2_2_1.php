@@ -20,6 +20,10 @@ class V2_2_1 extends AbstractFeatures
 
     private Commands $commands;
 
+    private Sessions $sessions;
+
+    private Tariffs $tariffs;
+
     public function credentials(): Credentials
     {
         if (!isset($this->credentials)) {
@@ -72,5 +76,23 @@ class V2_2_1 extends AbstractFeatures
         }
 
         return $this->commands;
+    }
+
+    public function sessions(): Sessions
+    {
+        if(!isset($this->sessions)) {
+            $this->sessions = new Sessions($this->ocpiConfiguration);
+        }
+
+        return $this->sessions;
+    }
+
+    public function tariffs(): Tariffs
+    {
+        if(!isset($this->tariffs)) {
+            $this->tariffs = new Tariffs($this->ocpiConfiguration);
+        }
+
+        return $this->tariffs;
     }
 }
