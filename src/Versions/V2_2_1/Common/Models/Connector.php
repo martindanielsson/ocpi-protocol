@@ -58,7 +58,7 @@ class Connector implements JsonSerializable
         return $this->standard;
     }
 
-    public function getformat(): ConnectorFormat
+    public function getFormat(): ConnectorFormat
     {
         return $this->format;
     }
@@ -112,5 +112,30 @@ class Connector implements JsonSerializable
             'terms_and_conditions' => $this->termsAndConditions,
             'last_updated' => DateTimeFormatter::format($this->lastUpdated)
         ];
+    }
+
+    public function merge(PartialConnector $partialConnector): self
+    {
+        $new = new Connector(
+            $partialConnector->hasId() ? $partialConnector->getId() : $this->id,
+            $partialConnector->hasStandard() ? $partialConnector->getStandard() : $this->standard,
+            $partialConnector->hasFormat() ? $partialConnector->getFormat() : $this->format,
+            $partialConnector->hasPowerType() ? $partialConnector->getPowerType() : $this->powerType,
+            $partialConnector->hasMaxVoltage() ? $partialConnector->getMaxVoltage() : $this->maxVoltage,
+            $partialConnector->hasMaxAmperage() ? $partialConnector->getMaxAmperage() : $this->maxAmperage,
+            $partialConnector->hasMaxElectricPower() ? $partialConnector->getMaxElectricPower() : $this->maxElectricPower,
+            $partialConnector->hasTermsAndConditions() ? $partialConnector->getTermsAndConditions() : $this->termsAndConditions,
+            $partialConnector->hasLastUpdated() ? $partialConnector->getLastUpdated() : $this->lastUpdated,
+        );
+
+        $tariffIds = $partialConnector->hasTariffIds() ? $partialConnector->getTariffIds() : $this->tariffIds;
+
+        if ($tariffIds) {
+            foreach ($tariffIds as $tariffId) {
+                $new->addTariffId($tariffId);
+            }
+        }
+
+        return $new;
     }
 }
