@@ -13,11 +13,13 @@ class GetAvailableVersionsService extends AbstractFeatures
      * @throws \Psr\Http\Client\ClientExceptionInterface
      * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError
      * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidTokenClientError
+     * @throws \Exception
      */
     public function get(GetAvailableVersionsRequest $request): GetAvailableVersionsResponse
     {
         $serverRequestInterface = $request->getServerRequestInterface($this->ocpiConfiguration->getServerRequestFactory());
         $serverRequestInterface = $this->addAuthorization($serverRequestInterface);
+        $serverRequestInterface = $this->addRequestAndCorrelationHeaders($serverRequestInterface);
         $responseInterface = $this->ocpiConfiguration->getHttpClient()->sendRequest($serverRequestInterface);
         return GetAvailableVersionsResponse::fromResponseInterface($responseInterface);
     }

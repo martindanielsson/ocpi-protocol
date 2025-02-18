@@ -34,6 +34,22 @@ use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Patch\PatchTokenRequest as V2_2_P
 use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Patch\PatchTokenService as V2_2_PatchTokenService;
 use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Put\PutTokenRequest as V2_2_PutTokenRequest;
 use Chargemap\OCPI\Versions\V2_2\Client\Tokens\Put\PutTokenService as V2_2_PutTokenService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingRequest as V2_2_1_GetCdrsListingRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Cdrs\GetListing\GetCdrsListingService as V2_2_1_GetCdrsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\Get\GetLocationRequest as V2_2_1_GetLocationRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\Get\GetLocationService as V2_2_1_GetLocationService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing\GetLocationsListingRequest as V2_2_1_GetLocationsListingRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Locations\GetListing\GetLocationsListingService as V2_2_1_GetLocationsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\GetListing\GetSessionsListingRequest as V2_2_1_GetSessionsListingRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\GetListing\GetSessionsListingService as V2_2_1_GetSessionsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tariffs\GetListing\GetTariffsListingRequest as V2_2_1_GetTariffsListingRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tariffs\GetListing\GetTariffsListingService as V2_2_1_GetTariffsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Get\GetTokenRequest as V2_2_1_GetTokenRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Get\GetTokenService as V2_2_1_GetTokenService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Patch\PatchTokenRequest as V2_2_1_PatchTokenRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Patch\PatchTokenService as V2_2_1_PatchTokenService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Put\PutTokenRequest as V2_2_1_PutTokenRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Tokens\Put\PutTokenService as V2_2_1_PutTokenService;
 use UnexpectedValueException;
 
 final class ServiceFactory
@@ -85,6 +101,32 @@ final class ServiceFactory
                 }
                 if (get_class($request) === V2_2_PutTokenRequest::class) {
                     return new V2_2_PutTokenService($configuration);
+                }
+                break;
+            case OcpiVersion::V2_2_1:
+                if (get_class($request) === V2_2_1_GetCdrsListingRequest::class) {
+                    return new V2_2_1_GetCdrsListingService($configuration);
+                }
+                if (get_class($request) === V2_2_1_GetLocationRequest::class) {
+                    return new V2_2_1_GetLocationService($configuration);
+                }
+                if (get_class($request) === V2_2_1_GetLocationsListingRequest::class) {
+                    return new V2_2_1_GetLocationsListingService($configuration);
+                }
+                if (get_class($request) === V2_2_1_GetSessionsListingRequest::class) {
+                    return new V2_2_1_GetSessionsListingService($configuration);
+                }
+                if (get_class($request) === V2_2_1_GetTariffsListingRequest::class) {
+                    return new V2_2_1_GetTariffsListingService($configuration);
+                }
+                if (get_class($request) === V2_2_1_GetTokenRequest::class) {
+                    return new V2_2_1_GetTokenService($configuration);
+                }
+                if (get_class($request) === V2_2_1_PatchTokenRequest::class) {
+                    return new V2_2_1_PatchTokenService($configuration);
+                }
+                if (get_class($request) === V2_2_1_PutTokenRequest::class) {
+                    return new V2_2_1_PutTokenService($configuration);
                 }
                 break;
         }

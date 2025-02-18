@@ -6,6 +6,8 @@ namespace Chargemap\OCPI\Common\Client;
 
 use Chargemap\OCPI\Common\Models\BaseModuleId;
 use Chargemap\OCPI\Common\Models\BaseEndpoint;
+use Chargemap\OCPI\Common\Utils\UuidGenerator;
+use Exception;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
@@ -22,6 +24,9 @@ class OcpiConfiguration
     protected array $endpoints;
 
     protected string $token;
+
+    protected ?string $requestId;
+    protected ?string $correlationId;
 
     protected ClientInterface $httpClient;
 
@@ -60,6 +65,22 @@ class OcpiConfiguration
     public function getToken(): string
     {
         return $this->token;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getRequestId(): string
+    {
+        return $this->requestId ?? UuidGenerator::generate();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getCorrelationId(): string
+    {
+        return $this->correlationId ?? UuidGenerator::generate();
     }
 
     public function getLogger(): ?LoggerInterface
@@ -126,6 +147,18 @@ class OcpiConfiguration
         // @todo rajouter une vérification du endpoint
         $this->endpoints[$version->getValue()][$endpoint->getModuleId()->getValue()] = $endpoint;
 
+        return $this;
+    }
+
+    public function withRequestId(string $requestId): self
+    {
+        $this->requestId = $requestId;
+        return $this;
+    }
+
+    public function withCorrelationId(string $correlationId): self
+    {
+        $this->correlationId = $correlationId;
         return $this;
     }
 }
