@@ -10,11 +10,12 @@ class PostCommandService extends AbstractFeatures
 {
     /**
      * @throws \Chargemap\OCPI\Common\Client\OcpiEndpointNotFoundException
+     * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
     public function handle(PostCommandRequest $request): PostCommandResponse
     {
         $responseInterface = $this->sendRequest($request);
-        return new PostCommandResponse($responseInterface);
+        return PostCommandResponse::from($responseInterface);
     }
 }
