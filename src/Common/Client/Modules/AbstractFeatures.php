@@ -28,6 +28,16 @@ class AbstractFeatures
     protected function sendRequest(AbstractRequest $request): ResponseInterface
     {
         $serverRequestInterface = $this->getServerRequestInterface($request);
+
+        if ($logger = $this->ocpiConfiguration->getLogger()) {
+            $logger->debug('OCPI sendRequest', [
+                'method' => $serverRequestInterface->getMethod(),
+                'uri' => $serverRequestInterface->getUri(),
+                'headers' => $serverRequestInterface->getHeaders(),
+                'body' => $serverRequestInterface->getBody(),
+            ]);
+        }
+
         return $this->ocpiConfiguration->getHttpClient()->sendRequest($serverRequestInterface);
     }
 
