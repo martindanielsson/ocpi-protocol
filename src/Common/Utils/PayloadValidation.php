@@ -23,8 +23,8 @@ final class PayloadValidation
             foreach ($jsonSchemaValidation->getErrors() as $error) {
                 $errors[] = "property: " . $error['property'] . ', error: ' . $error['message'] . '. ';
             }
-            throw new OcpiInvalidPayloadClientError(sprintf('Payload does not validate %s. Issues: %s',
-                basename($schemaPath), implode($errors)));
+            throw new OcpiInvalidPayloadClientError(sprintf('Payload does not validate %s. Issues: %s. Data: %s',
+                basename($schemaPath), implode($errors), json_encode($object)));
         }
     }
 
