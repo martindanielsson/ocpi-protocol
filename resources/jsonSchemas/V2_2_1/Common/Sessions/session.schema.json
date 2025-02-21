@@ -108,5 +108,5 @@
             "$ref": "../common.schema.json#/definitions/timestamp"
         }
     },
-    "additionalProperties": false
+    "additionalProperties": true
 }

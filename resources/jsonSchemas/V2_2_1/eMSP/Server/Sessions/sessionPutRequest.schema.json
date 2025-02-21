@@ -18,7 +18,7 @@
                 "status",
                 "last_updated"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         }
     ]
 }
