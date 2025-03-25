@@ -23,20 +23,21 @@
             "maxLength": 3
         },
         "type": {
-            "type": [
-                "array",
-                "null"
-            ],
-            "items": {
-                "type": "string",
-                "enum": [
-                    "AD_HOC_PAYMENT",
-                    "PROFILE_CHEAP",
-                    "PROFILE_FAST",
-                    "PROFILE_GREEN",
-                    "REGULAR"
-                ]
-            }
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "AD_HOC_PAYMENT",
+                        "PROFILE_CHEAP",
+                        "PROFILE_FAST",
+                        "PROFILE_GREEN",
+                        "REGULAR"
+                    ]
+                }
+            ]
         },
         "tariff_alt_text": {
             "type": [
