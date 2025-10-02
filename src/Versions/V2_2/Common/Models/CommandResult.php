@@ -14,6 +14,7 @@ class CommandResult implements JsonSerializable
         CommandResultType $result
     ) {
         $this->result = $result;
+        $this->message = [];
     }
 
     public function addMessage(DisplayText $message): self
