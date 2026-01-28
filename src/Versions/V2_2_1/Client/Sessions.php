@@ -8,6 +8,9 @@ use Chargemap\OCPI\Common\Client\Modules\AbstractFeatures;
 use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\GetListing\GetSessionsListingRequest;
 use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\GetListing\GetSessionsListingResponse;
 use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\GetListing\GetSessionsListingService;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\PutChargingPreferences\PutChargingPreferencesRequest;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\PutChargingPreferences\PutChargingPreferencesResponse;
+use Chargemap\OCPI\Versions\V2_2_1\Client\Sessions\PutChargingPreferences\PutChargingPreferencesService;
 
 class Sessions extends AbstractFeatures
 {
@@ -27,5 +30,16 @@ class Sessions extends AbstractFeatures
         }
 
         return (new GetSessionsListingService($this->ocpiConfiguration))->handle($listingRequest);
+    }
+
+    /**
+     * @throws \Chargemap\OCPI\Common\Client\OcpiEndpointNotFoundException
+     * @throws \Chargemap\OCPI\Common\Client\OcpiUnauthorizedException
+     * @throws \Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+    */
+    public function putChargingPreferences(PutChargingPreferencesRequest $request): PutChargingPreferencesResponse
+    {
+        return (new PutChargingPreferencesService($this->ocpiConfiguration))->handle($request);
     }
 }

@@ -1,0 +1,23 @@
+{
+  "title": "V2.2.1\\Emsp\\Client\\Sessions\\ChargingPreferences",
+  "properties": {
+    "data": {
+      "$ref": "../../../Common/common.schema.json#/definitions/charging_preferences_response"
+    },
+    "status_code": {
+      "$ref": "../../../Common/common.schema.json#/definitions/status_code"
+    },
+    "status_message": {
+      "$ref": "../../../Common/common.schema.json#/definitions/status_message"
+    },
+    "timestamp": {
+      "$ref": "../../../Common/common.schema.json#/definitions/timestamp"
+    }
+  },
+  "required": [
+    "data",
+    "status_code",
+    "timestamp"
+  ],
+  "additionalProperties": false
+}
