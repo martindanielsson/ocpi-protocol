@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chargemap\OCPI\Versions\V2_2_1\Client\Credentials\Register;
+namespace Chargemap\OCPI\Versions\V2_2_1\Client\Credentials\Update;
 
 use Chargemap\OCPI\Common\Client\Modules\Credentials\CredentialsRequest as BaseRequest;
 use Chargemap\OCPI\Common\Client\OcpiVersion;
@@ -13,7 +13,7 @@ use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
-class RegisterCredentialsRequest extends BaseRequest
+class UpdateCredentialsRequest extends BaseRequest
 {
     private Credentials $credentials;
 
@@ -34,7 +34,7 @@ class RegisterCredentialsRequest extends BaseRequest
 
     public function getServerRequestInterface(ServerRequestFactoryInterface $serverRequestFactory, ?StreamFactoryInterface $streamFactory): ServerRequestInterface
     {
-        $request = $serverRequestFactory->createServerRequest('POST', '' );
+        $request = $serverRequestFactory->createServerRequest('PUT', '' );
 
         if ($streamFactory === null ) {
             $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
