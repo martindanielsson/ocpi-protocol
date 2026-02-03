@@ -80,8 +80,9 @@ class AbstractFeatures
 
     private static function forgeUri(UriInterface $baseUri, UriInterface $requestUri): UriInterface
     {
+        $basePath = rtrim($baseUri->getPath(), '/');
         $uri = $requestUri
-            ->withPath($baseUri->getPath() . $requestUri->getPath())
+            ->withPath($basePath . $requestUri->getPath())
             ->withScheme($baseUri->getScheme())
             ->withHost($baseUri->getHost());
 
