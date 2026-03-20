@@ -36,6 +36,7 @@ final class PayloadValidation
 
     private static function validator(string $schemaPath, stdClass $json): Validator
     {
+        self::trimStrings($json);
         $jsonSchemaValidation = new Validator();
         $schemasPath = __DIR__ . '/../../../resources/jsonSchemas/';
         $jsonSchemaValidation->coerce(
@@ -43,5 +44,23 @@ final class PayloadValidation
             (object)['$ref' => 'file://' . realpath($schemasPath) . DIRECTORY_SEPARATOR . $schemaPath]
         );
         return $jsonSchemaValidation;
+    }
+
+    /**
+     * @param stdClass|array<mixed> $data
+     */
+    private static function trimStrings(&$data): void
+    {
+        foreach ($data as $key => &$value) {
+            if (is_string($value)) {
+                if ($data instanceof stdClass) {
+                    $data->$key = trim($value);
+                } else {
+                    $data[$key] = trim($value);
+                }
+            } elseif ($value instanceof stdClass || is_array($value)) {
+                self::trimStrings($value);
+            }
+        }
     }
 }
