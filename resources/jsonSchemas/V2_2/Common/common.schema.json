@@ -147,7 +147,7 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "minLength": 1,
+                    "minLength": 0,
                     "maxLength": 100
                 },
                 "website": {
