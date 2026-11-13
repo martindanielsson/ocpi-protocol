@@ -2,12 +2,18 @@
     "title": "V2.2\\Emsp\\Server\\Locations\\Evses\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../../Common/Locations/evse.schema.json",
-            "required": [
-                "uid",
-                "status",
-                "connectors",
-                "last_updated"
+            "allOf": [
+                {
+                    "$ref": "../../../../Common/Locations/evse.schema.json"
+                },
+                {
+                    "required": [
+                        "uid",
+                        "status",
+                        "connectors",
+                        "last_updated"
+                    ]
+                }
             ]
         },
         "status_code": {

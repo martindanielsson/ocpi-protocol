@@ -2,23 +2,28 @@
     "title": "V2.2\\Emsp\\Server\\Sessions\\Put",
     "oneOf": [
         {
-            "$ref": "../../../Common/Sessions/session.schema.json",
-            "required": [
-                "country_code",
-                "party_id",
-                "id",
-                "start_date_time",
-                "kwh",
-                "cdr_token",
-                "auth_method",
-                "location_id",
-                "evse_uid",
-                "connector_id",
-                "currency",
-                "status",
-                "last_updated"
-            ],
-            "additionalProperties": true
+            "allOf": [
+                {
+                    "$ref": "../../../Common/Sessions/session.schema.json"
+                },
+                {
+                    "required": [
+                        "country_code",
+                        "party_id",
+                        "id",
+                        "start_date_time",
+                        "kwh",
+                        "cdr_token",
+                        "auth_method",
+                        "location_id",
+                        "evse_uid",
+                        "connector_id",
+                        "currency",
+                        "status",
+                        "last_updated"
+                    ]
+                }
+            ]
         }
     ]
 }

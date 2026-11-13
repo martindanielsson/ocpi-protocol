@@ -2,17 +2,23 @@
     "title": "V2.2\\Emsp\\Client\\Token\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../Common/Tokens/token.schema.json",
-            "required": [
-                "country_code",
-                "party_id",
-                "uid",
-                "type",
-                "contract_id",
-                "issuer",
-                "valid",
-                "whitelist",
-                "last_updated"
+            "allOf": [
+                {
+                    "$ref": "../../../Common/Tokens/token.schema.json"
+                },
+                {
+                    "required": [
+                        "country_code",
+                        "party_id",
+                        "uid",
+                        "type",
+                        "contract_id",
+                        "issuer",
+                        "valid",
+                        "whitelist",
+                        "last_updated"
+                    ]
+                }
             ]
         },
         "status_code": {

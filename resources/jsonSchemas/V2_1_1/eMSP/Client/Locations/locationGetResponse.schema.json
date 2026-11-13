@@ -20,18 +20,23 @@
                     "type": "null"
                 },
                 {
-                    "$ref": "../../../Common/location.schema.json",
-                    "required": [
-                        "id",
-                        "type",
-                        "address",
-                        "city",
-                        "postal_code",
-                        "country",
-                        "coordinates",
-                        "last_updated"
-                    ],
-                    "additionalProperties": false
+                    "allOf": [
+                        {
+                            "$ref": "../../../Common/location.schema.json"
+                        },
+                        {
+                            "required": [
+                                "id",
+                                "type",
+                                "address",
+                                "city",
+                                "postal_code",
+                                "country",
+                                "coordinates",
+                                "last_updated"
+                            ]
+                        }
+                    ]
                 }
             ]
         },

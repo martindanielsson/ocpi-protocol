@@ -2,15 +2,21 @@
     "title": "V2.2.1\\Emsp\\Server\\Locations\\Evses\\Connectors\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../../../Common/Locations/connector.schema.json",
-            "required": [
-                "id",
-                "standard",
-                "format",
-                "power_type",
-                "max_voltage",
-                "max_amperage",
-                "last_updated"
+            "allOf": [
+                {
+                    "$ref": "../../../../../Common/Locations/connector.schema.json"
+                },
+                {
+                    "required": [
+                        "id",
+                        "standard",
+                        "format",
+                        "power_type",
+                        "max_voltage",
+                        "max_amperage",
+                        "last_updated"
+                    ]
+                }
             ]
         },
         "status_code": {

@@ -1,0 +1,25 @@
+{
+    "country_code": "SE",
+    "party_id": "EPK",
+    "id": "100",
+    "start_date_time": "2015-06-29T22:39:09Z",
+    "kwh": 0.0,
+    "cdr_token": {
+        "country_code": "SE",
+        "party_id": "EPK",
+        "uid": "123abc",
+        "type": "RFID",
+        "contract_id": "NL-TST-C12345678-S"
+    },
+    "auth_method": "WHITELIST",
+    "authorization_reference": "8266ac3a-f32a-4823-b72d-c3f3d340a172",
+    "location_id": "LOC1",
+    "evse_uid": "3256",
+    "connector_id": "1",
+    "currency": "SEK",
+    "total_cost": {
+        "excl_vat": 25.0
+    },
+    "status": "PENDING",
+    "last_updated": "2015-06-29T22:39:09Z"
+}

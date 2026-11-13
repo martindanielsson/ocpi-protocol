@@ -7,17 +7,22 @@
                 "null"
             ],
             "items": {
-                "$ref": "../../../Common/token.schema.json",
-                "required": [
-                    "uid",
-                    "type",
-                    "auth_id",
-                    "issuer",
-                    "valid",
-                    "whitelist",
-                    "last_updated"
-                ],
-                "additionalProperties": false
+                "allOf": [
+                    {
+                        "$ref": "../../../Common/token.schema.json"
+                    },
+                    {
+                        "required": [
+                            "uid",
+                            "type",
+                            "auth_id",
+                            "issuer",
+                            "valid",
+                            "whitelist",
+                            "last_updated"
+                        ]
+                    }
+                ]
             },
             "additionalProperties": false
         },

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chargemap\OCPI\Common\Utils;
 
 use Chargemap\OCPI\Common\Server\Errors\OcpiInvalidPayloadClientError;
+use JsonSchema\Constraints\Constraint;
 use JsonSchema\Validator;
 use stdClass;
 
@@ -39,11 +40,33 @@ final class PayloadValidation
         self::trimStrings($json);
         $jsonSchemaValidation = new Validator();
         $schemasPath = __DIR__ . '/../../../resources/jsonSchemas/';
-        $jsonSchemaValidation->coerce(
-            $json,
-            (object)['$ref' => 'file://' . realpath($schemasPath) . DIRECTORY_SEPARATOR . $schemaPath]
+        $validated = $json;
+        $jsonSchemaValidation->validate(
+            $validated,
+            (object)['$ref' => 'file://' . realpath($schemasPath) . DIRECTORY_SEPARATOR . $schemaPath],
+            Constraint::CHECK_MODE_COERCE_TYPES
         );
+        if ($validated instanceof stdClass && $validated !== $json) {
+            self::replaceProperties($json, $validated);
+        }
         return $jsonSchemaValidation;
+    }
+
+    /**
+     * Type coercion inside oneOf/anyOf makes justinrainbow/json-schema 6 validate a deep copy and
+     * assign it to the validated variable, where version 5 coerced the caller's object in place.
+     * Copying the coerced properties back keeps the in-place contract callers rely on.
+     */
+    private static function replaceProperties(stdClass $target, stdClass $source): void
+    {
+        foreach (array_keys(get_object_vars($target)) as $property) {
+            if (!property_exists($source, (string)$property)) {
+                unset($target->$property);
+            }
+        }
+        foreach (get_object_vars($source) as $property => $value) {
+            $target->$property = $value;
+        }
     }
 
     /**

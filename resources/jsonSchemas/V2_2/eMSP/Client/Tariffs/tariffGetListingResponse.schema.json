@@ -7,15 +7,7 @@
                 "null"
             ],
             "items": {
-                "$ref": "../../../Common/tariff.schema.json",
-                "required": [
-                    "country_code",
-                    "party_id",
-                    "id",
-                    "currency",
-                    "elements",
-                    "last_updated"
-                ]
+                "$ref": "../../../Common/tariff.schema.json"
             }
         },
         "status_code": {

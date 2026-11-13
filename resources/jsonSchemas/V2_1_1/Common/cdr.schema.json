@@ -26,16 +26,22 @@
             ]
         },
         "location": {
-            "$ref": "location.schema.json",
-            "required": [
-                "id",
-                "type",
-                "address",
-                "city",
-                "postal_code",
-                "country",
-                "coordinates",
-                "last_updated"
+            "allOf": [
+                {
+                    "$ref": "location.schema.json"
+                },
+                {
+                    "required": [
+                        "id",
+                        "type",
+                        "address",
+                        "city",
+                        "postal_code",
+                        "country",
+                        "coordinates",
+                        "last_updated"
+                    ]
+                }
             ]
         },
         "meter_id": {

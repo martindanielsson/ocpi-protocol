@@ -2,8 +2,7 @@
     "title": "V2.2.1\\Emsp\\Server\\Tokens\\Post",
     "properties": {
         "data": {
-            "$ref": "../../../Common/Tokens/authorizationInfo.schema.json",
-            "additionalProperties": false
+            "$ref": "../../../Common/Tokens/authorizationInfo.schema.json"
         },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"

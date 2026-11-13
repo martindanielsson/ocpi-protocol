@@ -2,8 +2,7 @@
     "title": "V2.2\\Emsp\\Server\\Commands\\Post",
     "oneOf": [
         {
-            "$ref": "../../../Common/Commands/commandResult.schema.json",
-            "additionalProperties": false
+            "$ref": "../../../Common/Commands/commandResult.schema.json"
         }
     ]
 }

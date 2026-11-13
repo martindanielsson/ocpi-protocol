@@ -2,12 +2,17 @@
     "title": "V2.1.1\\Emsp\\Client\\Version\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../Common/version.schema.json",
-            "required": [
-                "version",
-                "endpoints"
-            ],
-            "additionalProperties": false
+            "allOf": [
+                {
+                    "$ref": "../../../Common/version.schema.json"
+                },
+                {
+                    "required": [
+                        "version",
+                        "endpoints"
+                    ]
+                }
+            ]
         },
         "status_code": {
             "$ref": "../../../Common/common.schema.json#/definitions/status_code"

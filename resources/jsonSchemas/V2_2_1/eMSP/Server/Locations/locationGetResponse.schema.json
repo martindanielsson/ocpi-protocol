@@ -2,18 +2,24 @@
     "title": "V2.2.1\\Emsp\\Server\\Locations\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../Common/Locations/location.schema.json",
-            "required": [
-                "country_code",
-                "party_id",
-                "id",
-                "publish",
-                "address",
-                "city",
-                "country",
-                "coordinates",
-                "time_zone",
-                "last_updated"
+            "allOf": [
+                {
+                    "$ref": "../../../Common/Locations/location.schema.json"
+                },
+                {
+                    "required": [
+                        "country_code",
+                        "party_id",
+                        "id",
+                        "publish",
+                        "address",
+                        "city",
+                        "country",
+                        "coordinates",
+                        "time_zone",
+                        "last_updated"
+                    ]
+                }
             ]
         },
         "status_code": {

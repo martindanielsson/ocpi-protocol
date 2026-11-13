@@ -2,17 +2,23 @@
     "title": "V2.1.1\\Emsp\\Server\\Sessions\\Get",
     "properties": {
         "data": {
-            "$ref": "../../../Common/session.schema.json",
-            "required": [
-                "id",
-                "start_datetime",
-                "kwh",
-                "auth_id",
-                "auth_method",
-                "location",
-                "currency",
-                "status",
-                "last_updated"
+            "allOf": [
+                {
+                    "$ref": "../../../Common/session.schema.json"
+                },
+                {
+                    "required": [
+                        "id",
+                        "start_datetime",
+                        "kwh",
+                        "auth_id",
+                        "auth_method",
+                        "location",
+                        "currency",
+                        "status",
+                        "last_updated"
+                    ]
+                }
             ]
         },
         "status_code": {

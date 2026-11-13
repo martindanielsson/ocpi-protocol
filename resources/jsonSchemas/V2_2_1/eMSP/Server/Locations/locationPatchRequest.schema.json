@@ -2,11 +2,16 @@
     "title": "V2.2.1\\Emsp\\Server\\Locations\\Patch",
     "oneOf": [
         {
-            "$ref": "../../../Common/Locations/location.schema.json",
-            "required": [
-                "last_updated"
-            ],
-            "additionalProperties": false
+            "allOf": [
+                {
+                    "$ref": "../../../Common/Locations/location.schema.json"
+                },
+                {
+                    "required": [
+                        "last_updated"
+                    ]
+                }
+            ]
         }
     ]
 }

@@ -2,8 +2,18 @@
     "title": "V2.2.1\\Emsp\\Server\\Tokens\\Post",
     "oneOf": [
         {
-            "$ref": "../../../Common/common.schema.json#/definitions/location_references",
-            "additionalProperties": false
+            "allOf": [
+                {
+                    "$ref": "../../../Common/common.schema.json#/definitions/location_references"
+                },
+                {
+                    "properties": {
+                        "location_id": {},
+                        "evse_uids": {}
+                    },
+                    "additionalProperties": false
+                }
+            ]
         }
     ]
 }

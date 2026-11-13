@@ -2,11 +2,16 @@
     "title": "V2.2.1\\Emsp\\Client\\Token\\Patch",
     "oneOf": [
         {
-            "$ref": "../../../Common/Tokens/token.schema.json",
-            "required": [
-                "last_updated"
-            ],
-            "additionalProperties": false
+            "allOf": [
+                {
+                    "$ref": "../../../Common/Tokens/token.schema.json"
+                },
+                {
+                    "required": [
+                        "last_updated"
+                    ]
+                }
+            ]
         }
     ]
 }
